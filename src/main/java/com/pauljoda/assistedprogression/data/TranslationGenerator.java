@@ -27,6 +27,9 @@ public class TranslationGenerator extends LanguageProvider {
         add("itemGroup." + Reference.MOD_ID, "Assisted Progression");
 
         // Items
+        // Spawner Relocator
         add(Registration.SPAWNER_RELOCATOR_ITEM.get(), "Spawner Relocator");
+        add("assisted_progression.text.spawnerRelocator.type", "%s%sType: %s");
+        add("spawner_relocator.desc", "Hold right click and release while looking at a spawner to pick it up, hold right click while aiming at a block to place it back down");
     }
 }

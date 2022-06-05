@@ -1,4 +1,6 @@
 {
+  "assisted_progression.text.spawnerRelocator.type": "%s%sType: %s",
   "item.assisted_progression.spawner_relocator": "Spawner Relocator",
-  "itemGroup.assisted_progression": "Assisted Progression"
+  "itemGroup.assisted_progression": "Assisted Progression",
+  "spawner_relocator.desc": "Hold right click and release while looking at a spawner to pick it up, hold right click while aiming at a block to place it back down"
 }
