@@ -29,9 +29,10 @@ public class RecipeGenerator extends RecipeProvider {
 
     @Override
     protected void buildCraftingRecipes(@NotNull Consumer<FinishedRecipe> consumer) {
-        Item spawnerRelocator = Registration.SPAWNER_RELOCATOR_ITEM.get();
+        // Items -------------------------------------------------------------------------------------------------------
+        // Spawner Relocator
         ShapedRecipeBuilder
-                .shaped(spawnerRelocator)
+                .shaped(Registration.SPAWNER_RELOCATOR_ITEM.get())
                 .define('e', Tags.Items.ENDER_PEARLS)
                 .define('i', Tags.Items.INGOTS_IRON)
                 .define('s', Tags.Items.SLIMEBALLS)
@@ -39,6 +40,16 @@ public class RecipeGenerator extends RecipeProvider {
                 .pattern(" i ")
                 .pattern("e  ")
                 .unlockedBy("has_ender_pearls", has(Tags.Items.ENDER_PEARLS))
+                .save(consumer);
+
+        // Cheap Magnet
+        ShapedRecipeBuilder
+                .shaped(Registration.MAGNET_ITEM.get())
+                .pattern("I I")
+                .pattern("I I")
+                .pattern(" I ")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
                 .save(consumer);
     }
 }

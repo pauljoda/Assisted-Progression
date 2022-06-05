@@ -24,8 +24,15 @@ public class ItemModelGenerator extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
+        // Items -------------------------------------------------------------------------------------------------------
+        // Spawner Relocator
         singleTexture(Registration.SPAWNER_RELOCATOR_ITEM.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", modLoc("items/spawner_relocator"));
+
+        // Magnet
+        singleTexture(Registration.MAGNET_ITEM.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", modLoc("items/magnet"));
     }
 }
