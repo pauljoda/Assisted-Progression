@@ -45,7 +45,7 @@ minecraft {
             property 'forge.enabledGameTestNamespaces', 'assisted_progression'
 
             mods {
-                examplemod {
+                assisted_progression {
                     source sourceSets.main
                 }
             }
@@ -62,7 +62,7 @@ minecraft {
             property 'forge.enabledGameTestNamespaces', 'assisted_progression'
 
             mods {
-                examplemod {
+                assisted_progression {
                     source sourceSets.main
                 }
             }
@@ -90,7 +90,7 @@ minecraft {
             property 'forge.enabledGameTestNamespaces', 'assisted_progression'
 
             mods {
-                examplemod {
+                assisted_progression {
                     source sourceSets.main
                 }
             }
@@ -107,7 +107,7 @@ minecraft {
             args '--mod', 'assisted_progression', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                examplemod {
+                assisted_progression {
                     source sourceSets.main
                 }
             }
@@ -123,6 +123,9 @@ repositories {
         // location of the maven that hosts JEI files
         name = "Progwml6 maven"
         url = "https://dvs1.progwml6.com/files/maven/"
+        content {
+            includeGroup 'mezz.jei'
+        }
     }
     maven {
         // location of a maven mirror for JEI files, as a fallback
@@ -138,6 +141,7 @@ repositories {
             password new File("ACCESS_TOKEN").text
         }
     }
+    maven { url 'https://modmaven.dev/' }
 }
 
 dependencies {
@@ -152,6 +156,13 @@ dependencies {
     compileOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${JEI_version}:api")
     // at runtime, use the full JEI jar
     runtimeOnly fg.deobf("mezz.jei:jei-${minecraft_version}:${JEI_version}")
+
+    // For testing with power
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}")// core
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")// Mekanism: Additions
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")// Mekanism: Generators
+    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
+
 }
 
 configurations.all {

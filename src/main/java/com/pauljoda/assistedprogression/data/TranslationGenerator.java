@@ -35,5 +35,7 @@ public class TranslationGenerator extends LanguageProvider {
         // Magnets
         add(Registration.MAGNET_ITEM.get(), "Magnet");
         add("item_cheap_magnet.desc", "Attracts all sorts of things, some dangerous. Shift+Right-Click to toggle activation");
+        add(Registration.ELECTRIC_MAGNET_ITEM.get(), "Electric Magnet");
+        add("item_electro_magnet.desc", "Attracts item entities and xp orbs, requires power. Shift+Right-Click to toggle activation");
     }
 }

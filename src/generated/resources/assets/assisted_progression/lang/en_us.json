@@ -1,8 +1,10 @@
 {
   "assisted_progression.text.spawnerRelocator.type": "%s%sType: %s",
+  "item.assisted_progression.electric_magnet": "Electric Magnet",
   "item.assisted_progression.magnet": "Magnet",
   "item.assisted_progression.spawner_relocator": "Spawner Relocator",
   "itemGroup.assisted_progression": "Assisted Progression",
   "item_cheap_magnet.desc": "Attracts all sorts of things, some dangerous. Shift+Right-Click to toggle activation",
+  "item_electro_magnet.desc": "Attracts item entities and xp orbs, requires power. Shift+Right-Click to toggle activation",
   "spawner_relocator.desc": "Hold right click and release while looking at a spawner to pick it up, hold right click while aiming at a block to place it back down"
 }

@@ -79,9 +79,9 @@ public class MagnetItem extends Item implements IAdvancedToolTipProvider {
         // Toggle mode
         if (player.isShiftKeyDown() && player.getItemInHand(hand).getItem() instanceof MagnetItem) {
             var stack = player.getItemInHand(hand);
-            // Create tag and swap in
-            var tag = new CompoundTag();
-            tag.putBoolean(ACTIVE, (!stack.hasTag() || !stack.getTag().getBoolean(ACTIVE)));
+            // Modify tag
+            var tag = stack.hasTag() ? stack.getTag() : new CompoundTag();
+            tag.putBoolean(ACTIVE, (!tag.contains(ACTIVE) || !tag.getBoolean(ACTIVE)));
             stack.setTag(tag);
             return new InteractionResultHolder<>(InteractionResult.SUCCESS, stack);
         }

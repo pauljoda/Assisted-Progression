@@ -1,5 +1,6 @@
 package com.pauljoda.assistedprogression.lib;
 
+import com.pauljoda.assistedprogression.common.items.ElectricMagnetItem;
 import com.pauljoda.assistedprogression.common.items.MagnetItem;
 import com.pauljoda.assistedprogression.common.items.SpawnerRelocatorItem;
 import net.minecraft.world.inventory.MenuType;
@@ -63,4 +64,7 @@ public class Registration {
 
     public static final RegistryObject<Item> MAGNET_ITEM =
             ITEMS.register("magnet", MagnetItem::new);
+
+    public static final RegistryObject<Item> ELECTRIC_MAGNET_ITEM =
+            ITEMS.register("electric_magnet", ElectricMagnetItem::new);
 }
