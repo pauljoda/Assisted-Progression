@@ -44,5 +44,9 @@ public class TranslationGenerator extends LanguageProvider {
         add("pipette.desc", "Holds up to one bucket of fluid, useful for removing fluid amounts less than one bucket. Right click fluid handling tiles to insert and extract fluid");
         add("assisted_progression.text.pipette.fluidStored", "Fluid Contained:");
         add("assisted_progression.text.pipette.empty", "Empty");
+
+        // Parashoes
+        add(Registration.PARASHOES_ITEM.get(), "Parashoes");
+        add("parashoes.desc", "Wear these shoes to slow your decent");
     }
 }

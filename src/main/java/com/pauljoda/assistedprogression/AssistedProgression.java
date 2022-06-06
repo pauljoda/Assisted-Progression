@@ -2,6 +2,7 @@ package com.pauljoda.assistedprogression;
 
 import com.mojang.logging.LogUtils;
 import com.pauljoda.assistedprogression.client.ClientSetup;
+import com.pauljoda.assistedprogression.common.events.PlayerFallEvent;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraftforge.api.distmarker.Dist;
@@ -44,12 +45,8 @@ public class AssistedProgression {
                 () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::setupClient));
     }
 
-    private void setup(final FMLCommonSetupEvent event) {
-
-    }
+    private void setup(final FMLCommonSetupEvent event) { }
 
     @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) {
-
-    }
+    public void onServerStarting(ServerStartingEvent event) { }
 }

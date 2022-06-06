@@ -4,12 +4,14 @@
   "assisted_progression.text.spawnerRelocator.type": "%s%sType: %s",
   "item.assisted_progression.electric_magnet": "Electric Magnet",
   "item.assisted_progression.magnet": "Magnet",
+  "item.assisted_progression.parashoes": "Parashoes",
   "item.assisted_progression.pipette": "Pipette",
   "item.assisted_progression.spawner_relocator": "Spawner Relocator",
   "itemGroup.assisted_progression": "Assisted Progression",
   "itemGroup.assisted_progression_pipettes": "Assisted Progression : Pipettes",
   "item_cheap_magnet.desc": "Attracts all sorts of things, some dangerous. Shift+Right-Click to toggle activation",
   "item_electro_magnet.desc": "Attracts item entities and xp orbs, requires power. Shift+Right-Click to toggle activation",
+  "parashoes.desc": "Wear these shoes to slow your decent",
   "pipette.desc": "Holds up to one bucket of fluid, useful for removing fluid amounts less than one bucket. Right click fluid handling tiles to insert and extract fluid",
   "spawner_relocator.desc": "Hold right click and release while looking at a spawner to pick it up, hold right click while aiming at a block to place it back down"
 }

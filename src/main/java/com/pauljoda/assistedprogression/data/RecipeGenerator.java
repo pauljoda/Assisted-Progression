@@ -6,6 +6,8 @@ import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 
@@ -74,5 +76,19 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('G', Tags.Items.GLASS)
                 .unlockedBy("has_glass", has(Tags.Items.GLASS_PANES))
                 .save(consumer);
+
+        // Parashoes
+        ShapedRecipeBuilder
+                .shaped(Registration.PARASHOES_ITEM.get())
+                .pattern("F F")
+                .pattern("SBS")
+                .pattern("C C")
+                .define('F', Tags.Items.FEATHERS)
+                .define('S', Tags.Items.STRING)
+                .define('B', Items.LEATHER_BOOTS)
+                .define('C', Items.WHITE_CARPET)
+                .unlockedBy("has_boots", has(Items.LEATHER_BOOTS))
+                .save(consumer);
+
     }
 }

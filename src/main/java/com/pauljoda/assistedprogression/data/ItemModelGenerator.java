@@ -40,7 +40,10 @@ public class ItemModelGenerator extends ItemModelProvider {
                 mcLoc("item/generated"),
                 "layer0", modLoc("items/electro_magnet"));
 
-        // Pipette
+        // Parashoes
+        singleTexture(Registration.PARASHOES_ITEM.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", modLoc("items/parashoes"));
 
     }
 }

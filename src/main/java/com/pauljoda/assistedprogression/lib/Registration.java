@@ -1,9 +1,6 @@
 package com.pauljoda.assistedprogression.lib;
 
-import com.pauljoda.assistedprogression.common.items.ElectricMagnetItem;
-import com.pauljoda.assistedprogression.common.items.MagnetItem;
-import com.pauljoda.assistedprogression.common.items.PipetteItem;
-import com.pauljoda.assistedprogression.common.items.SpawnerRelocatorItem;
+import com.pauljoda.assistedprogression.common.items.*;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
@@ -78,4 +75,7 @@ public class Registration {
 
     public static final RegistryObject<Item> PIPETTE_ITEM =
             ITEMS.register("pipette", PipetteItem::new);
+
+    public static final RegistryObject<Item> PARASHOES_ITEM =
+            ITEMS.register("parashoes", ParashoesItem::new);
 }
