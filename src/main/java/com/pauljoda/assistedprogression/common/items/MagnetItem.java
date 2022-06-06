@@ -58,6 +58,26 @@ public class MagnetItem extends Item implements IAdvancedToolTipProvider {
                 .tab(Registration.tabAssistedProgression));
     }
 
+    /**
+     * Called when currently pulling something, use to drain power etc
+     *
+     * @param stack The magnet
+     */
+    protected void onMagnetize(ItemStack stack) {
+    }
+
+    /**
+     * Can this stack perform operations
+     *
+     * @param stack The magnet
+     * @return True if should magnetize
+     */
+    protected boolean canMagnetize(ItemStack stack) {
+        return stack.hasTag() &&
+                stack.getTag().contains(ACTIVE) &&
+                stack.getTag().getBoolean(ACTIVE);
+    }
+
     /*******************************************************************************************************************
      * Item                                                                                                            *
      *******************************************************************************************************************/
@@ -95,9 +115,7 @@ public class MagnetItem extends Item implements IAdvancedToolTipProvider {
     public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level,
                               @NotNull Entity entity, int itemSlot, boolean isSelected) {
         // If we are a player on the server
-        if (!level.isClientSide && stack.hasTag() &&
-                stack.getTag().contains(ACTIVE) &&
-                stack.getTag().getBoolean(ACTIVE) &&
+        if (!level.isClientSide && canMagnetize(stack) &&
                 entity instanceof Player player) {
 
             AABB bb = new AABB(
@@ -112,7 +130,7 @@ public class MagnetItem extends Item implements IAdvancedToolTipProvider {
             entitiesInBox.addAll(level.getEntitiesOfClass(ExperienceOrb.class, bb));
 
             // If this is the cheaper magnet, grab bad things
-            if(isCheapMagnet) {
+            if (isCheapMagnet) {
                 // Explosive Things
                 entitiesInBox.addAll(level.getEntitiesOfClass(Creeper.class, bb));
                 entitiesInBox.addAll(level.getEntitiesOfClass(PrimedTnt.class, bb));
@@ -127,8 +145,10 @@ public class MagnetItem extends Item implements IAdvancedToolTipProvider {
             }
 
             // Apply motion
-            if(!entitiesInBox.isEmpty()) {
+            if (!entitiesInBox.isEmpty()) {
                 for (Entity entityToMove : entitiesInBox) {
+                    onMagnetize(stack);
+
                     // Create a vector pointing to the play
                     Vec3 motionVector = new Vec3(
                             player.getX() - entityToMove.getX(),
@@ -137,7 +157,7 @@ public class MagnetItem extends Item implements IAdvancedToolTipProvider {
                     );
 
                     // Normalize
-                    if(motionVector.length() > 1)
+                    if (motionVector.length() > 1)
                         motionVector.normalize();
 
                     // Arrows need more pull
