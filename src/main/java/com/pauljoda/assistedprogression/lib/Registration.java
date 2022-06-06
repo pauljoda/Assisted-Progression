@@ -78,4 +78,7 @@ public class Registration {
 
     public static final RegistryObject<Item> PARASHOES_ITEM =
             ITEMS.register("parashoes", ParashoesItem::new);
+
+    public static final RegistryObject<Item> CLIMBING_GLOVES_ITEM =
+            ITEMS.register("climbing_gloves", ClimbingGlovesItem::new);
 }

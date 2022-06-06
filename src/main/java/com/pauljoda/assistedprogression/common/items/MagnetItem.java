@@ -119,7 +119,7 @@ public class MagnetItem extends Item implements IAdvancedToolTipProvider {
                 entity instanceof Player player) {
 
             AABB bb = new AABB(
-                    player.getX() - RANGE, player.getY() - RANGE, player.getX() - RANGE,
+                    player.getX() - RANGE, player.getY() - RANGE, player.getZ() - RANGE,
                     player.getX() + RANGE, player.getY() + RANGE, player.getZ() + RANGE);
 
             // Start with items

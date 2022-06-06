@@ -48,5 +48,9 @@ public class TranslationGenerator extends LanguageProvider {
         // Parashoes
         add(Registration.PARASHOES_ITEM.get(), "Parashoes");
         add("parashoes.desc", "Wear these shoes to slow your decent");
+
+        // Climbing Gloves
+        add(Registration.CLIMBING_GLOVES_ITEM.get(), "Climbing Gloves");
+        add("climbing_gloves.desc", "Have in your inventory to scale walls by walking into them");
     }
 }

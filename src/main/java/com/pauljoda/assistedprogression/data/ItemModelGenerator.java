@@ -45,5 +45,10 @@ public class ItemModelGenerator extends ItemModelProvider {
                 mcLoc("item/generated"),
                 "layer0", modLoc("items/parashoes"));
 
+        // Climbing Gloves
+        singleTexture(Registration.CLIMBING_GLOVES_ITEM.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", modLoc("items/climbing_gloves"));
+
     }
 }

@@ -90,5 +90,17 @@ public class RecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_boots", has(Items.LEATHER_BOOTS))
                 .save(consumer);
 
+        // Climbing Gloves
+        ShapedRecipeBuilder
+                .shaped(Registration.CLIMBING_GLOVES_ITEM.get())
+                .pattern(" L ")
+                .pattern("LIL")
+                .pattern("SLS")
+                .define('L', Tags.Items.LEATHER)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('S', Tags.Items.STRING)
+                .unlockedBy("has_leather", has(Tags.Items.LEATHER))
+                .save(consumer);
+
     }
 }
