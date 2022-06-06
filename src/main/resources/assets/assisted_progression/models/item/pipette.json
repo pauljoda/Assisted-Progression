@@ -1,0 +1,7 @@
+{
+  "parent": "item/generated",
+  "textures": {
+    "layer0": "assisted_progression:items/pipette",
+    "mask": "assisted_progression:items/pipette_mask"
+  }
+}

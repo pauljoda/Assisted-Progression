@@ -2,6 +2,7 @@ package com.pauljoda.assistedprogression.lib;
 
 import com.pauljoda.assistedprogression.common.items.ElectricMagnetItem;
 import com.pauljoda.assistedprogression.common.items.MagnetItem;
+import com.pauljoda.assistedprogression.common.items.PipetteItem;
 import com.pauljoda.assistedprogression.common.items.SpawnerRelocatorItem;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.CreativeModeTab;
@@ -59,6 +60,13 @@ public class Registration {
         }
     };
 
+    public static CreativeModeTab tabAssistedProgressionPipettes = new CreativeModeTab(Reference.MOD_ID + "_pipettes") {
+        @Override
+        public @NotNull ItemStack makeIcon() {
+            return new ItemStack(PIPETTE_ITEM.get());
+        }
+    };
+
     public static final RegistryObject<Item> SPAWNER_RELOCATOR_ITEM =
             ITEMS.register("spawner_relocator", SpawnerRelocatorItem::new);
 
@@ -67,4 +75,7 @@ public class Registration {
 
     public static final RegistryObject<Item> ELECTRIC_MAGNET_ITEM =
             ITEMS.register("electric_magnet", ElectricMagnetItem::new);
+
+    public static final RegistryObject<Item> PIPETTE_ITEM =
+            ITEMS.register("pipette", PipetteItem::new);
 }

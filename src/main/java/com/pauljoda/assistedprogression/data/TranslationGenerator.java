@@ -25,6 +25,7 @@ public class TranslationGenerator extends LanguageProvider {
     protected void addTranslations() {
         // Creative Tab
         add("itemGroup." + Reference.MOD_ID, "Assisted Progression");
+        add("itemGroup." + Reference.MOD_ID + "_pipettes", "Assisted Progression : Pipettes");
 
         // Items -------------------------------------------------------------------------------------------------------
         // Spawner Relocator
@@ -37,5 +38,11 @@ public class TranslationGenerator extends LanguageProvider {
         add("item_cheap_magnet.desc", "Attracts all sorts of things, some dangerous. Shift+Right-Click to toggle activation");
         add(Registration.ELECTRIC_MAGNET_ITEM.get(), "Electric Magnet");
         add("item_electro_magnet.desc", "Attracts item entities and xp orbs, requires power. Shift+Right-Click to toggle activation");
+
+        // Pipette
+        add(Registration.PIPETTE_ITEM.get(), "Pipette");
+        add("pipette.desc", "Holds up to one bucket of fluid, useful for removing fluid amounts less than one bucket. Right click fluid handling tiles to insert and extract fluid");
+        add("assisted_progression.text.pipette.fluidStored", "Fluid Contained:");
+        add("assisted_progression.text.pipette.empty", "Empty");
     }
 }

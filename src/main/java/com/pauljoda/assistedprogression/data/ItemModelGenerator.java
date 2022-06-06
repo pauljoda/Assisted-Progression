@@ -39,5 +39,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         singleTexture(Registration.ELECTRIC_MAGNET_ITEM.get().getRegistryName().getPath(),
                 mcLoc("item/generated"),
                 "layer0", modLoc("items/electro_magnet"));
+
+        // Pipette
+
     }
 }
