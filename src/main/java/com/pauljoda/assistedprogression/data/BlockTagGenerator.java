@@ -1,8 +1,10 @@
 package com.pauljoda.assistedprogression.data;
 
 import com.pauljoda.assistedprogression.lib.Reference;
+import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.tags.BlockTags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import org.jetbrains.annotations.Nullable;
 
@@ -24,7 +26,8 @@ public class BlockTagGenerator extends BlockTagsProvider {
 
     @Override
     protected void addTags() {
-
+        tag(BlockTags.MINEABLE_WITH_PICKAXE)
+                .add(Registration.ENDER_PAD_BLOCK.get());
     }
 
     @Override

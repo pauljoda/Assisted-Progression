@@ -50,5 +50,9 @@ public class ItemModelGenerator extends ItemModelProvider {
                 mcLoc("item/generated"),
                 "layer0", modLoc("items/climbing_gloves"));
 
+        // Blocks ------------------------------------------------------------------------------------------------------
+
+        // Ender Pad
+        withExistingParent(Registration.ENDER_PAD_BLOCK.get().getRegistryName().getPath(), modLoc("block/ender_pad"));
     }
 }

@@ -1,7 +1,10 @@
 package com.pauljoda.assistedprogression.lib;
 
+import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
+import com.pauljoda.assistedprogression.common.blocks.entity.EnderPadBlockEntity;
 import com.pauljoda.assistedprogression.common.items.*;
 import net.minecraft.world.inventory.MenuType;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -46,6 +49,15 @@ public class Registration {
         CONTAINERS.register(bus);
     }
 
+    /**
+     * Registers a block entity
+     * @param block The block to register an item for
+     * @return The item for the block
+     */
+    public static <B extends Block> RegistryObject<Item> fromBlock(RegistryObject<B> block) {
+        return ITEMS.register(block.getId().getPath(), () -> new BlockItem(block.get(), new Item.Properties().tab(tabAssistedProgression)));
+    }
+
     /*******************************************************************************************************************
      * Items                                                                                                           *
      *******************************************************************************************************************/
@@ -81,4 +93,21 @@ public class Registration {
 
     public static final RegistryObject<Item> CLIMBING_GLOVES_ITEM =
             ITEMS.register("climbing_gloves", ClimbingGlovesItem::new);
+
+    /*******************************************************************************************************************
+     * Blocks                                                                                                          *
+     *******************************************************************************************************************/
+
+    public static final RegistryObject<Block> ENDER_PAD_BLOCK =
+            BLOCKS.register("ender_pad", EnderPadBlock::new);
+    public static final RegistryObject<Item> ENDER_PAD_BLOCK_ITEM =  fromBlock(ENDER_PAD_BLOCK);
+
+    /*******************************************************************************************************************
+     * Block Entity                                                                                                    *
+     *******************************************************************************************************************/
+
+    public static final RegistryObject<BlockEntityType<EnderPadBlockEntity>> ENDER_PAD_BLOCK_ENTITY =
+            BLOCK_ENTITY_TYPES.register("ender_pad",
+                    () -> BlockEntityType.Builder.of(EnderPadBlockEntity::new, ENDER_PAD_BLOCK.get
+                            ()).build(null));
 }

@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "assisted_progression:parashoes"
+    ]
+  },
+  "criteria": {
+    "has_boots": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:leather_boots"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "assisted_progression:parashoes"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_boots",
+      "has_the_recipe"
+    ]
+  ]
+}

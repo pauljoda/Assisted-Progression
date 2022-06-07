@@ -1,8 +1,13 @@
 package com.pauljoda.assistedprogression.data;
 
+import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
 import com.pauljoda.assistedprogression.lib.Reference;
+import com.pauljoda.assistedprogression.lib.Registration;
+import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
+import net.minecraftforge.client.model.generators.ConfiguredModel;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.common.data.ExistingFileHelper;
 
 /**
@@ -23,6 +28,16 @@ public class BlockStateGenerator extends BlockStateProvider {
 
     @Override
     protected void registerStatesAndModels() {
-
+        // Ender Pad
+        ModelFile baseModel =
+                models().cubeColumn(Registration.ENDER_PAD_BLOCK.get().getRegistryName().getPath(),
+                        modLoc("blocks/ender_pad"), modLoc("blocks/ender_pad_top"));
+        getVariantBuilder(Registration.ENDER_PAD_BLOCK.get())
+        // Set the rotation models
+                .forAllStates(state ->
+                        ConfiguredModel.builder()
+                        .modelFile(baseModel)
+                        .rotationY((int) state.getValue(EnderPadBlock.FACING).toYRot())
+                        .build());
     }
 }

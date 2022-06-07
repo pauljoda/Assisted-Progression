@@ -102,5 +102,18 @@ public class RecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_leather", has(Tags.Items.LEATHER))
                 .save(consumer);
 
+        // Blocks ------------------------------------------------------------------------------------------------------
+        // Ender Pad
+        ShapedRecipeBuilder
+                .shaped(Registration.ENDER_PAD_BLOCK_ITEM.get())
+                .pattern("ISI")
+                .pattern("SES")
+                .pattern("ISI")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('S', Tags.Items.STONE)
+                .define('E', Tags.Items.ENDER_PEARLS)
+                .unlockedBy("has_pearls", has(Tags.Items.ENDER_PEARLS))
+                .save(consumer);
+
     }
 }

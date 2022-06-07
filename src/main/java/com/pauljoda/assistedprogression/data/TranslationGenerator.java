@@ -52,5 +52,9 @@ public class TranslationGenerator extends LanguageProvider {
         // Climbing Gloves
         add(Registration.CLIMBING_GLOVES_ITEM.get(), "Climbing Gloves");
         add("climbing_gloves.desc", "Have in your inventory to scale walls by walking into them");
+
+        // Blocks ------------------------------------------------------------------------------------------------------
+        add(Registration.ENDER_PAD_BLOCK.get(), "Ender Pad");
+        add("ender_pad.desc", "Place another in the path of the arrow on top and sneak while standing on one to teleport to the other");
     }
 }

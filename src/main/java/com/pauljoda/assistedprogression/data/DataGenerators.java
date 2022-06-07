@@ -32,6 +32,8 @@ public class DataGenerators {
             generator.addProvider(blockTagsProvider);
             // Item Tags
             generator.addProvider(new ItemTagGenerator(generator, blockTagsProvider, event.getExistingFileHelper()));
+            // Loot Tables
+            generator.addProvider(new LootTableGenerator(generator));
         }
 
         // Generate Client Resources

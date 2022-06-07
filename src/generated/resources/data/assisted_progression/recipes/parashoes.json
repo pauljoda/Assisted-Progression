@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "F F",
+    "SBS",
+    "C C"
+  ],
+  "key": {
+    "F": {
+      "tag": "forge:feathers"
+    },
+    "S": {
+      "tag": "forge:string"
+    },
+    "B": {
+      "item": "minecraft:leather_boots"
+    },
+    "C": {
+      "item": "minecraft:white_carpet"
+    }
+  },
+  "result": {
+    "item": "assisted_progression:parashoes"
+  }
+}
