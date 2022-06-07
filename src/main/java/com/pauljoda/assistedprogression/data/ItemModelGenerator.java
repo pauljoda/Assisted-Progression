@@ -54,5 +54,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 
         // Ender Pad
         withExistingParent(Registration.ENDER_PAD_BLOCK.get().getRegistryName().getPath(), modLoc("block/ender_pad"));
+
+        // Player Plate
+        withExistingParent(Registration.PLAYER_PLATE_BLOCK.get().getRegistryName().getPath(), modLoc("block/player_plate"));
     }
 }

@@ -1,6 +1,7 @@
 package com.pauljoda.assistedprogression.lib;
 
 import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
+import com.pauljoda.assistedprogression.common.blocks.PlayerPlateBlock;
 import com.pauljoda.assistedprogression.common.blocks.entity.EnderPadBlockEntity;
 import com.pauljoda.assistedprogression.common.items.*;
 import net.minecraft.world.inventory.MenuType;
@@ -101,6 +102,10 @@ public class Registration {
     public static final RegistryObject<Block> ENDER_PAD_BLOCK =
             BLOCKS.register("ender_pad", EnderPadBlock::new);
     public static final RegistryObject<Item> ENDER_PAD_BLOCK_ITEM =  fromBlock(ENDER_PAD_BLOCK);
+
+    public static final RegistryObject<Block> PLAYER_PLATE_BLOCK =
+            BLOCKS.register("player_plate", PlayerPlateBlock::new);
+    public static final RegistryObject<Item> PLAYER_PLATE_BLOCK_ITEM = fromBlock(PLAYER_PLATE_BLOCK);
 
     /*******************************************************************************************************************
      * Block Entity                                                                                                    *

@@ -115,5 +115,14 @@ public class RecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_pearls", has(Tags.Items.ENDER_PEARLS))
                 .save(consumer);
 
+        // Player Plate
+        ShapedRecipeBuilder
+                .shaped(Registration.PLAYER_PLATE_BLOCK.get())
+                .pattern("  ")
+                .pattern("BB")
+                .define('B', Tags.Items.INGOTS_BRICK)
+                .unlockedBy("has_brick", has(Tags.Items.INGOTS_BRICK))
+                .save(consumer);
+
     }
 }

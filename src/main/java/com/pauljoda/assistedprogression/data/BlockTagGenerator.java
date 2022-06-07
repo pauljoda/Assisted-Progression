@@ -27,7 +27,8 @@ public class BlockTagGenerator extends BlockTagsProvider {
     @Override
     protected void addTags() {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
-                .add(Registration.ENDER_PAD_BLOCK.get());
+                .add(Registration.ENDER_PAD_BLOCK.get())
+                .add(Registration.PLAYER_PLATE_BLOCK.get());
     }
 
     @Override

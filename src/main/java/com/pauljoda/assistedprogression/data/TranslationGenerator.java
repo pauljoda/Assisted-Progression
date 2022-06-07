@@ -54,7 +54,12 @@ public class TranslationGenerator extends LanguageProvider {
         add("climbing_gloves.desc", "Have in your inventory to scale walls by walking into them");
 
         // Blocks ------------------------------------------------------------------------------------------------------
+        // Ender Pad
         add(Registration.ENDER_PAD_BLOCK.get(), "Ender Pad");
         add("ender_pad.desc", "Place another in the path of the arrow on top and sneak while standing on one to teleport to the other");
+
+        // Player Plate
+        add(Registration.PLAYER_PLATE_BLOCK.get(), "Player Sensitive Pressure Plate");
+        add("player_player.desc", "Pressure plate that will only activate for player entities");
     }
 }

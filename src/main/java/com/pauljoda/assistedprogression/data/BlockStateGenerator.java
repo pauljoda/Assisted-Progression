@@ -5,6 +5,7 @@ import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraftforge.client.model.generators.BlockStateProvider;
 import net.minecraftforge.client.model.generators.ConfiguredModel;
 import net.minecraftforge.client.model.generators.ModelFile;
@@ -33,11 +34,21 @@ public class BlockStateGenerator extends BlockStateProvider {
                 models().cubeColumn(Registration.ENDER_PAD_BLOCK.get().getRegistryName().getPath(),
                         modLoc("blocks/ender_pad"), modLoc("blocks/ender_pad_top"));
         getVariantBuilder(Registration.ENDER_PAD_BLOCK.get())
-        // Set the rotation models
+                // Set the rotation models
                 .forAllStates(state ->
                         ConfiguredModel.builder()
-                        .modelFile(baseModel)
-                        .rotationY((int) state.getValue(EnderPadBlock.FACING).toYRot())
-                        .build());
+                                .modelFile(baseModel)
+                                .rotationY((int) state.getValue(EnderPadBlock.FACING).toYRot())
+                                .build());
+
+        // Player Plate
+        var playerPlate = Registration.PLAYER_PLATE_BLOCK.get();
+        var pressurePlate =
+                models().pressurePlate(playerPlate.getRegistryName().getPath(), mcLoc("block/bricks"));
+        var pressurePlateDown =
+                models().pressurePlateDown(playerPlate.getRegistryName().getPath() + "_down", mcLoc("block/bricks"));
+        getVariantBuilder(playerPlate)
+                .partialState().with(PressurePlateBlock.POWERED, true).addModels(new ConfiguredModel(pressurePlateDown))
+                .partialState().with(PressurePlateBlock.POWERED, false).addModels(new ConfiguredModel(pressurePlate));
     }
 }

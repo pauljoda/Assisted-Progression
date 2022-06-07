@@ -3,6 +3,7 @@
   "assisted_progression.text.pipette.fluidStored": "Fluid Contained:",
   "assisted_progression.text.spawnerRelocator.type": "%s%sType: %s",
   "block.assisted_progression.ender_pad": "Ender Pad",
+  "block.assisted_progression.player_plate": "Player Sensitive Pressure Plate",
   "climbing_gloves.desc": "Have in your inventory to scale walls by walking into them",
   "ender_pad.desc": "Place another in the path of the arrow on top and sneak while standing on one to teleport to the other",
   "item.assisted_progression.climbing_gloves": "Climbing Gloves",
@@ -17,5 +18,6 @@
   "item_electro_magnet.desc": "Attracts item entities and xp orbs, requires power. Shift+Right-Click to toggle activation",
   "parashoes.desc": "Wear these shoes to slow your decent",
   "pipette.desc": "Holds up to one bucket of fluid, useful for removing fluid amounts less than one bucket. Right click fluid handling tiles to insert and extract fluid",
+  "player_player.desc": "Pressure plate that will only activate for player entities",
   "spawner_relocator.desc": "Hold right click and release while looking at a spawner to pick it up, hold right click while aiming at a block to place it back down"
 }
