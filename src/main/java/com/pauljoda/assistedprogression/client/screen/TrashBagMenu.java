@@ -21,11 +21,14 @@ import net.minecraft.world.entity.player.Inventory;
  */
 public class TrashBagMenu extends GuiBase<TrashBagContainer> {
 
+    public TrashBagContainer trashBagContainer;
+
     public TrashBagMenu(TrashBagContainer inventory, Inventory playerInventory, Component title) {
         super(inventory, playerInventory, title, 175, 165,
                 new ResourceLocation(Reference.MOD_ID, "textures/gui/" +
                         (inventory.trashBag.getItem() == Registration.TRASH_BAG_ITEM.get() ?
                                 "trash_bag.png" : "hefty_bag.png")));
+        trashBagContainer = inventory;
     }
 
     @Override

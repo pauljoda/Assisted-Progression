@@ -5,6 +5,7 @@ import com.pauljoda.assistedprogression.client.ClientSetup;
 import com.pauljoda.assistedprogression.common.events.PlayerFallEvent;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
+import com.pauljoda.assistedprogression.network.PacketManager;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.server.ServerStartingEvent;
@@ -39,6 +40,9 @@ public class AssistedProgression {
 
         // Register ourselves for server and other game events we are interested in
         MinecraftForge.EVENT_BUS.register(this);
+
+        // Register Packets
+        PacketManager.initPackets();
 
         // Setup client
         DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
