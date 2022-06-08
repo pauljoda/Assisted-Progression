@@ -102,6 +102,28 @@ public class RecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_leather", has(Tags.Items.LEATHER))
                 .save(consumer);
 
+        // Trash Bag
+        ShapedRecipeBuilder
+                .shaped(Registration.TRASH_BAG_ITEM.get())
+                .pattern("S S")
+                .pattern("L L")
+                .pattern("LLL")
+                .define('S', Tags.Items.STRING)
+                .define('L', Tags.Items.LEATHER)
+                .unlockedBy("has_leather", has(Tags.Items.LEATHER))
+                .save(consumer);
+
+        // Hefty Bag
+        ShapedRecipeBuilder
+                .shaped(Registration.HEFTY_BAG_ITEM.get())
+                .pattern("S S")
+                .pattern("L L")
+                .pattern("LLL")
+                .define('S', Tags.Items.STRING)
+                .define('L', Tags.Items.INGOTS_IRON)
+                .unlockedBy("has_leather", has(Tags.Items.INGOTS_IRON))
+                .save(consumer);
+
         // Blocks ------------------------------------------------------------------------------------------------------
         // Ender Pad
         ShapedRecipeBuilder

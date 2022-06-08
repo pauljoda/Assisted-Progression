@@ -53,6 +53,14 @@ public class TranslationGenerator extends LanguageProvider {
         add(Registration.CLIMBING_GLOVES_ITEM.get(), "Climbing Gloves");
         add("climbing_gloves.desc", "Have in your inventory to scale walls by walking into them");
 
+        // Trash Bags
+        add(Registration.TRASH_BAG_ITEM.get(), "Trash Bag");
+        add("trash_bag", "Trash Bag");
+        add(Registration.HEFTY_BAG_ITEM.get(), "Hefty Bag");
+        add("hefty_bag", "Hefty Bag");
+        add("trash_bag.desc", "Contains one slot, will void items matching filter on pickup");
+        add("hefty_bag.desc", "Contains 18 slots, will void items matching filter on pickup");
+
         // Blocks ------------------------------------------------------------------------------------------------------
         // Ender Pad
         add(Registration.ENDER_PAD_BLOCK.get(), "Ender Pad");

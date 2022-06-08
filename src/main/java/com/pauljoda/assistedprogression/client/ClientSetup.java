@@ -1,7 +1,10 @@
 package com.pauljoda.assistedprogression.client;
 
 import com.pauljoda.assistedprogression.client.model.ModelPipette;
+import com.pauljoda.assistedprogression.client.screen.TrashBagMenu;
+import com.pauljoda.assistedprogression.common.items.container.TrashBagContainer;
 import com.pauljoda.assistedprogression.lib.Reference;
+import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
 import net.minecraft.client.resources.model.BakedModel;
@@ -26,7 +29,8 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 public class ClientSetup {
     public static void setupClient(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
-
+            // Register Screens
+            MenuScreens.register(Registration.TRASH_BAG_CONTAINER.get(), TrashBagMenu::new);
         });
     }
 

@@ -50,6 +50,16 @@ public class ItemModelGenerator extends ItemModelProvider {
                 mcLoc("item/generated"),
                 "layer0", modLoc("items/climbing_gloves"));
 
+        // Trash Bag
+        singleTexture(Registration.TRASH_BAG_ITEM.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", modLoc("items/trash_bag"));
+
+        // Hefty Bag
+        singleTexture(Registration.HEFTY_BAG_ITEM.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", modLoc("items/hefty_bag"));
+
         // Blocks ------------------------------------------------------------------------------------------------------
 
         // Ender Pad
