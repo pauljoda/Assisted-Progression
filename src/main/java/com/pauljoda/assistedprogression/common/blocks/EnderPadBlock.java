@@ -5,6 +5,7 @@ import com.pauljoda.assistedprogression.lib.Registration;
 import com.pauljoda.nucleus.common.IAdvancedToolTipProvider;
 import com.pauljoda.nucleus.common.UpdatingBlock;
 import com.pauljoda.nucleus.util.ClientUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
@@ -83,6 +84,6 @@ public class EnderPadBlock extends UpdatingBlock implements IAdvancedToolTipProv
     @Nullable
     @Override
     public List<String> getAdvancedToolTip(@NotNull ItemStack itemStack) {
-        return List.of(ClientUtils.translate("ender_pad.desc"));
+        return List.of(ChatFormatting.GREEN + ClientUtils.translate("ender_pad.desc"));
     }
 }

@@ -2,6 +2,7 @@ package com.pauljoda.assistedprogression.common.blocks;
 
 import com.pauljoda.nucleus.common.IAdvancedToolTipProvider;
 import com.pauljoda.nucleus.util.ClientUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
@@ -84,6 +85,6 @@ public class PlayerPlateBlock extends BasePressurePlateBlock implements IAdvance
     @Nullable
     @Override
     public List<String> getAdvancedToolTip(@NotNull ItemStack itemStack) {
-        return List.of(ClientUtils.translate("player_player.desc"));
+        return List.of(ChatFormatting.GREEN + ClientUtils.translate("player_player.desc"));
     }
 }

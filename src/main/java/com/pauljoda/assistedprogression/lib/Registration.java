@@ -2,10 +2,16 @@ package com.pauljoda.assistedprogression.lib;
 
 import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
 import com.pauljoda.assistedprogression.common.blocks.PlayerPlateBlock;
+import com.pauljoda.assistedprogression.common.blocks.SpawnerFrameBlock;
 import com.pauljoda.assistedprogression.common.blocks.entity.EnderPadBlockEntity;
+import com.pauljoda.assistedprogression.common.entity.NetEntity;
 import com.pauljoda.assistedprogression.common.items.*;
 import com.pauljoda.assistedprogression.common.items.container.TrashBagContainer;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.entity.projectile.ThrowableItemProjectile;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.CreativeModeTab;
@@ -46,12 +52,16 @@ public class Registration {
     private static final DeferredRegister<MenuType<?>> CONTAINERS
             = DeferredRegister.create(ForgeRegistries.CONTAINERS, Reference.MOD_ID);
 
+    private static final DeferredRegister<EntityType<?>> ENTITIES =
+            DeferredRegister.create(ForgeRegistries.ENTITIES, Reference.MOD_ID);
+
     public static void init() {
         IEventBus bus = FMLJavaModLoadingContext.get().getModEventBus();
         BLOCKS.register(bus);
         BLOCK_ENTITY_TYPES.register(bus);
         ITEMS.register(bus);
         CONTAINERS.register(bus);
+        ENTITIES.register(bus);
     }
 
     /**
@@ -106,6 +116,12 @@ public class Registration {
     public static final RegistryObject<Item> HEFTY_BAG_ITEM =
             ITEMS.register("hefty_bag", () -> new TrashBagItem(18));
 
+    public static final RegistryObject<Item> NET_ITEM =
+            ITEMS.register("net", NetItem::new);
+
+    public static final RegistryObject<Item> NET_LAUNCHER_ITEM =
+            ITEMS.register("net_launcher", NetLauncherItem::new);
+
     /*******************************************************************************************************************
      * Blocks                                                                                                          *
      *******************************************************************************************************************/
@@ -117,6 +133,10 @@ public class Registration {
     public static final RegistryObject<Block> PLAYER_PLATE_BLOCK =
             BLOCKS.register("player_plate", PlayerPlateBlock::new);
     public static final RegistryObject<Item> PLAYER_PLATE_BLOCK_ITEM = fromBlock(PLAYER_PLATE_BLOCK);
+
+    public static final RegistryObject<Block> SPAWNER_FRAME_BLOCK =
+            BLOCKS.register("spawner_frame", SpawnerFrameBlock::new);
+    public static final RegistryObject<Item> SPAWNER_FRAME_BLOCK_ITEM = fromBlock(SPAWNER_FRAME_BLOCK);
 
     /*******************************************************************************************************************
      * Block Entity                                                                                                    *
@@ -137,4 +157,17 @@ public class Registration {
                             new TrashBagContainer(windowId, inv,
                                     inv.player.getItemInHand(InteractionHand.MAIN_HAND).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null),
                                     inv.player.getItemInHand(InteractionHand.MAIN_HAND)))));
+
+    /*******************************************************************************************************************
+     * Entity                                                                                                          *
+     *******************************************************************************************************************/
+
+    public static final RegistryObject<EntityType<NetEntity>> NET_ENTITY =
+            ENTITIES.register("net", () ->
+                    EntityType.Builder.<NetEntity>of(NetEntity::new, MobCategory.MISC)
+                    .sized(0.5F, 0.5F)
+                    .clientTrackingRange(10)
+                    .setShouldReceiveVelocityUpdates(true)
+                    .build("net"));
+
 }

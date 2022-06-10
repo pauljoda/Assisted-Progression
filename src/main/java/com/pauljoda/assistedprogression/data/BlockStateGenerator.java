@@ -32,7 +32,7 @@ public class BlockStateGenerator extends BlockStateProvider {
         // Ender Pad
         ModelFile baseModel =
                 models().cubeColumn(Registration.ENDER_PAD_BLOCK.get().getRegistryName().getPath(),
-                        modLoc("blocks/ender_pad"), modLoc("blocks/ender_pad_top"));
+                        modLoc("block/ender_pad"), modLoc("block/ender_pad_top"));
         getVariantBuilder(Registration.ENDER_PAD_BLOCK.get())
                 // Set the rotation models
                 .forAllStates(state ->
@@ -50,5 +50,8 @@ public class BlockStateGenerator extends BlockStateProvider {
         getVariantBuilder(playerPlate)
                 .partialState().with(PressurePlateBlock.POWERED, true).addModels(new ConfiguredModel(pressurePlateDown))
                 .partialState().with(PressurePlateBlock.POWERED, false).addModels(new ConfiguredModel(pressurePlate));
+
+        // Spawner Frame
+        simpleBlock(Registration.SPAWNER_FRAME_BLOCK.get());
     }
 }

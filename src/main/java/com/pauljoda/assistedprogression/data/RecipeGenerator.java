@@ -124,6 +124,29 @@ public class RecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_leather", has(Tags.Items.INGOTS_IRON))
                 .save(consumer);
 
+        // Net
+        ShapedRecipeBuilder
+                .shaped(Registration.NET_ITEM.get())
+                .pattern("S S")
+                .pattern(" I ")
+                .pattern("S S")
+                .define('S', Tags.Items.STRING)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .unlockedBy("has_string", has(Tags.Items.STRING))
+                .save(consumer);
+
+        // Launcher
+        ShapedRecipeBuilder
+                .shaped(Registration.NET_LAUNCHER_ITEM.get())
+                .pattern("   ")
+                .pattern("IIB")
+                .pattern(" IR")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('B', Tags.Items.STORAGE_BLOCKS_IRON)
+                .define('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
+                .unlockedBy("has_redstone", has(Tags.Items.STORAGE_BLOCKS_REDSTONE))
+                .save(consumer);
+
         // Blocks ------------------------------------------------------------------------------------------------------
         // Ender Pad
         ShapedRecipeBuilder
@@ -144,6 +167,18 @@ public class RecipeGenerator extends RecipeProvider {
                 .pattern("BB")
                 .define('B', Tags.Items.INGOTS_BRICK)
                 .unlockedBy("has_brick", has(Tags.Items.INGOTS_BRICK))
+                .save(consumer);
+
+        ShapedRecipeBuilder
+                .shaped(Registration.SPAWNER_FRAME_BLOCK.get())
+                .pattern("ODO")
+                .pattern("IEI")
+                .pattern("ODO")
+                .define('O', Tags.Items.OBSIDIAN)
+                .define('D', Tags.Items.GEMS_DIAMOND)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('E', Items.END_CRYSTAL)
+                .unlockedBy("has_endcrystal", has(Items.END_CRYSTAL))
                 .save(consumer);
 
     }

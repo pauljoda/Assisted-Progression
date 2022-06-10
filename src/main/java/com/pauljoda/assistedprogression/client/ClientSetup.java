@@ -6,9 +6,13 @@ import com.pauljoda.assistedprogression.common.items.container.TrashBagContainer
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraft.client.gui.screens.MenuScreens;
+import net.minecraft.client.renderer.ItemBlockRenderTypes;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.blockentity.BlockEntityRenderers;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.client.resources.model.BakedModel;
 import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -31,6 +35,9 @@ public class ClientSetup {
         event.enqueueWork(() -> {
             // Register Screens
             MenuScreens.register(Registration.TRASH_BAG_CONTAINER.get(), TrashBagMenu::new);
+
+            // Set Clear block
+            ItemBlockRenderTypes.setRenderLayer(Registration.SPAWNER_FRAME_BLOCK.get(), RenderType.cutout());
         });
     }
 
@@ -49,5 +56,10 @@ public class ClientSetup {
         BakedModel baseModel = event.getModelRegistry().get(ModelPipette.LOCATION);
         event.getModelRegistry().put(ModelPipette.LOCATION,
                 new ModelPipette.PipetteDynamicModel(event.getModelLoader(), baseModel, event.getModelLoader().GENERATION_MARKER.customData));
+    }
+
+    @SubscribeEvent
+    public static void onRegisterRenderer(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(Registration.NET_ENTITY.get(), ThrownItemRenderer::new);
     }
 }

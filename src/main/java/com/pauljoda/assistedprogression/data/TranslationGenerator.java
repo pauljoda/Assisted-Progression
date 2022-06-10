@@ -3,7 +3,9 @@ package com.pauljoda.assistedprogression.data;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.common.data.LanguageProvider;
+import net.minecraftforge.registries.RegistryObject;
 
 /**
  * This file was created for Nucleus
@@ -29,19 +31,23 @@ public class TranslationGenerator extends LanguageProvider {
 
         // Items -------------------------------------------------------------------------------------------------------
         // Spawner Relocator
-        add(Registration.SPAWNER_RELOCATOR_ITEM.get(), "Spawner Relocator");
+        addWithDescription(Registration.SPAWNER_RELOCATOR_ITEM
+                , "Spawner Relocator",
+                "Hold right click and release while looking at a spawner to pick it up, hold right click while aiming at a block to place it back down");
         add("assisted_progression.text.spawnerRelocator.type", "%s%sType: %s");
-        add("spawner_relocator.desc", "Hold right click and release while looking at a spawner to pick it up, hold right click while aiming at a block to place it back down");
 
         // Magnets
-        add(Registration.MAGNET_ITEM.get(), "Magnet");
-        add("item_cheap_magnet.desc", "Attracts all sorts of things, some dangerous. Shift+Right-Click to toggle activation");
-        add(Registration.ELECTRIC_MAGNET_ITEM.get(), "Electric Magnet");
-        add("item_electro_magnet.desc", "Attracts item entities and xp orbs, requires power. Shift+Right-Click to toggle activation");
+        addWithDescription(Registration.MAGNET_ITEM,
+                "Magnet",
+                "Attracts all sorts of things, some dangerous. Shift+Right-Click to toggle activation");
+        addWithDescription(Registration.ELECTRIC_MAGNET_ITEM,
+                "Electric Magnet",
+                "Attracts item entities and xp orbs, requires power. Shift+Right-Click to toggle activation");
 
         // Pipette
-        add(Registration.PIPETTE_ITEM.get(), "Pipette");
-        add("pipette.desc", "Holds up to one bucket of fluid, useful for removing fluid amounts less than one bucket. Right click fluid handling tiles to insert and extract fluid");
+        addWithDescription(Registration.PIPETTE_ITEM,
+                "Pipette",
+                "Holds up to one bucket of fluid, useful for removing fluid amounts less than one bucket. Right click fluid handling tiles to insert and extract fluid");
         add("assisted_progression.text.pipette.fluidStored", "Fluid Contained:");
         add("assisted_progression.text.pipette.empty", "Empty");
 
@@ -50,16 +56,30 @@ public class TranslationGenerator extends LanguageProvider {
         add("parashoes.desc", "Wear these shoes to slow your decent");
 
         // Climbing Gloves
-        add(Registration.CLIMBING_GLOVES_ITEM.get(), "Climbing Gloves");
-        add("climbing_gloves.desc", "Have in your inventory to scale walls by walking into them");
+        addWithDescription(Registration.CLIMBING_GLOVES_ITEM,
+                "Climbing Gloves",
+                "Have in your inventory to scale walls by walking into them");
 
         // Trash Bags
-        add(Registration.TRASH_BAG_ITEM.get(), "Trash Bag");
+        addWithDescription(Registration.TRASH_BAG_ITEM,
+                "Trash Bag",
+                "Contains one slot, will void items matching filter on pickup");
         add("trash_bag", "Trash Bag");
-        add(Registration.HEFTY_BAG_ITEM.get(), "Hefty Bag");
+        addWithDescription(Registration.HEFTY_BAG_ITEM,
+                "Hefty Bag",
+                "Contains 18 slots, will void items matching filter on pickup");
         add("hefty_bag", "Hefty Bag");
-        add("trash_bag.desc", "Contains one slot, will void items matching filter on pickup");
-        add("hefty_bag.desc", "Contains 18 slots, will void items matching filter on pickup");
+
+        // Nets
+        addWithDescription(Registration.NET_ITEM,
+                "Mob Net",
+                "Use with Mob Net Launcher to launch nets that capture mobs, right click to place captured mobs");
+        add("assisted_progression.text.net.stored", "Entity Stored: ");
+
+        // Net Launcher
+        addWithDescription(Registration.NET_LAUNCHER_ITEM,
+                "Mob Net Launcher",
+                "Launches mob nets from inventory to capture mobs");
 
         // Blocks ------------------------------------------------------------------------------------------------------
         // Ender Pad
@@ -69,5 +89,17 @@ public class TranslationGenerator extends LanguageProvider {
         // Player Plate
         add(Registration.PLAYER_PLATE_BLOCK.get(), "Player Sensitive Pressure Plate");
         add("player_player.desc", "Pressure plate that will only activate for player entities");
+
+        // Spawner Frame
+        add(Registration.SPAWNER_FRAME_BLOCK.get(), "Spawner Frame");
+        add("spawner_frame.desc", "Right click with a mob net with a captured mob to create a spawner of that type");
+
+        // Entities ----------------------------------------------------------------------------------------------------
+
+    }
+
+    private void addWithDescription(RegistryObject<Item> item, String name, String desc) {
+        add(item.get(), name);
+        add(item.get().getRegistryName() + ".desc", desc);
     }
 }

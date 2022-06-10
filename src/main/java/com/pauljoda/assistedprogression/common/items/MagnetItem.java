@@ -36,7 +36,7 @@ import java.util.List;
  * @author Paul Davis - pauljoda
  * @since 6/5/2022
  */
-public class MagnetItem extends Item implements IAdvancedToolTipProvider {
+public class MagnetItem extends BaseItem {
 
     /*******************************************************************************************************************
      * Variables                                                                                                       *
@@ -51,12 +51,6 @@ public class MagnetItem extends Item implements IAdvancedToolTipProvider {
 
     // Value of magnet
     protected boolean isCheapMagnet = true;
-
-    public MagnetItem() {
-        super(new Properties()
-                .stacksTo(1)
-                .tab(Registration.tabAssistedProgression));
-    }
 
     /**
      * Called when currently pulling something, use to drain power etc
@@ -172,15 +166,5 @@ public class MagnetItem extends Item implements IAdvancedToolTipProvider {
                 }
             }
         }
-    }
-
-    /*******************************************************************************************************************
-     * IAdvancedToolTipProvider                                                                                        *
-     *******************************************************************************************************************/
-
-    @Nullable
-    @Override
-    public List<String> getAdvancedToolTip(@NotNull ItemStack itemStack) {
-        return List.of(ClientUtils.translate("item_cheap_magnet.desc"));
     }
 }

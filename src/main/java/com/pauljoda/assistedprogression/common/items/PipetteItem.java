@@ -39,13 +39,7 @@ import java.util.List;
  * @author Paul Davis - pauljoda
  * @since 6/6/2022
  */
-public class PipetteItem extends Item implements IAdvancedToolTipProvider {
-
-    public PipetteItem() {
-        super(new Properties()
-                .stacksTo(1)
-                .tab(Registration.tabAssistedProgression));
-    }
+public class PipetteItem extends BaseItem {
 
     @Nullable
     @Override
@@ -112,15 +106,5 @@ public class PipetteItem extends Item implements IAdvancedToolTipProvider {
                             tab.add(pipetteStack);
                     });
         }
-    }
-
-    /*******************************************************************************************************************
-     * IAdvancedToolTipProvider                                                                                        *
-     *******************************************************************************************************************/
-
-    @Nullable
-    @Override
-    public List<String> getAdvancedToolTip(@NotNull ItemStack itemStack) {
-        return List.of(ClientUtils.translate("pipette.desc"));
     }
 }

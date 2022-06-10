@@ -41,13 +41,7 @@ import java.util.List;
  * @author Paul Davis - pauljoda
  * @since 6/4/2022
  */
-public class SpawnerRelocatorItem extends Item implements IAdvancedToolTipProvider {
-
-    public SpawnerRelocatorItem() {
-        super(new Properties()
-                .stacksTo(1)
-                .tab(Registration.tabAssistedProgression));
-    }
+public class SpawnerRelocatorItem extends BaseItem{
 
     @Override
     public @NotNull UseAnim getUseAnimation(@NotNull ItemStack stack) {
@@ -135,15 +129,5 @@ public class SpawnerRelocatorItem extends Item implements IAdvancedToolTipProvid
             ));
         }
         super.appendHoverText(stack, level, toolTip, advanced);
-    }
-
-    /*******************************************************************************************************************
-     * IAdvancedToolTipProvider                                                                                        *
-     *******************************************************************************************************************/
-
-    @Nullable
-    @Override
-    public List<String> getAdvancedToolTip(@NotNull ItemStack itemStack) {
-        return List.of(ClientUtils.translate("spawner_relocator.desc"));
     }
 }

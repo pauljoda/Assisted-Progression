@@ -98,14 +98,4 @@ public class ElectricMagnetItem extends MagnetItem {
                                 @NotNull List<Component> toolTip, @NotNull TooltipFlag advanced) {
         EnergyUtils.addToolTipInfo(stack, toolTip);
     }
-
-    /*******************************************************************************************************************
-     * IAdvancedToolTipProvider                                                                                        *
-     *******************************************************************************************************************/
-
-    @Nullable
-    @Override
-    public List<String> getAdvancedToolTip(@NotNull ItemStack itemStack) {
-        return List.of(ClientUtils.translate("item_electro_magnet.desc"));
-    }
 }

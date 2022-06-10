@@ -60,6 +60,16 @@ public class ItemModelGenerator extends ItemModelProvider {
                 mcLoc("item/generated"),
                 "layer0", modLoc("items/hefty_bag"));
 
+        // Net
+        singleTexture(Registration.NET_ITEM.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", modLoc("items/net"));
+
+        // Net Launcher
+        singleTexture(Registration.NET_LAUNCHER_ITEM.get().getRegistryName().getPath(),
+                mcLoc("item/generated"),
+                "layer0", modLoc("items/net_launcher"));
+
         // Blocks ------------------------------------------------------------------------------------------------------
 
         // Ender Pad
@@ -67,5 +77,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 
         // Player Plate
         withExistingParent(Registration.PLAYER_PLATE_BLOCK.get().getRegistryName().getPath(), modLoc("block/player_plate"));
+
+        // Spawner Frame
+        withExistingParent(Registration.SPAWNER_FRAME_BLOCK.get().getRegistryName().getPath(), modLoc("block/spawner_frame"));
     }
 }

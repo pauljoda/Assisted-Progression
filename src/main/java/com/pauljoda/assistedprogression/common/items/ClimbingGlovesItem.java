@@ -24,15 +24,9 @@ import java.util.List;
  * @author Paul Davis - pauljoda
  * @since 6/6/2022
  */
-public class ClimbingGlovesItem extends Item implements IAdvancedToolTipProvider {
+public class ClimbingGlovesItem extends BaseItem {
 
-    private static Vec3 STILL_VECTOR = new Vec3(0, 0, 0);
-
-    public ClimbingGlovesItem() {
-        super(new Properties()
-                .stacksTo(1)
-                .tab(Registration.tabAssistedProgression));
-    }
+    private static final Vec3 STILL_VECTOR = new Vec3(0, 0, 0);
 
     @Override
     public void inventoryTick(@NotNull ItemStack stack, @NotNull Level level,
@@ -49,15 +43,5 @@ public class ClimbingGlovesItem extends Item implements IAdvancedToolTipProvider
                         currentDelta.z);
             }
         }
-    }
-
-    /*******************************************************************************************************************
-     * IAdvancedToolTipProvider                                                                                        *
-     *******************************************************************************************************************/
-
-    @Nullable
-    @Override
-    public List<String> getAdvancedToolTip(@NotNull ItemStack itemStack) {
-        return List.of(ClientUtils.translate("climbing_gloves.desc"));
     }
 }

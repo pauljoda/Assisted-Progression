@@ -1,7 +1,7 @@
 {
   "parent": "minecraft:block/cube_column",
   "textures": {
-    "side": "assisted_progression:blocks/ender_pad",
-    "end": "assisted_progression:blocks/ender_pad_top"
+    "side": "assisted_progression:block/ender_pad",
+    "end": "assisted_progression:block/ender_pad_top"
   }
 }

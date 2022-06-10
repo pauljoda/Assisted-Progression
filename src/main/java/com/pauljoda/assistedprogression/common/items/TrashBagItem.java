@@ -45,7 +45,7 @@ import java.util.List;
  * @since 6/7/2022
  */
 @Mod.EventBusSubscriber
-public class TrashBagItem extends Item implements IAdvancedToolTipProvider {
+public class TrashBagItem extends BaseItem {
 
     // The size of this inventory
     public final int bagInventorySize;
@@ -145,15 +145,5 @@ public class TrashBagItem extends Item implements IAdvancedToolTipProvider {
                 }
             }
         }
-    }
-
-    /*******************************************************************************************************************
-     * IAdvancedToolTipProvider                                                                                        *
-     *******************************************************************************************************************/
-
-    @Nullable
-    @Override
-    public List<String> getAdvancedToolTip(@NotNull ItemStack itemStack) {
-        return List.of(ClientUtils.translate(bagInventorySize > 1 ? "hefty_bag.desc" : "trash_bag.desc"));
     }
 }
