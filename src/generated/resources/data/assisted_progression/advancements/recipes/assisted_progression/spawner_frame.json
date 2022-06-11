@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "assisted_progression:spawner_frame"
+    ]
+  },
+  "criteria": {
+    "has_endcrystal": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:end_crystal"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "assisted_progression:spawner_frame"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_endcrystal",
+      "has_the_recipe"
+    ]
+  ]
+}
