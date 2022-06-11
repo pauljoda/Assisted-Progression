@@ -12,8 +12,22 @@ description='''
 Mod with various utilities
 '''
 [[dependencies.assisted_progression]]
-    modId="nucleus_pauljoda"
-    mandatory=true
-    versionRange="[2.0,)"
-    ordering="BEFORE"
-    side="BOTH"
+modId = "minecraft"
+mandatory = true
+versionRange = "[1.18.2,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.assisted_progression]]
+modId = "forge"
+mandatory = true
+versionRange = "[40.1.25,)"
+ordering = "AFTER"
+side = "BOTH"
+
+[[dependencies.assisted_progression]]
+modId="nucleus_pauljoda"
+mandatory=true
+versionRange="[2.0,)"
+ordering="BEFORE"
+side="BOTH"

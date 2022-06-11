@@ -168,7 +168,7 @@ dependencies {
 configurations.all {
     resolutionStrategy.cacheDynamicVersionsFor 0, 'seconds'
 }
-
+/*
 task devJar(type: Jar, dependsOn: 'classes') {
     from(sourceSets.main.output) {
         include '**'
@@ -197,7 +197,7 @@ artifacts {
     archives javadocJar
     archives deobfJar
 }
-
+*/
 // Example for how to get properties into the manifest for reading at runtime.
 jar {
     manifest {
