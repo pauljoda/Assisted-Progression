@@ -15,7 +15,7 @@ plugins {
 apply plugin: 'net.minecraftforge.gradle'
 
 
-version = '1.0'
+version = '0.8'
 group = 'com.pauljoda.assisted_progression' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'assisted_progression'
 
