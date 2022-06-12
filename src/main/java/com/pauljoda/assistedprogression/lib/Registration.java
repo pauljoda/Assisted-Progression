@@ -3,7 +3,9 @@ package com.pauljoda.assistedprogression.lib;
 import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
 import com.pauljoda.assistedprogression.common.blocks.PlayerPlateBlock;
 import com.pauljoda.assistedprogression.common.blocks.SpawnerFrameBlock;
+import com.pauljoda.assistedprogression.common.blocks.SunBlock;
 import com.pauljoda.assistedprogression.common.blocks.entity.EnderPadBlockEntity;
+import com.pauljoda.assistedprogression.common.blocks.entity.SunBlockEntity;
 import com.pauljoda.assistedprogression.common.entity.NetEntity;
 import com.pauljoda.assistedprogression.common.items.*;
 import com.pauljoda.assistedprogression.common.items.container.TrashBagContainer;
@@ -138,6 +140,10 @@ public class Registration {
             BLOCKS.register("spawner_frame", SpawnerFrameBlock::new);
     public static final RegistryObject<Item> SPAWNER_FRAME_BLOCK_ITEM = fromBlock(SPAWNER_FRAME_BLOCK);
 
+    public static final RegistryObject<Block> SUN_BLOCK =
+            BLOCKS.register("sun", SunBlock::new);
+    public static final RegistryObject<Item> SUN_BLOCK_ITEM = fromBlock(SUN_BLOCK);
+
     /*******************************************************************************************************************
      * Block Entity                                                                                                    *
      *******************************************************************************************************************/
@@ -146,6 +152,11 @@ public class Registration {
             BLOCK_ENTITY_TYPES.register("ender_pad",
                     () -> BlockEntityType.Builder.of(EnderPadBlockEntity::new, ENDER_PAD_BLOCK.get
                             ()).build(null));
+
+    public static final RegistryObject<BlockEntityType<SunBlockEntity>> SUN_BLOCK_ENTITY =
+            BLOCK_ENTITY_TYPES.register("sun",
+                    () -> BlockEntityType.Builder.of(SunBlockEntity::new, SUN_BLOCK.get())
+                            .build(null));
 
     /*******************************************************************************************************************
      * Container                                                                                                       *

@@ -33,5 +33,9 @@ public class LootTableGenerator extends BaseLootTableGenerator {
         // Spawner Frame
         lootTables.put(Registration.SPAWNER_FRAME_BLOCK.get(),
                 createSimpleTable("spawner_frame", Registration.SPAWNER_FRAME_BLOCK.get()));
+
+        // Sun
+        lootTables.put(Registration.SUN_BLOCK.get(),
+                createSimpleTable("sun", Registration.SUN_BLOCK.get()));
     }
 }

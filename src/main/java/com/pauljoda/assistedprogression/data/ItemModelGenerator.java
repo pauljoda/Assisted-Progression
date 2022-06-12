@@ -3,8 +3,10 @@ package com.pauljoda.assistedprogression.data;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.world.level.block.Block;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.registries.RegistryObject;
 
 /**
  * This file was created for Nucleus
@@ -22,6 +24,7 @@ public class ItemModelGenerator extends ItemModelProvider {
         super(generator, Reference.MOD_ID, existingFileHelper);
     }
 
+    @SuppressWarnings("ConstantConditions")
     @Override
     protected void registerModels() {
         // Items -------------------------------------------------------------------------------------------------------
@@ -73,12 +76,20 @@ public class ItemModelGenerator extends ItemModelProvider {
         // Blocks ------------------------------------------------------------------------------------------------------
 
         // Ender Pad
-        withExistingParent(Registration.ENDER_PAD_BLOCK.get().getRegistryName().getPath(), modLoc("block/ender_pad"));
+        createItemBlock(Registration.ENDER_PAD_BLOCK, "block/ender_pad");
 
         // Player Plate
-        withExistingParent(Registration.PLAYER_PLATE_BLOCK.get().getRegistryName().getPath(), modLoc("block/player_plate"));
+        createItemBlock(Registration.PLAYER_PLATE_BLOCK, "block/player_plate");
 
         // Spawner Frame
-        withExistingParent(Registration.SPAWNER_FRAME_BLOCK.get().getRegistryName().getPath(), modLoc("block/spawner_frame"));
+        createItemBlock(Registration.SPAWNER_FRAME_BLOCK, "block/spawner_frame");
+
+        // Sun
+        createItemBlock(Registration.SUN_BLOCK, "block/sun");
+    }
+
+    @SuppressWarnings("ConstantConditions")
+    protected void createItemBlock(RegistryObject<Block> block, String modelLocation) {
+        withExistingParent(block.get().getRegistryName().getPath(), modLoc(modelLocation));
     }
 }

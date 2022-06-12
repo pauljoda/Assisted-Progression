@@ -1,6 +1,7 @@
 package com.pauljoda.assistedprogression.network;
 
 import com.pauljoda.assistedprogression.lib.Reference;
+import com.pauljoda.assistedprogression.network.packets.BoneMealParticlesPacket;
 import com.pauljoda.assistedprogression.network.packets.NotifyServerOfTrashBagChanges;
 import com.pauljoda.nucleus.network.packet.INetworkMessage;
 import net.minecraft.resources.ResourceLocation;
@@ -36,6 +37,7 @@ public class PacketManager {
      */
     public static void initPackets() {
         registerMessage(NotifyServerOfTrashBagChanges.class, NotifyServerOfTrashBagChanges::process);
+        registerMessage(BoneMealParticlesPacket.class, BoneMealParticlesPacket::process);
     }
 
     // Local hold for next packet id

@@ -94,8 +94,12 @@ public class TranslationGenerator extends LanguageProvider {
         add(Registration.SPAWNER_FRAME_BLOCK.get(), "Spawner Frame");
         add("spawner_frame.desc", "Right click with a mob net with a captured mob to create a spawner of that type");
 
-        // Entities ----------------------------------------------------------------------------------------------------
+        // Sun
+        add(Registration.SUN_BLOCK.get(), "Miniature Sun");
+        add("sun.desc", "Place above plants to help them grow. Will service a radius of 3 blocks around and 3 blocks below");
 
+        // Entities ----------------------------------------------------------------------------------------------------
+        add(Registration.NET_ENTITY.get(), "Mob Net");
     }
 
     private void addWithDescription(RegistryObject<Item> item, String name, String desc) {

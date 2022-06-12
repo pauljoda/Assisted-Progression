@@ -181,5 +181,15 @@ public class RecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_endcrystal", has(Items.END_CRYSTAL))
                 .save(consumer);
 
+        ShapedRecipeBuilder
+                .shaped(Registration.SUN_BLOCK.get())
+                .pattern("GMG")
+                .pattern("MDM")
+                .pattern("GMG")
+                .define('G', Tags.Items.DUSTS_GLOWSTONE)
+                .define('M', Items.BONE_MEAL)
+                .define('D', Items.LANTERN)
+                .unlockedBy("hasLantern", has(Items.LANTERN))
+                .save(consumer);
     }
 }
