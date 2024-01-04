@@ -2,7 +2,11 @@ package com.pauljoda.assistedprogression.data;
 
 import com.pauljoda.assistedprogression.lib.Registration;
 import com.pauljoda.nucleus.data.BaseLootTableGenerator;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.world.level.block.Block;
+import net.neoforged.neoforge.registries.DeferredHolder;
+import org.jetbrains.annotations.NotNull;
+
+import java.util.stream.Collectors;
 
 /**
  * This file was created for Nucleus
@@ -16,26 +20,17 @@ import net.minecraft.data.DataGenerator;
  */
 public class LootTableGenerator extends BaseLootTableGenerator {
 
-    public LootTableGenerator(DataGenerator dataGenerator) {
-        super(dataGenerator, "Assisted Progression Loot");
+    @Override
+    protected void generate() {
+
+        // Ender Pad
+        createStandardTable(Registration.ENDER_PAD_BLOCK.get(), Registration.ENDER_PAD_BLOCK_ENTITY.get());
     }
 
     @Override
-    protected void addTables() {
-        // Ender Pad
-        lootTables.put(Registration.ENDER_PAD_BLOCK.get(),
-                createSimpleTable("ender_pad", Registration.ENDER_PAD_BLOCK.get()));
-
-        // Player Plate
-        lootTables.put(Registration.PLAYER_PLATE_BLOCK.get(),
-                createSimpleTable("player_plate", Registration.PLAYER_PLATE_BLOCK.get()));
-
-        // Spawner Frame
-        lootTables.put(Registration.SPAWNER_FRAME_BLOCK.get(),
-                createSimpleTable("spawner_frame", Registration.SPAWNER_FRAME_BLOCK.get()));
-
-        // Sun
-        lootTables.put(Registration.SUN_BLOCK.get(),
-                createSimpleTable("sun", Registration.SUN_BLOCK.get()));
+    protected @NotNull Iterable<Block> getKnownBlocks() {
+        return Registration.BLOCKS.getEntries().stream()
+                .map(DeferredHolder::get)
+                .collect(Collectors.toList());
     }
 }

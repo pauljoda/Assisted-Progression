@@ -1,7 +1,7 @@
 package com.pauljoda.assistedprogression.common.blocks;
 
-import com.pauljoda.assistedprogression.common.blocks.entity.EnderPadBlockEntity;
-import com.pauljoda.assistedprogression.lib.Registration;
+import com.mojang.serialization.MapCodec;
+import com.pauljoda.assistedprogression.common.blocks.blockentity.EnderPadBlockEntity;
 import com.pauljoda.nucleus.common.IAdvancedToolTipProvider;
 import com.pauljoda.nucleus.common.UpdatingBlock;
 import com.pauljoda.nucleus.util.ClientUtils;
@@ -10,18 +10,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
-import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
-import net.minecraft.world.level.block.entity.BlockEntityTicker;
-import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
-import net.minecraft.world.level.material.Material;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -40,8 +36,8 @@ import java.util.List;
 public class EnderPadBlock extends UpdatingBlock implements IAdvancedToolTipProvider {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
-    public EnderPadBlock() {
-        super(Properties.of(Material.METAL).strength(2.0F));
+    public EnderPadBlock(Properties properties) {
+        super(properties);
 
         registerDefaultState(getStateDefinition().any().setValue(FACING, Direction.NORTH));
     }
@@ -60,6 +56,11 @@ public class EnderPadBlock extends UpdatingBlock implements IAdvancedToolTipProv
     public BlockState getStateForPlacement(BlockPlaceContext context) {
         var direction = context.getHorizontalDirection();
         return this.defaultBlockState().setValue(FACING, direction);
+    }
+
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec(EnderPadBlock::new);
     }
 
     @Override

@@ -3,13 +3,13 @@ package com.pauljoda.assistedprogression.data;
 import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
-import net.minecraft.core.Direction;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.PressurePlateBlock;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 /**
  * This file was created for Nucleus
@@ -23,15 +23,15 @@ import net.minecraftforge.common.data.ExistingFileHelper;
  */
 public class BlockStateGenerator extends BlockStateProvider {
 
-    public BlockStateGenerator(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, Reference.MOD_ID, exFileHelper);
+    public BlockStateGenerator(PackOutput output, ExistingFileHelper exFileHelper) {
+        super(output, Reference.MOD_ID, exFileHelper);
     }
 
     @Override
     protected void registerStatesAndModels() {
         // Ender Pad
         ModelFile baseModel =
-                models().cubeColumn(Registration.ENDER_PAD_BLOCK.get().getRegistryName().getPath(),
+                models().cubeColumn(Registration.ENDER_PAD_NAME,
                         modLoc("block/ender_pad"), modLoc("block/ender_pad_top"));
         getVariantBuilder(Registration.ENDER_PAD_BLOCK.get())
                 // Set the rotation models
@@ -42,30 +42,31 @@ public class BlockStateGenerator extends BlockStateProvider {
                                 .build());
 
         // Player Plate
-        var playerPlate = Registration.PLAYER_PLATE_BLOCK.get();
-        var pressurePlate =
-                models().pressurePlate(playerPlate.getRegistryName().getPath(), mcLoc("block/bricks"));
-        var pressurePlateDown =
-                models().pressurePlateDown(playerPlate.getRegistryName().getPath() + "_down", mcLoc("block/bricks"));
-        getVariantBuilder(playerPlate)
-                .partialState().with(PressurePlateBlock.POWERED, true).addModels(new ConfiguredModel(pressurePlateDown))
-                .partialState().with(PressurePlateBlock.POWERED, false).addModels(new ConfiguredModel(pressurePlate));
-
-        // Spawner Frame
-        simpleBlock(Registration.SPAWNER_FRAME_BLOCK.get());
-
-        // Sun
-        var sunModel =
-                models().getBuilder("block/sun")
-                        .parent(models().getExistingFile(mcLoc("block")))
-                        .element().from(6F, 6F, 6F).to(10F, 10F, 10F)
-                        .allFaces(((direction, faceBuilder) -> {
-                            faceBuilder.texture("#sun");
-                        }))
-                        .end()
-                        .texture("sun", modLoc("block/sun"))
-                        .texture("all", modLoc("block/sun"))
-                        .texture("particle", modLoc("block/sun"));
-        getVariantBuilder(Registration.SUN_BLOCK.get()).partialState().setModels(new ConfiguredModel(sunModel));
+//        var playerPlate = Registration.PLAYER_PLATE_BLOCK.get();
+//        var pressurePlate =
+//                models().pressurePlate(playerPlate.getRegistryName().getPath(), mcLoc("block/bricks"));
+//        var pressurePlateDown =
+//                models().pressurePlateDown(playerPlate.getRegistryName().getPath() + "_down", mcLoc("block/bricks"));
+//        getVariantBuilder(playerPlate)
+//                .partialState().with(PressurePlateBlock.POWERED, true).addModels(new ConfiguredModel(pressurePlateDown))
+//                .partialState().with(PressurePlateBlock.POWERED, false).addModels(new ConfiguredModel(pressurePlate));
+//
+//        // Spawner Frame
+//        simpleBlock(Registration.SPAWNER_FRAME_BLOCK.get());
+//
+//        // Sun
+//        var sunModel =
+//                models().getBuilder("block/sun")
+//                        .parent(models().getExistingFile(mcLoc("block")))
+//                        .element().from(6F, 6F, 6F).to(10F, 10F, 10F)
+//                        .allFaces(((direction, faceBuilder) -> {
+//                            faceBuilder.texture("#sun");
+//                        }))
+//                        .end()
+//                        .texture("sun", modLoc("block/sun"))
+//                        .texture("all", modLoc("block/sun"))
+//                        .texture("particle", modLoc("block/sun"));
+//        getVariantBuilder(Registration.SUN_BLOCK.get()).partialState().setModels(new ConfiguredModel(sunModel));
+//    }
     }
 }

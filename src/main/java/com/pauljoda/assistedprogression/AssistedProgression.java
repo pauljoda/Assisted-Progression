@@ -1,19 +1,17 @@
 package com.pauljoda.assistedprogression;
 
+
 import com.mojang.logging.LogUtils;
-import com.pauljoda.assistedprogression.client.ClientSetup;
-import com.pauljoda.assistedprogression.common.events.PlayerFallEvent;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
-import com.pauljoda.assistedprogression.network.PacketManager;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.server.ServerStartingEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.DistExecutor;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.event.lifecycle.FMLCommonSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
+import net.neoforged.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
 
 /**
@@ -31,26 +29,11 @@ public class AssistedProgression {
     // Logger
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public AssistedProgression() {
+    public AssistedProgression(IEventBus modEventBus) {
         // Setup registries
-        Registration.init();
-
-        // Register us
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(this::setup);
-
-        // Register ourselves for server and other game events we are interested in
-        MinecraftForge.EVENT_BUS.register(this);
+        Registration.init(modEventBus);
 
         // Register Packets
-        PacketManager.initPackets();
-
-        // Setup client
-        DistExecutor.unsafeRunWhenOn(Dist.CLIENT,
-                () -> () -> FMLJavaModLoadingContext.get().getModEventBus().addListener(ClientSetup::setupClient));
+        //PacketManager.initPackets();
     }
-
-    private void setup(final FMLCommonSetupEvent event) { }
-
-    @SubscribeEvent
-    public void onServerStarting(ServerStartingEvent event) { }
 }

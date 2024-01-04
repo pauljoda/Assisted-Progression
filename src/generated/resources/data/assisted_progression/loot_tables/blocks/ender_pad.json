@@ -2,15 +2,31 @@
   "type": "minecraft:block",
   "pools": [
     {
-      "name": "ender_pad",
-      "rolls": 1.0,
       "bonus_rolls": 0.0,
       "entries": [
         {
           "type": "minecraft:item",
+          "functions": [
+            {
+              "function": "minecraft:copy_name",
+              "source": "block_entity"
+            },
+            {
+              "type": "assisted_progression:ender_pad",
+              "entries": [
+                {
+                  "type": "minecraft:dynamic",
+                  "name": "minecraft:contents"
+                }
+              ],
+              "function": "minecraft:set_contents"
+            }
+          ],
           "name": "assisted_progression:ender_pad"
         }
-      ]
+      ],
+      "rolls": 1.0
     }
-  ]
+  ],
+  "random_sequence": "assisted_progression:blocks/ender_pad"
 }

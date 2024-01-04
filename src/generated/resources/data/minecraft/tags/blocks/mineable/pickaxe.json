@@ -1,7 +1,5 @@
 {
-  "replace": false,
   "values": [
-    "assisted_progression:ender_pad",
-    "assisted_progression:player_plate"
+    "assisted_progression:ender_pad"
   ]
 }

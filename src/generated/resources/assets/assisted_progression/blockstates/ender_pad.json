@@ -1,5 +1,9 @@
 {
   "variants": {
+    "facing=east": {
+      "model": "assisted_progression:block/ender_pad",
+      "y": 270
+    },
     "facing=north": {
       "model": "assisted_progression:block/ender_pad",
       "y": 180
@@ -10,10 +14,6 @@
     "facing=west": {
       "model": "assisted_progression:block/ender_pad",
       "y": 90
-    },
-    "facing=east": {
-      "model": "assisted_progression:block/ender_pad",
-      "y": 270
     }
   }
 }
