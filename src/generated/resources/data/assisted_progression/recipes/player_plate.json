@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "B": {
+      "tag": "forge:ingots/brick"
+    }
+  },
+  "pattern": [
+    "  ",
+    "BB"
+  ],
+  "result": {
+    "item": "assisted_progression:player_plate"
+  }
+}

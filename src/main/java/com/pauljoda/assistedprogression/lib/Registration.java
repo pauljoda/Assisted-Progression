@@ -1,6 +1,7 @@
 package com.pauljoda.assistedprogression.lib;
 
 import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
+import com.pauljoda.assistedprogression.common.blocks.PlayerPlateBlock;
 import com.pauljoda.assistedprogression.common.blocks.SunBlock;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.EnderPadBlockEntity;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.SunBlockEntity;
@@ -111,11 +112,12 @@ public class Registration {
                     () -> new EnderPadBlock(BlockBehaviour.Properties.of().strength(2.0F)));
     public static final DeferredHolder<Item, BlockItem> ENDER_PAD_BLOCK_ITEM =
             ITEMS.register("ender_pad", () -> new BlockItem(ENDER_PAD_BLOCK.get(), new Item.Properties()));
-//
-//    public static final RegistryObject<Block> PLAYER_PLATE_BLOCK =
-//            BLOCKS.register("player_plate", PlayerPlateBlock::new);
-//    public static final RegistryObject<Item> PLAYER_PLATE_BLOCK_ITEM = fromBlock(PLAYER_PLATE_BLOCK);
-//
+
+    public static final DeferredHolder<Block, PlayerPlateBlock> PLAYER_PLATE_BLOCK =
+            BLOCKS.register("player_plate", () -> new PlayerPlateBlock(BlockBehaviour.Properties.of().strength(2.0f)));
+    public static final DeferredHolder<Item, BlockItem> PLAYER_PLATE_BLOCK_ITEM =
+            ITEMS.register("player_plate", () -> new BlockItem(PLAYER_PLATE_BLOCK.get(), new Item.Properties()));
+
 //    public static final RegistryObject<Block> SPAWNER_FRAME_BLOCK =
 //            BLOCKS.register("spawner_frame", SpawnerFrameBlock::new);
 //    public static final RegistryObject<Item> SPAWNER_FRAME_BLOCK_ITEM = fromBlock(SPAWNER_FRAME_BLOCK);
@@ -174,6 +176,7 @@ public class Registration {
             .displayItems((parameters, output) -> {
                 output.accept(ENDER_PAD_BLOCK_ITEM.get());
                 output.accept(SUN_BLOCK_ITEM.get());
+                output.accept(PLAYER_PLATE_BLOCK_ITEM.get());
                 output.accept(CLIMBING_GLOVES_ITEM.get());
                 output.accept(MAGNET_ITEM.get());
                 output.accept(ELECTRIC_MAGNET_ITEM.get());

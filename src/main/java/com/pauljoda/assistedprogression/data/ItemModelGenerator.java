@@ -75,8 +75,9 @@ public class ItemModelGenerator extends ItemModelProvider {
         withExistingParent(BuiltInRegistries.BLOCK.getKey(Registration.ENDER_PAD_BLOCK.get()).getPath(),
                 modLoc(String.format("block/%s", BuiltInRegistries.BLOCK.getKey(Registration.ENDER_PAD_BLOCK.get()).getPath())));
 
-//        // Player Plate
-//        createItemBlock(Registration.PLAYER_PLATE_BLOCK, "block/player_plate");
+        // Player Plate
+        withExistingParent(BuiltInRegistries.BLOCK.getKey(Registration.PLAYER_PLATE_BLOCK.get()).getPath(),
+                modLoc(String.format("block/%s", BuiltInRegistries.BLOCK.getKey(Registration.PLAYER_PLATE_BLOCK.get()).getPath())));
 //
 //        // Spawner Frame
 //        createItemBlock(Registration.SPAWNER_FRAME_BLOCK, "block/spawner_frame");

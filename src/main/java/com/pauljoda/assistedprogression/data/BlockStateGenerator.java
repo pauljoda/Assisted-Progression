@@ -43,15 +43,15 @@ public class BlockStateGenerator extends BlockStateProvider {
                                 .build());
 
         // Player Plate
-//        var playerPlate = Registration.PLAYER_PLATE_BLOCK.get();
-//        var pressurePlate =
-//                models().pressurePlate(playerPlate.getRegistryName().getPath(), mcLoc("block/bricks"));
-//        var pressurePlateDown =
-//                models().pressurePlateDown(playerPlate.getRegistryName().getPath() + "_down", mcLoc("block/bricks"));
-//        getVariantBuilder(playerPlate)
-//                .partialState().with(PressurePlateBlock.POWERED, true).addModels(new ConfiguredModel(pressurePlateDown))
-//                .partialState().with(PressurePlateBlock.POWERED, false).addModels(new ConfiguredModel(pressurePlate));
-//
+        var playerPlate = Registration.PLAYER_PLATE_BLOCK.get();
+        var pressurePlate =
+                models().pressurePlate(BuiltInRegistries.BLOCK.getKey(Registration.PLAYER_PLATE_BLOCK.get()).getPath(), mcLoc("block/bricks"));
+        var pressurePlateDown =
+                models().pressurePlateDown(BuiltInRegistries.BLOCK.getKey(Registration.PLAYER_PLATE_BLOCK.get()).getPath() + "_down", mcLoc("block/bricks"));
+        getVariantBuilder(playerPlate)
+                .partialState().with(PressurePlateBlock.POWERED, true).addModels(new ConfiguredModel(pressurePlateDown))
+                .partialState().with(PressurePlateBlock.POWERED, false).addModels(new ConfiguredModel(pressurePlate));
+
 //        // Spawner Frame
 //        simpleBlock(Registration.SPAWNER_FRAME_BLOCK.get());
 //

@@ -158,16 +158,16 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('E', Tags.Items.ENDER_PEARLS)
                 .unlockedBy("has_pearls", has(Tags.Items.ENDER_PEARLS))
                 .save(outputs);
-//
-//        // Player Plate
-//        ShapedRecipeBuilder
-//                .shaped(Registration.PLAYER_PLATE_BLOCK.get())
-//                .pattern("  ")
-//                .pattern("BB")
-//                .define('B', Tags.Items.INGOTS_BRICK)
-//                .unlockedBy("has_brick", has(Tags.Items.INGOTS_BRICK))
-//                .save(consumer);
-//
+
+        // Player Plate
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, Registration.PLAYER_PLATE_BLOCK.get())
+                .pattern("  ")
+                .pattern("BB")
+                .define('B', Tags.Items.INGOTS_BRICK)
+                .unlockedBy("has_brick", has(Tags.Items.INGOTS_BRICK))
+                .save(outputs);
+
 //        ShapedRecipeBuilder
 //                .shaped(Registration.SPAWNER_FRAME_BLOCK.get())
 //                .pattern("ODO")

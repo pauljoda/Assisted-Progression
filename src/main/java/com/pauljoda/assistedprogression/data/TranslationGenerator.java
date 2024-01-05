@@ -86,10 +86,10 @@ public class TranslationGenerator extends LanguageProvider {
         add(Registration.ENDER_PAD_BLOCK.get(), "Ender Pad");
         add("ender_pad.desc", "Place another in the path of the arrow on top and sneak while standing on one to teleport to the other");
 
-//        // Player Plate
-//        add(Registration.PLAYER_PLATE_BLOCK.get(), "Player Sensitive Pressure Plate");
-//        add("player_player.desc", "Pressure plate that will only activate for player entities");
-//
+        // Player Plate
+        add(Registration.PLAYER_PLATE_BLOCK.get(), "Player Sensitive Pressure Plate");
+        add("player_player.desc", "Pressure plate that will only activate for player entities");
+
 //        // Spawner Frame
 //        add(Registration.SPAWNER_FRAME_BLOCK.get(), "Spawner Frame");
 //        add("spawner_frame.desc", "Right click with a mob net with a captured mob to create a spawner of that type");
