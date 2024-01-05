@@ -55,19 +55,18 @@ public class BlockStateGenerator extends BlockStateProvider {
 //        // Spawner Frame
 //        simpleBlock(Registration.SPAWNER_FRAME_BLOCK.get());
 //
-//        // Sun
-//        var sunModel =
-//                models().getBuilder("block/sun")
-//                        .parent(models().getExistingFile(mcLoc("block")))
-//                        .element().from(6F, 6F, 6F).to(10F, 10F, 10F)
-//                        .allFaces(((direction, faceBuilder) -> {
-//                            faceBuilder.texture("#sun");
-//                        }))
-//                        .end()
-//                        .texture("sun", modLoc("block/sun"))
-//                        .texture("all", modLoc("block/sun"))
-//                        .texture("particle", modLoc("block/sun"));
-//        getVariantBuilder(Registration.SUN_BLOCK.get()).partialState().setModels(new ConfiguredModel(sunModel));
-//    }
+        // Sun
+        var sunModel =
+                models().getBuilder("block/sun")
+                        .parent(models().getExistingFile(mcLoc("block")))
+                        .element().from(6F, 6F, 6F).to(10F, 10F, 10F)
+                        .allFaces(((direction, faceBuilder) -> {
+                            faceBuilder.texture("#sun");
+                        }))
+                        .end()
+                        .texture("sun", modLoc("block/sun"))
+                        .texture("all", modLoc("block/sun"))
+                        .texture("particle", modLoc("block/sun"));
+        getVariantBuilder(Registration.SUN_BLOCK.get()).partialState().setModels(new ConfiguredModel(sunModel));
     }
 }

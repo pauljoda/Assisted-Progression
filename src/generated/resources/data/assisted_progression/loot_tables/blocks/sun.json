@@ -6,11 +6,11 @@
       "entries": [
         {
           "type": "minecraft:item",
-          "name": "assisted_progression:ender_pad"
+          "name": "assisted_progression:sun"
         }
       ],
       "rolls": 1.0
     }
   ],
-  "random_sequence": "assisted_progression:blocks/ender_pad"
+  "random_sequence": "assisted_progression:blocks/sun"
 }

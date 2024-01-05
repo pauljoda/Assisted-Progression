@@ -81,7 +81,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 //        // Spawner Frame
 //        createItemBlock(Registration.SPAWNER_FRAME_BLOCK, "block/spawner_frame");
 //
-//        // Sun
-//        createItemBlock(Registration.SUN_BLOCK, "block/sun");
+        // Sun
+        withExistingParent(BuiltInRegistries.BLOCK.getKey(Registration.SUN_BLOCK.get()).getPath(),
+                modLoc(String.format("block/%s", BuiltInRegistries.BLOCK.getKey(Registration.SUN_BLOCK.get()).getPath())));
     }
 }

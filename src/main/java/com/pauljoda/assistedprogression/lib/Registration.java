@@ -1,8 +1,12 @@
 package com.pauljoda.assistedprogression.lib;
 
 import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
+import com.pauljoda.assistedprogression.common.blocks.SunBlock;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.EnderPadBlockEntity;
-import com.pauljoda.nucleus.Nucleus;
+import com.pauljoda.assistedprogression.common.blocks.blockentity.SunBlockEntity;
+import com.pauljoda.assistedprogression.common.items.ClimbingGlovesItem;
+import com.pauljoda.assistedprogression.common.items.ElectricMagnetItem;
+import com.pauljoda.assistedprogression.common.items.MagnetItem;
 import com.pauljoda.nucleus.common.items.EnergyContainingItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
@@ -15,17 +19,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
-
-import com.pauljoda.assistedprogression.common.items.*;
 
 /**
  * This file was created for Nucleus
@@ -119,10 +119,11 @@ public class Registration {
 //    public static final RegistryObject<Block> SPAWNER_FRAME_BLOCK =
 //            BLOCKS.register("spawner_frame", SpawnerFrameBlock::new);
 //    public static final RegistryObject<Item> SPAWNER_FRAME_BLOCK_ITEM = fromBlock(SPAWNER_FRAME_BLOCK);
-//
-//    public static final RegistryObject<Block> SUN_BLOCK =
-//            BLOCKS.register("sun", SunBlock::new);
-//    public static final RegistryObject<Item> SUN_BLOCK_ITEM = fromBlock(SUN_BLOCK);
+
+    public static final DeferredHolder<Block, SunBlock> SUN_BLOCK =
+            BLOCKS.register("sun", () -> new SunBlock(BlockBehaviour.Properties.of().strength(2.0F).noOcclusion()));
+    public static final DeferredHolder<Item, BlockItem> SUN_BLOCK_ITEM =
+            ITEMS.register("sun", () -> new BlockItem(SUN_BLOCK.get(), new Item.Properties()));
 
     /*******************************************************************************************************************
      * Block Entity                                                                                                    *
@@ -133,10 +134,10 @@ public class Registration {
                     () -> BlockEntityType.Builder.of(EnderPadBlockEntity::new, ENDER_PAD_BLOCK.get
                             ()).build(null));
 
-//    public static final RegistryObject<BlockEntityType<SunBlockEntity>> SUN_BLOCK_ENTITY =
-//            BLOCK_ENTITY_TYPES.register("sun",
-//                    () -> BlockEntityType.Builder.of(SunBlockEntity::new, SUN_BLOCK.get())
-//                            .build(null));
+    public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<SunBlockEntity>> SUN_BLOCK_ENTITY =
+            BLOCK_ENTITY_TYPES.register("sun",
+                    () -> BlockEntityType.Builder.of(SunBlockEntity::new, SUN_BLOCK.get())
+                            .build(null));
 
     /*******************************************************************************************************************
      * Container                                                                                                       *
@@ -172,6 +173,7 @@ public class Registration {
             .icon(() -> ENDER_PAD_BLOCK_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(ENDER_PAD_BLOCK_ITEM.get());
+                output.accept(SUN_BLOCK_ITEM.get());
                 output.accept(CLIMBING_GLOVES_ITEM.get());
                 output.accept(MAGNET_ITEM.get());
                 output.accept(ELECTRIC_MAGNET_ITEM.get());

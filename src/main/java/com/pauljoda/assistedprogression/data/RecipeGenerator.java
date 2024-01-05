@@ -7,6 +7,7 @@ import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
 
 import java.util.concurrent.CompletableFuture;
@@ -178,16 +179,16 @@ public class RecipeGenerator extends RecipeProvider {
 //                .define('E', Items.END_CRYSTAL)
 //                .unlockedBy("has_endcrystal", has(Items.END_CRYSTAL))
 //                .save(consumer);
-//
-//        ShapedRecipeBuilder
-//                .shaped(Registration.SUN_BLOCK.get())
-//                .pattern("GMG")
-//                .pattern("MDM")
-//                .pattern("GMG")
-//                .define('G', Tags.Items.DUSTS_GLOWSTONE)
-//                .define('M', Items.BONE_MEAL)
-//                .define('D', Items.LANTERN)
-//                .unlockedBy("hasLantern", has(Items.LANTERN))
-//                .save(consumer);
+        // Sun Block
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, Registration.SUN_BLOCK.get())
+                .pattern("GMG")
+                .pattern("MDM")
+                .pattern("GMG")
+                .define('G', Tags.Items.DUSTS_GLOWSTONE)
+                .define('M', Items.BONE_MEAL)
+                .define('D', Items.LANTERN)
+                .unlockedBy("hasLantern", has(Items.LANTERN))
+                .save(outputs);
     }
 }
