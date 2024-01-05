@@ -26,3 +26,4 @@ forge*changelog.txt
 ACCESS_TOKEN
 USERNAME
 /runs/
+/src/generated/resources/.cache/
