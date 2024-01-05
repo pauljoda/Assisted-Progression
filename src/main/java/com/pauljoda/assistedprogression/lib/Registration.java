@@ -2,6 +2,8 @@ package com.pauljoda.assistedprogression.lib;
 
 import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.EnderPadBlockEntity;
+import com.pauljoda.nucleus.Nucleus;
+import com.pauljoda.nucleus.common.items.EnergyContainingItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
@@ -13,7 +15,12 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -30,6 +37,7 @@ import com.pauljoda.assistedprogression.common.items.*;
  * @author Paul Davis - pauljoda
  * @since 6/3/2022
  */
+@Mod.EventBusSubscriber(modid = Reference.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class Registration {
     /*******************************************************************************************************************
      * Registries                                                                                                      *
@@ -69,9 +77,9 @@ public class Registration {
 //
     public static final DeferredHolder<Item, MagnetItem> MAGNET_ITEM =
             ITEMS.register("magnet", MagnetItem::new);
-//
-//    public static final DeferredItem<Item> ELECTRIC_MAGNET_ITEM =
-//            ITEMS.register("electric_magnet", ElectricMagnetItem::new);
+
+    public static final DeferredHolder<Item, ElectricMagnetItem> ELECTRIC_MAGNET_ITEM =
+            ITEMS.register("electric_magnet", ElectricMagnetItem::new);
 //
 //    public static final DeferredItem<Item> PIPETTE_ITEM =
 //            ITEMS.register("pipette", PipetteItem::new);
@@ -166,5 +174,18 @@ public class Registration {
                 output.accept(ENDER_PAD_BLOCK_ITEM.get());
                 output.accept(CLIMBING_GLOVES_ITEM.get());
                 output.accept(MAGNET_ITEM.get());
+                output.accept(ELECTRIC_MAGNET_ITEM.get());
             }).build());
+
+    /*******************************************************************************************************************
+     * Register Capabilities                                                                                           *
+     *******************************************************************************************************************/
+
+    @SubscribeEvent
+    private static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        event.registerItem(
+                Capabilities.EnergyStorage.ITEM,
+                (stack, ctx) -> new EnergyContainingItem(stack, ElectricMagnetItem.ENERGY_CAPACITY),
+                ELECTRIC_MAGNET_ITEM.get());
+    }
 }

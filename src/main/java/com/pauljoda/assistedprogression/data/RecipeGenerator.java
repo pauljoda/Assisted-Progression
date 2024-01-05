@@ -51,18 +51,18 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('I', Tags.Items.INGOTS_IRON)
                 .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
                 .save(outputs);
-//
-//        // Electric Magnet
-//        ShapedRecipeBuilder
-//                .shaped(Registration.ELECTRIC_MAGNET_ITEM.get())
-//                .pattern("D D")
-//                .pattern("IRI")
-//                .pattern(" I ")
-//                .define('I', Tags.Items.INGOTS_IRON)
-//                .define('D', Tags.Items.GEMS_DIAMOND)
-//                .define('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
-//                .unlockedBy("has_iron", has(Tags.Items.GEMS_DIAMOND))
-//                .save(consumer);
+
+        // Electric Magnet
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, Registration.ELECTRIC_MAGNET_ITEM.get())
+                .pattern("D D")
+                .pattern("IRI")
+                .pattern(" I ")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('D', Tags.Items.GEMS_DIAMOND)
+                .define('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
+                .unlockedBy("has_iron", has(Tags.Items.GEMS_DIAMOND))
+                .save(outputs);
 //
 //        // Pipette
 //        ShapedRecipeBuilder

@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "tag": "forge:gems/diamond"
+    },
+    "I": {
+      "tag": "forge:ingots/iron"
+    },
+    "R": {
+      "tag": "forge:storage_blocks/redstone"
+    }
+  },
+  "pattern": [
+    "D D",
+    "IRI",
+    " I "
+  ],
+  "result": {
+    "item": "assisted_progression:electric_magnet"
+  }
+}

@@ -40,10 +40,10 @@ public class TranslationGenerator extends LanguageProvider {
         addWithDescription(Registration.MAGNET_ITEM,
                 "Magnet",
                 "Attracts all sorts of things, some dangerous. Shift+Right-Click to toggle activation");
-//        addWithDescription(Registration.ELECTRIC_MAGNET_ITEM,
-//                "Electric Magnet",
-//                "Attracts item entities and xp orbs, requires power. Shift+Right-Click to toggle activation");
-//
+        addWithDescription(Registration.ELECTRIC_MAGNET_ITEM,
+                "Electric Magnet",
+                "Attracts item entities and xp orbs, requires power. Shift+Right-Click to toggle activation");
+
 //        // Pipette
 //        addWithDescription(Registration.PIPETTE_ITEM,
 //                "Pipette",

@@ -36,6 +36,7 @@ repositories {
             includeGroup "dev.architectury"
         }
     }
+    maven { url 'https://modmaven.dev/' }
     mavenLocal()
 }
 
@@ -77,6 +78,12 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"
     implementation "com.pauljoda:nucleus:+"
+
+//    // For testing with power
+//    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}")// core
+//    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:additions")// Mekanism: Additions
+//    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:generators")// Mekanism: Generators
+//    runtimeOnly fg.deobf("mekanism:Mekanism:${mekanism_version}:tools")// Mekanism: Tools
 }
 
 tasks.withType(ProcessResources).configureEach {

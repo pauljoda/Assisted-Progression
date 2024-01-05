@@ -30,8 +30,5 @@ public class AssistedProgression {
     public AssistedProgression(IEventBus modEventBus) {
         // Setup registries
         Registration.init(modEventBus);
-
-        // Register Packets
-        //PacketManager.initPackets();
     }
 }
