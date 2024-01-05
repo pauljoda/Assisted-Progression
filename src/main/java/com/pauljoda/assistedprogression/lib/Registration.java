@@ -5,18 +5,20 @@ import com.pauljoda.assistedprogression.common.blocks.PlayerPlateBlock;
 import com.pauljoda.assistedprogression.common.blocks.SunBlock;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.EnderPadBlockEntity;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.SunBlockEntity;
+import com.pauljoda.assistedprogression.common.menu.TrashBagMenu;
 import com.pauljoda.assistedprogression.common.items.ClimbingGlovesItem;
 import com.pauljoda.assistedprogression.common.items.ElectricMagnetItem;
 import com.pauljoda.assistedprogression.common.items.MagnetItem;
+import com.pauljoda.assistedprogression.common.items.TrashBagItem;
 import com.pauljoda.nucleus.common.items.EnergyContainingItem;
+import com.pauljoda.nucleus.common.items.InventoryHandlerItem;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
-import net.minecraft.world.item.Item;
+import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
@@ -27,6 +29,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * This file was created for Nucleus
@@ -90,13 +93,13 @@ public class Registration {
 //
     public static final DeferredHolder<Item, ClimbingGlovesItem> CLIMBING_GLOVES_ITEM =
             ITEMS.register("climbing_gloves", ClimbingGlovesItem::new);
-//
-//    public static final DeferredHolder<Item> TRASH_BAG_ITEM =
-//            ITEMS.register("trash_bag", () -> new TrashBagItem(1));
-//
-//    public static final DeferredItem<Item> HEFTY_BAG_ITEM =
-//            ITEMS.register("hefty_bag", () -> new TrashBagItem(18));
-//
+
+    public static final DeferredHolder<Item, TrashBagItem> TRASH_BAG_ITEM =
+            ITEMS.register("trash_bag", () -> new TrashBagItem(1));
+
+    public static final DeferredHolder<Item, TrashBagItem> HEFTY_BAG_ITEM =
+            ITEMS.register("hefty_bag", () -> new TrashBagItem(18));
+
 //    public static final DeferredItem<Item> NET_ITEM =
 //            ITEMS.register("net", NetItem::new);
 //
@@ -145,12 +148,13 @@ public class Registration {
      * Container                                                                                                       *
      *******************************************************************************************************************/
 
-//    public static final RegistryObject<MenuType<TrashBagContainer>> TRASH_BAG_CONTAINER =
-//            CONTAINERS.register("trash_bag",
-//                    () -> IForgeMenuType.create(((windowId, inv, data) ->
-//                            new TrashBagContainer(windowId, inv,
-//                                    inv.player.getItemInHand(InteractionHand.MAIN_HAND).getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY).orElse(null),
-//                                    inv.player.getItemInHand(InteractionHand.MAIN_HAND)))));
+    public static final DeferredHolder<MenuType<?>, MenuType<TrashBagMenu>> TRASH_BAG_CONTAINER =
+            CONTAINERS.register("trash_bag",
+                    () -> new MenuType<>(
+                            ((windowId, inv) ->
+                            new TrashBagMenu(windowId, inv,
+                                    inv.player.getItemInHand(InteractionHand.MAIN_HAND).getCapability(Capabilities.ItemHandler.ITEM),
+                                    inv.player.getItemInHand(InteractionHand.MAIN_HAND))), FeatureFlags.DEFAULT_FLAGS));
 
     /*******************************************************************************************************************
      * Entity                                                                                                          *
@@ -180,6 +184,8 @@ public class Registration {
                 output.accept(CLIMBING_GLOVES_ITEM.get());
                 output.accept(MAGNET_ITEM.get());
                 output.accept(ELECTRIC_MAGNET_ITEM.get());
+                output.accept(TRASH_BAG_ITEM.get());
+                output.accept(HEFTY_BAG_ITEM.get());
             }).build());
 
     /*******************************************************************************************************************
@@ -188,9 +194,55 @@ public class Registration {
 
     @SubscribeEvent
     private static void registerCapabilities(RegisterCapabilitiesEvent event) {
+        // Magnet
         event.registerItem(
                 Capabilities.EnergyStorage.ITEM,
                 (stack, ctx) -> new EnergyContainingItem(stack, ElectricMagnetItem.ENERGY_CAPACITY),
                 ELECTRIC_MAGNET_ITEM.get());
+
+        // Trash Bags
+        // Normal
+        event.registerItem(
+                Capabilities.ItemHandler.ITEM,
+                (stack, ctx) -> new InventoryHandlerItem(stack, stack.getOrCreateTag()) {
+                    @Override
+                    protected int getInventorySize() {
+                        return 1;
+                    }
+
+                    @Override
+                    protected boolean isItemValidForSlot(int i, ItemStack itemStack) {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean isItemValid(int i, @NotNull ItemStack itemStack) {
+                        return true;
+                    }
+                },
+                TRASH_BAG_ITEM.get()
+        );
+
+        // Hefty Bag
+        event.registerItem(
+                Capabilities.ItemHandler.ITEM,
+                (stack, ctx) -> new InventoryHandlerItem(stack, stack.getOrCreateTag()) {
+                    @Override
+                    protected int getInventorySize() {
+                        return 18;
+                    }
+
+                    @Override
+                    protected boolean isItemValidForSlot(int i, ItemStack itemStack) {
+                        return true;
+                    }
+
+                    @Override
+                    public boolean isItemValid(int i, @NotNull ItemStack itemStack) {
+                        return true;
+                    }
+                },
+                HEFTY_BAG_ITEM.get()
+        );
     }
 }

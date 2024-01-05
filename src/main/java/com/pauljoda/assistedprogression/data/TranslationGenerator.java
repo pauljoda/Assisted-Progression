@@ -59,16 +59,16 @@ public class TranslationGenerator extends LanguageProvider {
         addWithDescription(Registration.CLIMBING_GLOVES_ITEM,
                 "Climbing Gloves",
                 "Have in your inventory to scale walls by walking into them");
-//
-//        // Trash Bags
-//        addWithDescription(Registration.TRASH_BAG_ITEM,
-//                "Trash Bag",
-//                "Contains one slot, will void items matching filter on pickup");
-//        add("trash_bag", "Trash Bag");
-//        addWithDescription(Registration.HEFTY_BAG_ITEM,
-//                "Hefty Bag",
-//                "Contains 18 slots, will void items matching filter on pickup");
-//        add("hefty_bag", "Hefty Bag");
+
+        // Trash Bags
+        addWithDescription(Registration.TRASH_BAG_ITEM,
+                "Trash Bag",
+                "Contains one slot, will void items matching filter on pickup");
+        add("trash_bag", "Trash Bag");
+        addWithDescription(Registration.HEFTY_BAG_ITEM,
+                "Hefty Bag",
+                "Contains 18 slots, will void items matching filter on pickup");
+        add("hefty_bag", "Hefty Bag");
 //
 //        // Nets
 //        addWithDescription(Registration.NET_ITEM,

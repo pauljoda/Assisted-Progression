@@ -1,6 +1,8 @@
 package com.pauljoda.assistedprogression.client;
 
+import com.pauljoda.assistedprogression.client.screen.TrashBagScreen;
 import com.pauljoda.assistedprogression.lib.Reference;
+import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
@@ -25,7 +27,7 @@ public class ClientSetup {
     public static void setupClient(FMLClientSetupEvent event) {
         event.enqueueWork(() -> {
             // Register Screens
-            //MenuScreens.register(Registration.TRASH_BAG_CONTAINER.get(), TrashBagMenu::new);
+            MenuScreens.register(Registration.TRASH_BAG_CONTAINER.get(), TrashBagScreen::new);
 
             // Set Clear block
             //ItemBlockRenderTypes.setRenderLayer(Registration.SPAWNER_FRAME_BLOCK.get(), RenderType.cutout());
