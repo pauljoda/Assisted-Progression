@@ -36,10 +36,10 @@ public class TranslationGenerator extends LanguageProvider {
 //                "Hold right click and release while looking at a spawner to pick it up, hold right click while aiming at a block to place it back down");
 //        add("assisted_progression.text.spawnerRelocator.type", "%s%sType: %s");
 //
-//        // Magnets
-//        addWithDescription(Registration.MAGNET_ITEM,
-//                "Magnet",
-//                "Attracts all sorts of things, some dangerous. Shift+Right-Click to toggle activation");
+        // Magnets
+        addWithDescription(Registration.MAGNET_ITEM,
+                "Magnet",
+                "Attracts all sorts of things, some dangerous. Shift+Right-Click to toggle activation");
 //        addWithDescription(Registration.ELECTRIC_MAGNET_ITEM,
 //                "Electric Magnet",
 //                "Attracts item entities and xp orbs, requires power. Shift+Right-Click to toggle activation");

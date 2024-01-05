@@ -42,15 +42,15 @@ public class RecipeGenerator extends RecipeProvider {
 //                .unlockedBy("has_ender_pearls", has(Tags.Items.ENDER_PEARLS))
 //                .save(outputs);
 //
-//        // Cheap Magnet
-//        ShapedRecipeBuilder
-//                .shaped(Registration.MAGNET_ITEM.get())
-//                .pattern("I I")
-//                .pattern("I I")
-//                .pattern(" I ")
-//                .define('I', Tags.Items.INGOTS_IRON)
-//                .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
-//                .save(consumer);
+        // Cheap Magnet
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, Registration.MAGNET_ITEM.get())
+                .pattern("I I")
+                .pattern("I I")
+                .pattern(" I ")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .unlockedBy("has_iron", has(Tags.Items.INGOTS_IRON))
+                .save(outputs);
 //
 //        // Electric Magnet
 //        ShapedRecipeBuilder

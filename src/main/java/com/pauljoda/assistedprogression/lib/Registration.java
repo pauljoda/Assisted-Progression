@@ -67,8 +67,8 @@ public class Registration {
 //    public static final DeferredItem<Item> SPAWNER_RELOCATOR_ITEM =
 //            ITEMS.register("spawner_relocator", SpawnerRelocatorItem::new);
 //
-//    public static final DeferredItem<Item> MAGNET_ITEM =
-//            ITEMS.register("magnet", MagnetItem::new);
+    public static final DeferredHolder<Item, MagnetItem> MAGNET_ITEM =
+            ITEMS.register("magnet", MagnetItem::new);
 //
 //    public static final DeferredItem<Item> ELECTRIC_MAGNET_ITEM =
 //            ITEMS.register("electric_magnet", ElectricMagnetItem::new);
@@ -82,7 +82,7 @@ public class Registration {
     public static final DeferredHolder<Item, ClimbingGlovesItem> CLIMBING_GLOVES_ITEM =
             ITEMS.register("climbing_gloves", ClimbingGlovesItem::new);
 //
-//    public static final DeferredItem<Item> TRASH_BAG_ITEM =
+//    public static final DeferredHolder<Item> TRASH_BAG_ITEM =
 //            ITEMS.register("trash_bag", () -> new TrashBagItem(1));
 //
 //    public static final DeferredItem<Item> HEFTY_BAG_ITEM =
@@ -165,5 +165,6 @@ public class Registration {
             .displayItems((parameters, output) -> {
                 output.accept(ENDER_PAD_BLOCK_ITEM.get());
                 output.accept(CLIMBING_GLOVES_ITEM.get());
+                output.accept(MAGNET_ITEM.get());
             }).build());
 }

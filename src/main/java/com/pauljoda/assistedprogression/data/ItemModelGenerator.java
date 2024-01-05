@@ -35,10 +35,8 @@ public class ItemModelGenerator extends ItemModelProvider {
 //                mcLoc("item/generated"),
 //                "layer0", modLoc("items/spawner_relocator"));
 //
-//        // Magnet
-//        singleTexture(Registration.MAGNET_ITEM.get().getRegistryName().getPath(),
-//                mcLoc("item/generated"),
-//                "layer0", modLoc("items/magnet"));
+        // Magnet
+        basicItem(Registration.MAGNET_ITEM.get());
 //
 //        // Electric Magnet
 //        singleTexture(Registration.ELECTRIC_MAGNET_ITEM.get().getRegistryName().getPath(),
