@@ -2,6 +2,7 @@ package com.pauljoda.assistedprogression.data;
 
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
@@ -50,9 +51,7 @@ public class ItemModelGenerator extends ItemModelProvider {
 //                "layer0", modLoc("items/parashoes"));
 //
 //        // Climbing Gloves
-//        singleTexture(Registration.CLIMBING_GLOVES_ITEM.get().getRegistryName().getPath(),
-//                mcLoc("item/generated"),
-//                "layer0", modLoc("items/climbing_gloves"));
+        basicItem(Registration.CLIMBING_GLOVES_ITEM.get());
 //
 //        // Trash Bag
 //        singleTexture(Registration.TRASH_BAG_ITEM.get().getRegistryName().getPath(),
@@ -77,7 +76,8 @@ public class ItemModelGenerator extends ItemModelProvider {
         // Blocks ------------------------------------------------------------------------------------------------------
 
         // Ender Pad
-        withExistingParent(Registration.ENDER_PAD_NAME, modLoc(String.format("block/%s", Registration.ENDER_PAD_NAME)));
+        withExistingParent(BuiltInRegistries.BLOCK.getKey(Registration.ENDER_PAD_BLOCK.get()).getPath(),
+                modLoc(String.format("block/%s", BuiltInRegistries.BLOCK.getKey(Registration.ENDER_PAD_BLOCK.get()).getPath())));
 
 //        // Player Plate
 //        createItemBlock(Registration.PLAYER_PLATE_BLOCK, "block/player_plate");

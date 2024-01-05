@@ -1,6 +1,8 @@
 {
   "block.assisted_progression.ender_pad": "Ender Pad",
   "ender_pad.desc": "Place another in the path of the arrow on top and sneak while standing on one to teleport to the other",
+  "item.assisted_progression.climbing_gloves": "Climbing Gloves",
+  "item.assisted_progression.climbing_gloves.desc": "Have in your inventory to scale walls by walking into them",
   "itemGroup.assisted_progression": "Assisted Progression",
   "itemGroup.assisted_progression_pipettes": "Assisted Progression : Pipettes"
 }

@@ -2,18 +2,14 @@ package com.pauljoda.assistedprogression.data;
 
 import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.world.item.Items;
 import net.neoforged.neoforge.common.Tags;
-import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
 /**
  * This file was created for Nucleus
@@ -27,7 +23,7 @@ import java.util.function.Consumer;
  */
 public class RecipeGenerator extends RecipeProvider {
 
-    public RecipeGenerator(PackOutput generatorIn,  CompletableFuture<HolderLookup.Provider> lookupProvider) {
+    public RecipeGenerator(PackOutput generatorIn, CompletableFuture<HolderLookup.Provider> lookupProvider) {
         super(generatorIn, lookupProvider);
     }
 
@@ -92,17 +88,17 @@ public class RecipeGenerator extends RecipeProvider {
 //                .unlockedBy("has_boots", has(Items.LEATHER_BOOTS))
 //                .save(consumer);
 //
-//        // Climbing Gloves
-//        ShapedRecipeBuilder
-//                .shaped(Registration.CLIMBING_GLOVES_ITEM.get())
-//                .pattern(" L ")
-//                .pattern("LIL")
-//                .pattern("SLS")
-//                .define('L', Tags.Items.LEATHER)
-//                .define('I', Tags.Items.INGOTS_IRON)
-//                .define('S', Tags.Items.STRING)
-//                .unlockedBy("has_leather", has(Tags.Items.LEATHER))
-//                .save(consumer);
+        // Climbing Gloves
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, Registration.CLIMBING_GLOVES_ITEM.get())
+                .pattern(" L ")
+                .pattern("LIL")
+                .pattern("SLS")
+                .define('L', Tags.Items.LEATHER)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('S', Tags.Items.STRING)
+                .unlockedBy("has_leather", has(Tags.Items.LEATHER))
+                .save(outputs);
 //
 //        // Trash Bag
 //        ShapedRecipeBuilder

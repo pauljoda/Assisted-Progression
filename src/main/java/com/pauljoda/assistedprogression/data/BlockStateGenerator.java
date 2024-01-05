@@ -3,6 +3,7 @@ package com.pauljoda.assistedprogression.data;
 import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.PressurePlateBlock;
@@ -31,7 +32,7 @@ public class BlockStateGenerator extends BlockStateProvider {
     protected void registerStatesAndModels() {
         // Ender Pad
         ModelFile baseModel =
-                models().cubeColumn(Registration.ENDER_PAD_NAME,
+                models().cubeColumn(BuiltInRegistries.BLOCK.getKey(Registration.ENDER_PAD_BLOCK.get()).getPath(),
                         modLoc("block/ender_pad"), modLoc("block/ender_pad_top"));
         getVariantBuilder(Registration.ENDER_PAD_BLOCK.get())
                 // Set the rotation models

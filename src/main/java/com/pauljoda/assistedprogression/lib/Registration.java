@@ -3,6 +3,7 @@ package com.pauljoda.assistedprogression.lib;
 import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.EnderPadBlockEntity;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.network.chat.Component;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
@@ -14,7 +15,10 @@ import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredHolder;
+import net.neoforged.neoforge.registries.DeferredItem;
 import net.neoforged.neoforge.registries.DeferredRegister;
+
+import com.pauljoda.assistedprogression.common.items.*;
 
 /**
  * This file was created for Nucleus
@@ -75,8 +79,8 @@ public class Registration {
 //    public static final DeferredItem<Item> PARASHOES_ITEM =
 //            ITEMS.register("parashoes", ParashoesItem::new);
 //
-//    public static final DeferredItem<Item> CLIMBING_GLOVES_ITEM =
-//            ITEMS.register("climbing_gloves", ClimbingGlovesItem::new);
+    public static final DeferredHolder<Item, ClimbingGlovesItem> CLIMBING_GLOVES_ITEM =
+            ITEMS.register("climbing_gloves", ClimbingGlovesItem::new);
 //
 //    public static final DeferredItem<Item> TRASH_BAG_ITEM =
 //            ITEMS.register("trash_bag", () -> new TrashBagItem(1));
@@ -94,12 +98,11 @@ public class Registration {
      * Blocks                                                                                                          *
      *******************************************************************************************************************/
 
-    public static final String ENDER_PAD_NAME = "ender_pad";
     public static final DeferredHolder<Block, EnderPadBlock> ENDER_PAD_BLOCK =
-            BLOCKS.register(ENDER_PAD_NAME,
+            BLOCKS.register("ender_pad",
                     () -> new EnderPadBlock(BlockBehaviour.Properties.of().strength(2.0F)));
     public static final DeferredHolder<Item, BlockItem> ENDER_PAD_BLOCK_ITEM =
-            ITEMS.register(ENDER_PAD_NAME, () -> new BlockItem(ENDER_PAD_BLOCK.get(), new Item.Properties()));
+            ITEMS.register("ender_pad", () -> new BlockItem(ENDER_PAD_BLOCK.get(), new Item.Properties()));
 //
 //    public static final RegistryObject<Block> PLAYER_PLATE_BLOCK =
 //            BLOCKS.register("player_plate", PlayerPlateBlock::new);
@@ -154,11 +157,13 @@ public class Registration {
      * Creative Tabs                                                                                                   *
      *******************************************************************************************************************/
 
-    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB = CREATIVE_MODE_TABS.register(Reference.MOD_ID, () -> CreativeModeTab.builder()
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB
+            = CREATIVE_MODE_TABS.register(Reference.MOD_ID, () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup." + Reference.MOD_ID))
             .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ENDER_PAD_BLOCK_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
-                output.accept(ENDER_PAD_BLOCK_ITEM.get()); // Add the example item to the tab. For your own tabs, this method is preferred over the event
+                output.accept(ENDER_PAD_BLOCK_ITEM.get());
+                output.accept(CLIMBING_GLOVES_ITEM.get());
             }).build());
-
 }
