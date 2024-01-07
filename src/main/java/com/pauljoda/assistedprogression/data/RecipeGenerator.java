@@ -122,29 +122,29 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('L', Tags.Items.INGOTS_IRON)
                 .unlockedBy("has_leather", has(Tags.Items.INGOTS_IRON))
                 .save(outputs);
-//
-//        // Net
-//        ShapedRecipeBuilder
-//                .shaped(Registration.NET_ITEM.get())
-//                .pattern("S S")
-//                .pattern(" I ")
-//                .pattern("S S")
-//                .define('S', Tags.Items.STRING)
-//                .define('I', Tags.Items.INGOTS_IRON)
-//                .unlockedBy("has_string", has(Tags.Items.STRING))
-//                .save(consumer);
-//
-//        // Launcher
-//        ShapedRecipeBuilder
-//                .shaped(Registration.NET_LAUNCHER_ITEM.get())
-//                .pattern("   ")
-//                .pattern("IIB")
-//                .pattern(" IR")
-//                .define('I', Tags.Items.INGOTS_IRON)
-//                .define('B', Tags.Items.STORAGE_BLOCKS_IRON)
-//                .define('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
-//                .unlockedBy("has_redstone", has(Tags.Items.STORAGE_BLOCKS_REDSTONE))
-//                .save(consumer);
+
+        // Net
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, Registration.NET_ITEM.get())
+                .pattern("S S")
+                .pattern(" I ")
+                .pattern("S S")
+                .define('S', Tags.Items.STRING)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .unlockedBy("has_string", has(Tags.Items.STRING))
+                .save(outputs);
+
+        // Launcher
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, Registration.NET_LAUNCHER_ITEM.get())
+                .pattern("   ")
+                .pattern("IIB")
+                .pattern(" IR")
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('B', Tags.Items.STORAGE_BLOCKS_IRON)
+                .define('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
+                .unlockedBy("has_redstone", has(Tags.Items.STORAGE_BLOCKS_REDSTONE))
+                .save(outputs);
 
         // Blocks ------------------------------------------------------------------------------------------------------
         // Ender Pad

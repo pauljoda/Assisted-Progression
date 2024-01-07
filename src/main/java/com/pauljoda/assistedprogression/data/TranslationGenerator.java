@@ -69,17 +69,17 @@ public class TranslationGenerator extends LanguageProvider {
                 "Hefty Bag",
                 "Contains 18 slots, will void items matching filter on pickup");
         add("hefty_bag", "Hefty Bag");
-//
-//        // Nets
-//        addWithDescription(Registration.NET_ITEM,
-//                "Mob Net",
-//                "Use with Mob Net Launcher to launch nets that capture mobs, right click to place captured mobs");
-//        add("assisted_progression.text.net.stored", "Entity Stored: ");
-//
-//        // Net Launcher
-//        addWithDescription(Registration.NET_LAUNCHER_ITEM,
-//                "Mob Net Launcher",
-//                "Launches mob nets from inventory to capture mobs");
+
+        // Nets
+        addWithDescription(Registration.NET_ITEM,
+                "Mob Net",
+                "Use with Mob Net Launcher to launch nets that capture mobs, right click to place captured mobs");
+        add("assisted_progression.text.net.stored", "Entity Stored: ");
+
+        // Net Launcher
+        addWithDescription(Registration.NET_LAUNCHER_ITEM,
+                "Mob Net Launcher",
+                "Launches mob nets from inventory to capture mobs");
 
         // Blocks ------------------------------------------------------------------------------------------------------
         // Ender Pad
@@ -98,8 +98,8 @@ public class TranslationGenerator extends LanguageProvider {
         add(Registration.SUN_BLOCK.get(), "Miniature Sun");
         add("sun.desc", "Place above plants to help them grow. Will service a radius of 3 blocks around and 3 blocks below");
 
-//        // Entities ----------------------------------------------------------------------------------------------------
-//        add(Registration.NET_ENTITY.get(), "Mob Net");
+        // Entities ----------------------------------------------------------------------------------------------------
+        add(Registration.NET_ENTITY.get(), "Mob Net");
     }
 
     private void addWithDescription(DeferredHolder<Item, ? extends Item> item, String name, String desc) {

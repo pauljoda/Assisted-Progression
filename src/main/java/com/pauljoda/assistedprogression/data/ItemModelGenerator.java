@@ -42,22 +42,18 @@ public class ItemModelGenerator extends ItemModelProvider {
 
         // Climbing Gloves
         basicItem(Registration.CLIMBING_GLOVES_ITEM.get());
-//
+
         // Trash Bag
         basicItem(Registration.TRASH_BAG_ITEM.get());
 
         // Hefty Bag
         basicItem(Registration.HEFTY_BAG_ITEM.get());
-//
-//        // Net
-//        singleTexture(Registration.NET_ITEM.get().getRegistryName().getPath(),
-//                mcLoc("item/generated"),
-//                "layer0", modLoc("items/net"));
-//
-//        // Net Launcher
-//        singleTexture(Registration.NET_LAUNCHER_ITEM.get().getRegistryName().getPath(),
-//                mcLoc("item/generated"),
-//                "layer0", modLoc("items/net_launcher"));
+
+        // Net
+        basicItem(Registration.NET_ITEM.get());
+
+        // Net Launcher
+        basicItem(Registration.NET_LAUNCHER_ITEM.get());
 
         // Blocks ------------------------------------------------------------------------------------------------------
 

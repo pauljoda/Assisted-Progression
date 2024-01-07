@@ -8,11 +8,13 @@ import com.pauljoda.nucleus.helper.ModelHelper;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.entity.ThrownItemRenderer;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.EntityRenderersEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.model.geometry.StandaloneGeometryBakingContext;
 
@@ -49,9 +51,9 @@ public class ClientSetup {
                                .withTransforms(ModelHelper.DEFAULT_ITEM_STATE)
                                .build(new ResourceLocation(Reference.MOD_ID, "pipette_transforms"))));
      }
-//
-//    @SubscribeEvent
-//    public static void onRegisterRenderer(EntityRenderersEvent.RegisterRenderers event) {
-//        event.registerEntityRenderer(Registration.NET_ENTITY.get(), ThrownItemRenderer::new);
-//    }
+
+    @SubscribeEvent
+    public static void onRegisterRenderer(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(Registration.NET_ENTITY.get(), ThrownItemRenderer::new);
+    }
 }

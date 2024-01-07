@@ -6,6 +6,7 @@ import com.pauljoda.assistedprogression.common.blocks.SpawnerFrameBlock;
 import com.pauljoda.assistedprogression.common.blocks.SunBlock;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.EnderPadBlockEntity;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.SunBlockEntity;
+import com.pauljoda.assistedprogression.common.entities.NetEntity;
 import com.pauljoda.assistedprogression.common.items.*;
 import com.pauljoda.assistedprogression.common.menu.TrashBagMenu;
 import com.pauljoda.nucleus.common.items.EnergyContainingItem;
@@ -15,6 +16,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.BlockItem;
@@ -107,11 +109,11 @@ public class Registration {
     public static final DeferredHolder<Item, TrashBagItem> HEFTY_BAG_ITEM =
             ITEMS.register("hefty_bag", () -> new TrashBagItem(18));
 
-//    public static final DeferredItem<Item> NET_ITEM =
-//            ITEMS.register("net", NetItem::new);
-//
-//    public static final DeferredItem<Item> NET_LAUNCHER_ITEM =
-//            ITEMS.register("net_launcher", NetLauncherItem::new);
+    public static final DeferredHolder<Item, NetItem> NET_ITEM =
+            ITEMS.register("net", NetItem::new);
+
+    public static final DeferredHolder<Item, NetLauncherItem> NET_LAUNCHER_ITEM =
+            ITEMS.register("net_launcher", NetLauncherItem::new);
 
     /*******************************************************************************************************************
      * Blocks                                                                                                          *
@@ -168,13 +170,13 @@ public class Registration {
      * Entity                                                                                                          *
      *******************************************************************************************************************/
 
-//    public static final RegistryObject<EntityType<NetEntity>> NET_ENTITY =
-//            ENTITIES.register("net", () ->
-//                    EntityType.Builder.<NetEntity>of(NetEntity::new, MobCategory.MISC)
-//                            .sized(0.5F, 0.5F)
-//                            .clientTrackingRange(10)
-//                            .setShouldReceiveVelocityUpdates(true)
-//                            .build("net"));
+    public static final DeferredHolder<EntityType<?>, EntityType<NetEntity>> NET_ENTITY =
+            ENTITIES.register("net", () ->
+                    EntityType.Builder.<NetEntity>of(NetEntity::new, MobCategory.MISC)
+                            .sized(0.5F, 0.5F)
+                            .clientTrackingRange(10)
+                            .setShouldReceiveVelocityUpdates(true)
+                            .build("net"));
 
     /*******************************************************************************************************************
      * Creative Tabs                                                                                                   *
@@ -197,6 +199,8 @@ public class Registration {
                 output.accept(HEFTY_BAG_ITEM.get());
                 output.accept(SPAWNER_RELOCATOR_ITEM.get());
                 output.accept(PARASHOES_ITEM.get());
+                output.accept(NET_ITEM.get());
+                output.accept(NET_LAUNCHER_ITEM.get());
             }).build());
 
     // Pipettes
@@ -219,6 +223,13 @@ public class Registration {
                 Capabilities.EnergyStorage.ITEM,
                 (stack, ctx) -> new EnergyContainingItem(stack, ElectricMagnetItem.ENERGY_CAPACITY),
                 ELECTRIC_MAGNET_ITEM.get());
+
+        // Net Launch
+        event.registerItem(
+                Capabilities.EnergyStorage.ITEM,
+                (stack, ctx) -> new EnergyContainingItem(stack, NetLauncherItem.ENERGY_CAPACITY),
+                NET_LAUNCHER_ITEM.get()
+        );
 
         // Trash Bags
         // Normal
