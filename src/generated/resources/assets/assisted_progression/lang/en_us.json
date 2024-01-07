@@ -3,6 +3,7 @@
   "assisted_progression.text.pipette.fluidStored": "Fluid Contained:",
   "block.assisted_progression.ender_pad": "Ender Pad",
   "block.assisted_progression.player_plate": "Player Sensitive Pressure Plate",
+  "block.assisted_progression.spawner_frame": "Spawner Frame",
   "block.assisted_progression.sun": "Miniature Sun",
   "ender_pad.desc": "Place another in the path of the arrow on top and sneak while standing on one to teleport to the other",
   "hefty_bag": "Hefty Bag",
@@ -21,6 +22,7 @@
   "itemGroup.assisted_progression": "Assisted Progression",
   "itemGroup.assisted_progression_pipettes": "Assisted Progression : Pipettes",
   "player_player.desc": "Pressure plate that will only activate for player entities",
+  "spawner_frame.desc": "Right click with a mob net with a captured mob to create a spawner of that type",
   "sun.desc": "Place above plants to help them grow. Will service a radius of 3 blocks around and 3 blocks below",
   "trash_bag": "Trash Bag"
 }

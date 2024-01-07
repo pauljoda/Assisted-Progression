@@ -2,6 +2,7 @@
   "values": [
     "assisted_progression:ender_pad",
     "assisted_progression:sun",
+    "assisted_progression:spawner_frame",
     "assisted_progression:player_plate"
   ]
 }

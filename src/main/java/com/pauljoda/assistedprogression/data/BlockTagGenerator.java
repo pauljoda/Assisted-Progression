@@ -8,6 +8,7 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.tags.BlockTags;
 import net.neoforged.neoforge.common.data.BlockTagsProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.security.Provider;
@@ -36,11 +37,12 @@ public class BlockTagGenerator extends BlockTagsProvider {
         tag(BlockTags.MINEABLE_WITH_PICKAXE)
                 .add(Registration.ENDER_PAD_BLOCK.get())
                 .add(Registration.SUN_BLOCK.get())
+                .add(Registration.SPAWNER_FRAME_BLOCK.get())
                 .add(Registration.PLAYER_PLATE_BLOCK.get());
     }
 
     @Override
-    public String getName() {
+    public @NotNull String getName() {
         return "Assisted Progression Tags";
     }
 }

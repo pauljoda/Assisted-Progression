@@ -2,6 +2,7 @@ package com.pauljoda.assistedprogression.lib;
 
 import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
 import com.pauljoda.assistedprogression.common.blocks.PlayerPlateBlock;
+import com.pauljoda.assistedprogression.common.blocks.SpawnerFrameBlock;
 import com.pauljoda.assistedprogression.common.blocks.SunBlock;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.EnderPadBlockEntity;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.SunBlockEntity;
@@ -16,11 +17,13 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.flag.FeatureFlags;
 import net.minecraft.world.inventory.MenuType;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.BlockItem;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
-import net.minecraft.world.level.material.Fluid;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
@@ -125,9 +128,10 @@ public class Registration {
     public static final DeferredHolder<Item, BlockItem> PLAYER_PLATE_BLOCK_ITEM =
             ITEMS.register("player_plate", () -> new BlockItem(PLAYER_PLATE_BLOCK.get(), new Item.Properties()));
 
-//    public static final RegistryObject<Block> SPAWNER_FRAME_BLOCK =
-//            BLOCKS.register("spawner_frame", SpawnerFrameBlock::new);
-//    public static final RegistryObject<Item> SPAWNER_FRAME_BLOCK_ITEM = fromBlock(SPAWNER_FRAME_BLOCK);
+    public static final DeferredHolder<Block, SpawnerFrameBlock> SPAWNER_FRAME_BLOCK =
+            BLOCKS.register("spawner_frame", SpawnerFrameBlock::new);
+    public static final DeferredHolder<Item, BlockItem> SPAWNER_FRAME_BLOCK_ITEM =
+            ITEMS.register("spawner_frame", () -> new BlockItem(SPAWNER_FRAME_BLOCK.get(), new Item.Properties()));
 
     public static final DeferredHolder<Block, SunBlock> SUN_BLOCK =
             BLOCKS.register("sun", () -> new SunBlock(BlockBehaviour.Properties.of().strength(2.0F).noOcclusion()));
@@ -184,6 +188,7 @@ public class Registration {
                 output.accept(ENDER_PAD_BLOCK_ITEM.get());
                 output.accept(SUN_BLOCK_ITEM.get());
                 output.accept(PLAYER_PLATE_BLOCK_ITEM.get());
+                output.accept(SPAWNER_FRAME_BLOCK_ITEM.get());
                 output.accept(CLIMBING_GLOVES_ITEM.get());
                 output.accept(MAGNET_ITEM.get());
                 output.accept(ELECTRIC_MAGNET_ITEM.get());

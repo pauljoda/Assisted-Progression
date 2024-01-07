@@ -68,18 +68,20 @@ public class ItemModelGenerator extends ItemModelProvider {
         // Blocks ------------------------------------------------------------------------------------------------------
 
         // Ender Pad
-        withExistingParent(BuiltInRegistries.BLOCK.getKey(Registration.ENDER_PAD_BLOCK.get()).getPath(),
-                modLoc(String.format("block/%s", BuiltInRegistries.BLOCK.getKey(Registration.ENDER_PAD_BLOCK.get()).getPath())));
+        fromBlock(Registration.ENDER_PAD_BLOCK.get());
 
         // Player Plate
-        withExistingParent(BuiltInRegistries.BLOCK.getKey(Registration.PLAYER_PLATE_BLOCK.get()).getPath(),
-                modLoc(String.format("block/%s", BuiltInRegistries.BLOCK.getKey(Registration.PLAYER_PLATE_BLOCK.get()).getPath())));
-//
-//        // Spawner Frame
-//        createItemBlock(Registration.SPAWNER_FRAME_BLOCK, "block/spawner_frame");
-//
+        fromBlock(Registration.PLAYER_PLATE_BLOCK.get());
+
+        // Spawner Frame
+        fromBlock(Registration.SPAWNER_FRAME_BLOCK.get());
+
         // Sun
-        withExistingParent(BuiltInRegistries.BLOCK.getKey(Registration.SUN_BLOCK.get()).getPath(),
-                modLoc(String.format("block/%s", BuiltInRegistries.BLOCK.getKey(Registration.SUN_BLOCK.get()).getPath())));
+        fromBlock(Registration.SUN_BLOCK.get());
+    }
+
+    public void fromBlock(Block block) {
+        withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(),
+                modLoc(String.format("block/%s", BuiltInRegistries.BLOCK.getKey(block).getPath())));
     }
 }

@@ -43,6 +43,9 @@ public class LootTableGenerator extends BaseLootTableGenerator {
 
         // Player Plate
         createSimpleTable(Registration.PLAYER_PLATE_BLOCK.get());
+
+        // Spawner Frame
+        createSimpleTable(Registration.SPAWNER_FRAME_BLOCK.get());
     }
 
     @Override

@@ -168,17 +168,18 @@ public class RecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_brick", has(Tags.Items.INGOTS_BRICK))
                 .save(outputs);
 
-//        ShapedRecipeBuilder
-//                .shaped(Registration.SPAWNER_FRAME_BLOCK.get())
-//                .pattern("ODO")
-//                .pattern("IEI")
-//                .pattern("ODO")
-//                .define('O', Tags.Items.OBSIDIAN)
-//                .define('D', Tags.Items.GEMS_DIAMOND)
-//                .define('I', Tags.Items.INGOTS_IRON)
-//                .define('E', Items.END_CRYSTAL)
-//                .unlockedBy("has_endcrystal", has(Items.END_CRYSTAL))
-//                .save(consumer);
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, Registration.SPAWNER_FRAME_BLOCK.get())
+                .pattern("ODO")
+                .pattern("IEI")
+                .pattern("ODO")
+                .define('O', Tags.Items.OBSIDIAN)
+                .define('D', Tags.Items.GEMS_DIAMOND)
+                .define('I', Tags.Items.INGOTS_IRON)
+                .define('E', Items.END_CRYSTAL)
+                .unlockedBy("has_endcrystal", has(Items.END_CRYSTAL))
+                .save(outputs);
+
         // Sun Block
         ShapedRecipeBuilder
                 .shaped(RecipeCategory.MISC, Registration.SUN_BLOCK.get())

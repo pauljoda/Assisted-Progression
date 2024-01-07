@@ -52,9 +52,9 @@ public class BlockStateGenerator extends BlockStateProvider {
                 .partialState().with(PressurePlateBlock.POWERED, true).addModels(new ConfiguredModel(pressurePlateDown))
                 .partialState().with(PressurePlateBlock.POWERED, false).addModels(new ConfiguredModel(pressurePlate));
 
-//        // Spawner Frame
-//        simpleBlock(Registration.SPAWNER_FRAME_BLOCK.get());
-//
+        // Spawner Frame
+        // Created manually
+
         // Sun
         var sunModel =
                 models().getBuilder("block/sun")

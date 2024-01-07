@@ -1,0 +1,7 @@
+{
+  "variants": {
+    "": {
+      "model": "assisted_progression:block/spawner_frame"
+    }
+  }
+}
