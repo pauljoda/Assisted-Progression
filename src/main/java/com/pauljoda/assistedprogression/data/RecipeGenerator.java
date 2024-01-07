@@ -76,19 +76,19 @@ public class RecipeGenerator extends RecipeProvider {
                 .unlockedBy("has_glass", has(Tags.Items.GLASS_PANES))
                 .save(outputs);
 
-//        // Parashoes
-//        ShapedRecipeBuilder
-//                .shaped(Registration.PARASHOES_ITEM.get())
-//                .pattern("F F")
-//                .pattern("SBS")
-//                .pattern("C C")
-//                .define('F', Tags.Items.FEATHERS)
-//                .define('S', Tags.Items.STRING)
-//                .define('B', Items.LEATHER_BOOTS)
-//                .define('C', Items.WHITE_CARPET)
-//                .unlockedBy("has_boots", has(Items.LEATHER_BOOTS))
-//                .save(consumer);
-//
+        // Parashoes
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, Registration.PARASHOES_ITEM.get())
+                .pattern("F F")
+                .pattern("SBS")
+                .pattern("C C")
+                .define('F', Tags.Items.FEATHERS)
+                .define('S', Tags.Items.STRING)
+                .define('B', Items.LEATHER_BOOTS)
+                .define('C', Items.WHITE_CARPET)
+                .unlockedBy("has_boots", has(Items.LEATHER_BOOTS))
+                .save(outputs);
+
         // Climbing Gloves
         ShapedRecipeBuilder
                 .shaped(RecipeCategory.MISC, Registration.CLIMBING_GLOVES_ITEM.get())

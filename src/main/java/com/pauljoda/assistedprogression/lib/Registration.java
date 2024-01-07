@@ -94,10 +94,10 @@ public class Registration {
 
     public static final DeferredHolder<Item, PipetteItem> PIPETTE_ITEM =
             ITEMS.register("pipette", PipetteItem::new);
-    //
-//    public static final DeferredItem<Item> PARASHOES_ITEM =
-//            ITEMS.register("parashoes", ParashoesItem::new);
-//
+    // Parashoes
+    public static final DeferredHolder<Item, ParashoesItem> PARASHOES_ITEM =
+            ITEMS.register("parashoes", ParashoesItem::new);
+
     public static final DeferredHolder<Item, ClimbingGlovesItem> CLIMBING_GLOVES_ITEM =
             ITEMS.register("climbing_gloves", ClimbingGlovesItem::new);
 
@@ -196,6 +196,7 @@ public class Registration {
                 output.accept(TRASH_BAG_ITEM.get());
                 output.accept(HEFTY_BAG_ITEM.get());
                 output.accept(SPAWNER_RELOCATOR_ITEM.get());
+                output.accept(PARASHOES_ITEM.get());
             }).build());
 
     // Pipettes

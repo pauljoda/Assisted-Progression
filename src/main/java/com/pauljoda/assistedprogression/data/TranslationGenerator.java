@@ -51,10 +51,10 @@ public class TranslationGenerator extends LanguageProvider {
         add("assisted_progression.text.pipette.fluidStored", "Fluid Contained:");
         add("assisted_progression.text.pipette.empty", "Empty");
 
-//        // Parashoes
-//        add(Registration.PARASHOES_ITEM.get(), "Parashoes");
-//        add("parashoes.desc", "Wear these shoes to slow your decent");
-//
+        // Parashoes
+        add(Registration.PARASHOES_ITEM.get(), "Parashoes");
+        add("parashoes.desc", "Wear these shoes to slow your decent, repair with feathers in an anvil");
+
         // Climbing Gloves
         addWithDescription(Registration.CLIMBING_GLOVES_ITEM,
                 "Climbing Gloves",

@@ -4,11 +4,9 @@ import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
 import net.neoforged.neoforge.common.data.ExistingFileHelper;
-import net.neoforged.neoforge.registries.DeferredHolder;
 
 /**
  * This file was created for Nucleus
@@ -38,13 +36,11 @@ public class ItemModelGenerator extends ItemModelProvider {
 
         // Electric Magnet
         basicItem(Registration.ELECTRIC_MAGNET_ITEM.get());
-//
-//        // Parashoes
-//        singleTexture(Registration.PARASHOES_ITEM.get().getRegistryName().getPath(),
-//                mcLoc("item/generated"),
-//                "layer0", modLoc("items/parashoes"));
-//
-//        // Climbing Gloves
+
+        // Parashoes
+        basicItem(Registration.PARASHOES_ITEM.get());
+
+        // Climbing Gloves
         basicItem(Registration.CLIMBING_GLOVES_ITEM.get());
 //
         // Trash Bag
