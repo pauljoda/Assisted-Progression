@@ -25,6 +25,9 @@ authors="${mod_authors}" #optional
 
 description='''${mod_description}'''
 
+[[accessTransformers]]
+file="META-INF/accessTransfromer.cfg"
+
 [[dependencies.${mod_id}]] #optional
     modId="neoforge" #mandatory
     type="required" #mandatory

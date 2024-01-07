@@ -74,6 +74,11 @@ runs {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
+minecraft {
+    accessTransformers {
+        file('src/main/resources/META-INF/accessTransformer.cfg')
+    }
+}
 
 dependencies {
     implementation "net.neoforged:neoforge:${neo_version}"

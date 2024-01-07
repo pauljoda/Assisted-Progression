@@ -15,6 +15,11 @@ import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import static net.minecraft.client.resources.model.ModelBakery.GENERATION_MARKER;
+
 /**
  * This file was created for Nucleus
  * <p>
@@ -50,7 +55,16 @@ public class ClientSetup {
 
     @SubscribeEvent
     public static void modelBake(ModelEvent.RegisterGeometryLoaders event) {
-        event.register(new ResourceLocation(Reference.MOD_ID, "pipette"), ModelPipette.Loader.INSTANCE);
+        //event.register(ModelPipette.LOCATION, ModelPipette.Loader.INSTANCE);
+     }
+
+     @SubscribeEvent
+     public static void modifyBaked(ModelEvent.ModifyBakingResult event) {
+       var bakedModel = event.getModels().get(ModelPipette.LOCATION);
+       event.getModels().put(ModelPipette.LOCATION,
+               new ModelPipette.PipetteDynamicModel(event.getModelBakery(),
+                       bakedModel,
+                       GENERATION_MARKER.customData));
      }
 //
 //    @SubscribeEvent
