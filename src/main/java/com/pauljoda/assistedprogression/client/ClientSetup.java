@@ -4,21 +4,15 @@ import com.pauljoda.assistedprogression.client.model.ModelPipette;
 import com.pauljoda.assistedprogression.client.screen.TrashBagScreen;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
+import com.pauljoda.nucleus.helper.ModelHelper;
 import net.minecraft.client.gui.screens.MenuScreens;
-import net.minecraft.client.renderer.ItemBlockRenderTypes;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.neoforge.client.event.ModelEvent;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import static net.minecraft.client.resources.model.ModelBakery.GENERATION_MARKER;
+import net.neoforged.neoforge.client.model.geometry.StandaloneGeometryBakingContext;
 
 /**
  * This file was created for Nucleus
@@ -43,28 +37,15 @@ public class ClientSetup {
         });
     }
 
-    /**
-     * Stitch textures
-     * @param event Event
-     */
-//    @SubscribeEvent
-//    public static void textureStitch(TextureAtlasStitchedEvent event) {
-//        // Need to add in the mask
-//        event.addSprite(ModelPipette.maskLocation);
-//    }
-
-    @SubscribeEvent
-    public static void modelBake(ModelEvent.RegisterGeometryLoaders event) {
-        //event.register(ModelPipette.LOCATION, ModelPipette.Loader.INSTANCE);
-     }
-
      @SubscribeEvent
      public static void modifyBaked(ModelEvent.ModifyBakingResult event) {
        var bakedModel = event.getModels().get(ModelPipette.LOCATION);
        event.getModels().put(ModelPipette.LOCATION,
                new ModelPipette.PipetteDynamicModel(event.getModelBakery(),
                        bakedModel,
-                       GENERATION_MARKER.customData));
+                       StandaloneGeometryBakingContext.builder()
+                               .withTransforms(ModelHelper.DEFAULT_ITEM_STATE)
+                               .build(new ResourceLocation(Reference.MOD_ID, "pipette_transforms"))));
      }
 //
 //    @SubscribeEvent

@@ -127,7 +127,6 @@ public class ModelPipette implements IUnbakedGeometry<ModelPipette> {
         TextureAtlasSprite baseSprite = spriteGetter.apply(baseMaterial);
         TextureAtlasSprite particleSprite = spriteGetter.apply(maskMaterial);
 
-
         StandaloneGeometryBakingContext itemContext = StandaloneGeometryBakingContext.builder(context).withGui3d(false).withUseBlockLight(false).build(modelLocation);
         CompositeModel.Baked.Builder modelBuilder = CompositeModel.Baked.builder(itemContext, particleSprite, new PipetteOverrideList(baker, itemContext), context.getTransforms());
         RenderTypeGroup normalRenderTypes = getLayerRenderTypes(false);
