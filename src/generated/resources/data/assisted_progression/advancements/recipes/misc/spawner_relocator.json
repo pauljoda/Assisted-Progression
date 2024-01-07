@@ -1,13 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_endcrystal": {
+    "has_ender_pearls": {
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:end_crystal"
-            ]
+            "tag": "forge:ender_pearls"
           }
         ]
       },
@@ -15,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "assisted_progression:spawner_grame"
+        "recipe": "assisted_progression:spawner_relocator"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -23,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_endcrystal"
+      "has_ender_pearls"
     ]
   ],
   "rewards": {
     "recipes": [
-      "assisted_progression:spawner_grame"
+      "assisted_progression:spawner_relocator"
     ]
   }
 }

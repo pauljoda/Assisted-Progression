@@ -76,7 +76,7 @@ sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 minecraft {
     accessTransformers {
-        file('src/main/resources/META-INF/accessTransformer.cfg')
+        file('src/main/resources/META-INF/accesstransformer.cfg')
     }
 }
 

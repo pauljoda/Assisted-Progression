@@ -83,9 +83,9 @@ public class Registration {
      * Items                                                                                                           *
      *******************************************************************************************************************/
 
-//    public static final DeferredItem<Item> SPAWNER_RELOCATOR_ITEM =
-//            ITEMS.register("spawner_relocator", SpawnerRelocatorItem::new);
-//
+    public static final DeferredHolder<Item, SpawnerRelocatorItem> SPAWNER_RELOCATOR_ITEM =
+            ITEMS.register("spawner_relocator", SpawnerRelocatorItem::new);
+
     public static final DeferredHolder<Item, MagnetItem> MAGNET_ITEM =
             ITEMS.register("magnet", MagnetItem::new);
 
@@ -180,6 +180,7 @@ public class Registration {
      * Creative Tabs                                                                                                   *
      *******************************************************************************************************************/
 
+    // Main
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB
             = CREATIVE_MODE_TABS.register(Reference.MOD_ID, () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + Reference.MOD_ID))
@@ -194,8 +195,10 @@ public class Registration {
                 output.accept(ELECTRIC_MAGNET_ITEM.get());
                 output.accept(TRASH_BAG_ITEM.get());
                 output.accept(HEFTY_BAG_ITEM.get());
+                output.accept(SPAWNER_RELOCATOR_ITEM.get());
             }).build());
 
+    // Pipettes
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> PIPETTE_TAB
             = CREATIVE_MODE_TABS.register(Reference.MOD_ID + "_pipettes", () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + Reference.MOD_ID + "_pipettes"))

@@ -32,17 +32,17 @@ public class RecipeGenerator extends RecipeProvider {
     protected void buildRecipes(RecipeOutput outputs) {
         // Items -------------------------------------------------------------------------------------------------------
         // Spawner Relocator
-//        ShapedRecipeBuilder
-//                .shaped(Registration.SPAWNER_RELOCATOR_ITEM.get())
-//                .define('e', Tags.Items.ENDER_PEARLS)
-//                .define('i', Tags.Items.INGOTS_IRON)
-//                .define('s', Tags.Items.SLIMEBALLS)
-//                .pattern("  s")
-//                .pattern(" i ")
-//                .pattern("e  ")
-//                .unlockedBy("has_ender_pearls", has(Tags.Items.ENDER_PEARLS))
-//                .save(outputs);
-//
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, Registration.SPAWNER_RELOCATOR_ITEM.get())
+                .define('e', Tags.Items.ENDER_PEARLS)
+                .define('i', Tags.Items.INGOTS_IRON)
+                .define('s', Tags.Items.SLIMEBALLS)
+                .pattern("  s")
+                .pattern(" i ")
+                .pattern("e  ")
+                .unlockedBy("has_ender_pearls", has(Tags.Items.ENDER_PEARLS))
+                .save(outputs);
+
         // Cheap Magnet
         ShapedRecipeBuilder
                 .shaped(RecipeCategory.MISC, Registration.MAGNET_ITEM.get())
@@ -100,7 +100,7 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('S', Tags.Items.STRING)
                 .unlockedBy("has_leather", has(Tags.Items.LEATHER))
                 .save(outputs);
-//
+
         // Trash Bag
         ShapedRecipeBuilder
                 .shaped(RecipeCategory.MISC, Registration.TRASH_BAG_ITEM.get())

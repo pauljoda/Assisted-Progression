@@ -1,0 +1,23 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "e": {
+      "tag": "forge:ender_pearls"
+    },
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "s": {
+      "tag": "forge:slimeballs"
+    }
+  },
+  "pattern": [
+    "  s",
+    " i ",
+    "e  "
+  ],
+  "result": {
+    "item": "assisted_progression:spawner_relocator"
+  }
+}

@@ -4,7 +4,6 @@ import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
@@ -52,8 +51,7 @@ public class BlockStateGenerator extends BlockStateProvider {
                 .partialState().with(PressurePlateBlock.POWERED, true).addModels(new ConfiguredModel(pressurePlateDown))
                 .partialState().with(PressurePlateBlock.POWERED, false).addModels(new ConfiguredModel(pressurePlate));
 
-        // Spawner Frame
-        // Created manually
+        simpleBlock(Registration.SPAWNER_FRAME_BLOCK.get());
 
         // Sun
         var sunModel =

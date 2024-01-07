@@ -29,13 +29,13 @@ public class TranslationGenerator extends LanguageProvider {
         add("itemGroup." + Reference.MOD_ID, "Assisted Progression");
         add("itemGroup." + Reference.MOD_ID + "_pipettes", "Assisted Progression : Pipettes");
 
-//        // Items -------------------------------------------------------------------------------------------------------
-//        // Spawner Relocator
-//        addWithDescription(Registration.SPAWNER_RELOCATOR_ITEM
-//                , "Spawner Relocator",
-//                "Hold right click and release while looking at a spawner to pick it up, hold right click while aiming at a block to place it back down");
-//        add("assisted_progression.text.spawnerRelocator.type", "%s%sType: %s");
-//
+        // Items -------------------------------------------------------------------------------------------------------
+        // Spawner Relocator
+        addWithDescription(Registration.SPAWNER_RELOCATOR_ITEM
+                , "Spawner Relocator",
+                "Hold right click and release while looking at a spawner to pick it up, hold right click while aiming at a block to place it back down");
+        add("assisted_progression.text.spawnerRelocator.type", "%s%sType: %s");
+
         // Magnets
         addWithDescription(Registration.MAGNET_ITEM,
                 "Magnet",
