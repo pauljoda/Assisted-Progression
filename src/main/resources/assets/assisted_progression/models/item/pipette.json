@@ -1,7 +1,8 @@
 {
-  "parent": "item/generated",
+  "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "assisted_progression:items/pipette",
-    "mask": "assisted_progression:items/pipette_mask"
+    "layer0": "assisted_progression:item/pipette",
+    "base": "assisted_progression:item/pipette",
+    "fluid": "assisted_progression:item/pipette_mask"
   }
 }

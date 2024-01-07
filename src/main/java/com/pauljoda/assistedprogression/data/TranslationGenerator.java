@@ -44,13 +44,13 @@ public class TranslationGenerator extends LanguageProvider {
                 "Electric Magnet",
                 "Attracts item entities and xp orbs, requires power. Shift+Right-Click to toggle activation");
 
-//        // Pipette
-//        addWithDescription(Registration.PIPETTE_ITEM,
-//                "Pipette",
-//                "Holds up to one bucket of fluid, useful for removing fluid amounts less than one bucket. Right click fluid handling tiles to insert and extract fluid");
-//        add("assisted_progression.text.pipette.fluidStored", "Fluid Contained:");
-//        add("assisted_progression.text.pipette.empty", "Empty");
-//
+        // Pipette
+        addWithDescription(Registration.PIPETTE_ITEM,
+                "Pipette",
+                "Holds up to one bucket of fluid, useful for removing fluid amounts less than one bucket. Right click fluid handling tiles to insert and extract fluid");
+        add("assisted_progression.text.pipette.fluidStored", "Fluid Contained:");
+        add("assisted_progression.text.pipette.empty", "Empty");
+
 //        // Parashoes
 //        add(Registration.PARASHOES_ITEM.get(), "Parashoes");
 //        add("parashoes.desc", "Wear these shoes to slow your decent");

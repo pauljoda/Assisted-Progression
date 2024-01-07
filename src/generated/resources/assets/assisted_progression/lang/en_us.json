@@ -1,4 +1,6 @@
 {
+  "assisted_progression.text.pipette.empty": "Empty",
+  "assisted_progression.text.pipette.fluidStored": "Fluid Contained:",
   "block.assisted_progression.ender_pad": "Ender Pad",
   "block.assisted_progression.player_plate": "Player Sensitive Pressure Plate",
   "block.assisted_progression.sun": "Miniature Sun",
@@ -12,6 +14,8 @@
   "item.assisted_progression.hefty_bag.desc": "Contains 18 slots, will void items matching filter on pickup",
   "item.assisted_progression.magnet": "Magnet",
   "item.assisted_progression.magnet.desc": "Attracts all sorts of things, some dangerous. Shift+Right-Click to toggle activation",
+  "item.assisted_progression.pipette": "Pipette",
+  "item.assisted_progression.pipette.desc": "Holds up to one bucket of fluid, useful for removing fluid amounts less than one bucket. Right click fluid handling tiles to insert and extract fluid",
   "item.assisted_progression.trash_bag": "Trash Bag",
   "item.assisted_progression.trash_bag.desc": "Contains one slot, will void items matching filter on pickup",
   "itemGroup.assisted_progression": "Assisted Progression",

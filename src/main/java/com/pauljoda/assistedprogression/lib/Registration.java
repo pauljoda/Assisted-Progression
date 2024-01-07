@@ -5,13 +5,11 @@ import com.pauljoda.assistedprogression.common.blocks.PlayerPlateBlock;
 import com.pauljoda.assistedprogression.common.blocks.SunBlock;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.EnderPadBlockEntity;
 import com.pauljoda.assistedprogression.common.blocks.blockentity.SunBlockEntity;
+import com.pauljoda.assistedprogression.common.items.*;
 import com.pauljoda.assistedprogression.common.menu.TrashBagMenu;
-import com.pauljoda.assistedprogression.common.items.ClimbingGlovesItem;
-import com.pauljoda.assistedprogression.common.items.ElectricMagnetItem;
-import com.pauljoda.assistedprogression.common.items.MagnetItem;
-import com.pauljoda.assistedprogression.common.items.TrashBagItem;
 import com.pauljoda.nucleus.common.items.EnergyContainingItem;
 import com.pauljoda.nucleus.common.items.InventoryHandlerItem;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -22,11 +20,17 @@ import net.minecraft.world.item.*;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.world.level.material.Fluid;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
+import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
+import net.neoforged.neoforge.fluids.FluidStack;
+import net.neoforged.neoforge.fluids.FluidType;
+import net.neoforged.neoforge.fluids.capability.IFluidHandler;
+import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
 import org.jetbrains.annotations.NotNull;
@@ -36,7 +40,7 @@ import org.jetbrains.annotations.NotNull;
  * <p>
  * Nucleus is licensed under the
  * Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International License:
- * http://creativecommons.org/licenses/by-nc-sa/4.0/
+ * <a href="http://creativecommons.org/licenses/by-nc-sa/4.0/">License</a>
  *
  * @author Paul Davis - pauljoda
  * @since 6/3/2022
@@ -84,10 +88,10 @@ public class Registration {
 
     public static final DeferredHolder<Item, ElectricMagnetItem> ELECTRIC_MAGNET_ITEM =
             ITEMS.register("electric_magnet", ElectricMagnetItem::new);
-//
-//    public static final DeferredItem<Item> PIPETTE_ITEM =
-//            ITEMS.register("pipette", PipetteItem::new);
-//
+
+    public static final DeferredHolder<Item, PipetteItem> PIPETTE_ITEM =
+            ITEMS.register("pipette", PipetteItem::new);
+    //
 //    public static final DeferredItem<Item> PARASHOES_ITEM =
 //            ITEMS.register("parashoes", ParashoesItem::new);
 //
@@ -152,9 +156,9 @@ public class Registration {
             CONTAINERS.register("trash_bag",
                     () -> new MenuType<>(
                             ((windowId, inv) ->
-                            new TrashBagMenu(windowId, inv,
-                                    inv.player.getItemInHand(InteractionHand.MAIN_HAND).getCapability(Capabilities.ItemHandler.ITEM),
-                                    inv.player.getItemInHand(InteractionHand.MAIN_HAND))), FeatureFlags.DEFAULT_FLAGS));
+                                    new TrashBagMenu(windowId, inv,
+                                            inv.player.getItemInHand(InteractionHand.MAIN_HAND).getCapability(Capabilities.ItemHandler.ITEM),
+                                            inv.player.getItemInHand(InteractionHand.MAIN_HAND))), FeatureFlags.DEFAULT_FLAGS));
 
     /*******************************************************************************************************************
      * Entity                                                                                                          *
@@ -175,7 +179,6 @@ public class Registration {
     public static final DeferredHolder<CreativeModeTab, CreativeModeTab> MAIN_TAB
             = CREATIVE_MODE_TABS.register(Reference.MOD_ID, () -> CreativeModeTab.builder()
             .title(Component.translatable("itemGroup." + Reference.MOD_ID))
-            .withTabsBefore(CreativeModeTabs.COMBAT)
             .icon(() -> ENDER_PAD_BLOCK_ITEM.get().getDefaultInstance())
             .displayItems((parameters, output) -> {
                 output.accept(ENDER_PAD_BLOCK_ITEM.get());
@@ -186,6 +189,14 @@ public class Registration {
                 output.accept(ELECTRIC_MAGNET_ITEM.get());
                 output.accept(TRASH_BAG_ITEM.get());
                 output.accept(HEFTY_BAG_ITEM.get());
+            }).build());
+
+    public static final DeferredHolder<CreativeModeTab, CreativeModeTab> PIPETTE_TAB
+            = CREATIVE_MODE_TABS.register(Reference.MOD_ID + "_pipettes", () -> CreativeModeTab.builder()
+            .title(Component.translatable("itemGroup." + Reference.MOD_ID + "_pipettes"))
+            .icon(() -> PIPETTE_ITEM.get().getDefaultInstance())
+            .displayItems((parameters, output) -> {
+                output.accept(PIPETTE_ITEM.get());
             }).build());
 
     /*******************************************************************************************************************
@@ -244,5 +255,29 @@ public class Registration {
                 },
                 HEFTY_BAG_ITEM.get()
         );
+
+        // Pipette
+        event.registerItem(
+                Capabilities.FluidHandler.ITEM,
+                (stack, ctx) -> new FluidHandlerItemStack(stack, FluidType.BUCKET_VOLUME),
+                PIPETTE_ITEM.get()
+        );
+    }
+
+    @SubscribeEvent
+    public static void buildContents(BuildCreativeModeTabContentsEvent event) {
+        // Add to ingredients tab
+        if (event.getTabKey() == PIPETTE_TAB.getKey()) {
+            // Add all Fluids
+            BuiltInRegistries.FLUID.stream()
+                    .filter(fluid -> fluid.isSource(fluid.defaultFluidState()))
+                    .forEach(fluid -> {
+                        var pipetteStack = new ItemStack(PIPETTE_ITEM.get());
+                        var fluidStack = new FluidHandlerItemStack(pipetteStack, FluidType.BUCKET_VOLUME);
+                        if (fluidStack.fill(new FluidStack(fluid, FluidType.BUCKET_VOLUME), IFluidHandler.FluidAction.EXECUTE)
+                                == FluidType.BUCKET_VOLUME)
+                            event.accept(pipetteStack);
+                    });
+        }
     }
 }

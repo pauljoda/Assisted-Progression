@@ -1,15 +1,19 @@
 package com.pauljoda.assistedprogression.client;
 
+import com.pauljoda.assistedprogression.client.model.ModelPipette;
 import com.pauljoda.assistedprogression.client.screen.TrashBagScreen;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraft.client.gui.screens.MenuScreens;
 import net.minecraft.client.renderer.ItemBlockRenderTypes;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.resources.model.BakedModel;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.client.event.ModelEvent;
 
 /**
  * This file was created for Nucleus
@@ -44,12 +48,10 @@ public class ClientSetup {
 //        event.addSprite(ModelPipette.maskLocation);
 //    }
 
-//    @SubscribeEvent
-//    public static void modelBake(ModelEvent.RegisterAdditional event) {
-//        BakedModel baseModel = event.getModelRegistry().get(ModelPipette.LOCATION);
-//        event.getModelRegistry().put(ModelPipette.LOCATION,
-//                new ModelPipette.PipetteDynamicModel(event.getModelLoader(), baseModel, event.getModelLoader().GENERATION_MARKER.customData));
-//    }
+    @SubscribeEvent
+    public static void modelBake(ModelEvent.RegisterGeometryLoaders event) {
+        event.register(new ResourceLocation(Reference.MOD_ID, "pipette"), ModelPipette.Loader.INSTANCE);
+     }
 //
 //    @SubscribeEvent
 //    public static void onRegisterRenderer(EntityRenderersEvent.RegisterRenderers event) {

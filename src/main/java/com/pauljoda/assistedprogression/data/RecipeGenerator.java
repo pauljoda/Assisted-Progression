@@ -64,18 +64,18 @@ public class RecipeGenerator extends RecipeProvider {
                 .define('R', Tags.Items.STORAGE_BLOCKS_REDSTONE)
                 .unlockedBy("has_iron", has(Tags.Items.GEMS_DIAMOND))
                 .save(outputs);
-//
-//        // Pipette
-//        ShapedRecipeBuilder
-//                .shaped(Registration.PIPETTE_ITEM.get())
-//                .pattern("  P")
-//                .pattern(" P ")
-//                .pattern("G  ")
-//                .define('P', Tags.Items.GLASS_PANES)
-//                .define('G', Tags.Items.GLASS)
-//                .unlockedBy("has_glass", has(Tags.Items.GLASS_PANES))
-//                .save(consumer);
-//
+
+        // Pipette
+        ShapedRecipeBuilder
+                .shaped(RecipeCategory.MISC, Registration.PIPETTE_ITEM.get())
+                .pattern("  P")
+                .pattern(" P ")
+                .pattern("G  ")
+                .define('P', Tags.Items.GLASS_PANES)
+                .define('G', Tags.Items.GLASS)
+                .unlockedBy("has_glass", has(Tags.Items.GLASS_PANES))
+                .save(outputs);
+
 //        // Parashoes
 //        ShapedRecipeBuilder
 //                .shaped(Registration.PARASHOES_ITEM.get())
