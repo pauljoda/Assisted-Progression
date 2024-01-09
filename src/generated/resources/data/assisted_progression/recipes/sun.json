@@ -1,21 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "GMG",
-    "MDM",
-    "GMG"
-  ],
+  "category": "misc",
   "key": {
+    "D": {
+      "item": "minecraft:lantern"
+    },
     "G": {
       "tag": "forge:dusts/glowstone"
     },
     "M": {
       "item": "minecraft:bone_meal"
-    },
-    "D": {
-      "item": "minecraft:lantern"
     }
   },
+  "pattern": [
+    "GMG",
+    "MDM",
+    "GMG"
+  ],
   "result": {
     "item": "assisted_progression:sun"
   }

@@ -1,6 +1,7 @@
 package com.pauljoda.assistedprogression.common.blocks;
 
-import com.pauljoda.assistedprogression.common.blocks.entity.SunBlockEntity;
+import com.mojang.serialization.MapCodec;
+import com.pauljoda.assistedprogression.common.blocks.blockentity.SunBlockEntity;
 import com.pauljoda.nucleus.common.IAdvancedToolTipProvider;
 import com.pauljoda.nucleus.common.UpdatingBlock;
 import com.pauljoda.nucleus.util.ClientUtils;
@@ -8,11 +9,11 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.BlockGetter;
+import net.minecraft.world.level.block.BaseEntityBlock;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.RenderShape;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
 import net.minecraft.world.phys.shapes.CollisionContext;
 import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
@@ -32,8 +33,16 @@ import java.util.List;
  */
 public class SunBlock extends UpdatingBlock implements IAdvancedToolTipProvider {
 
-    public SunBlock() {
-        super(Properties.of(Material.METAL).strength(2.0F).noOcclusion());
+    public SunBlock(Properties properties) {
+        super(properties);
+    }
+
+    /**
+     * @return
+     */
+    @Override
+    protected MapCodec<? extends BaseEntityBlock> codec() {
+        return simpleCodec(SunBlock::new);
     }
 
     @Override

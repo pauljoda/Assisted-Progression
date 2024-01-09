@@ -1,21 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "ISI",
-    "SES",
-    "ISI"
-  ],
+  "category": "misc",
   "key": {
+    "E": {
+      "tag": "forge:ender_pearls"
+    },
     "I": {
       "tag": "forge:ingots/iron"
     },
     "S": {
       "tag": "forge:stone"
-    },
-    "E": {
-      "tag": "forge:ender_pearls"
     }
   },
+  "pattern": [
+    "ISI",
+    "SES",
+    "ISI"
+  ],
   "result": {
     "item": "assisted_progression:ender_pad"
   }

@@ -1,16 +1,15 @@
 package com.pauljoda.assistedprogression.common.items;
 
+import com.pauljoda.nucleus.common.blocks.entity.energy.EnergyBank;
 import com.pauljoda.nucleus.common.items.EnergyContainingItem;
-import com.pauljoda.nucleus.util.ClientUtils;
 import com.pauljoda.nucleus.util.EnergyUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
-import net.minecraftforge.energy.EnergyStorage;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -27,8 +26,12 @@ import java.util.List;
  * @since 6/5/2022
  */
 public class ElectricMagnetItem extends MagnetItem {
+    // Variables
+    private ItemStack heldStack;
+    private EnergyBank localEnergy;
+
     // Max energy storage
-    private static final int ENERGY_CAPACITY = 32000;
+    public static final int ENERGY_CAPACITY = 32000;
 
     // How much energy to drain per tick of use
     private static final int DRAIN_PER_TICK = 10;
@@ -41,15 +44,16 @@ public class ElectricMagnetItem extends MagnetItem {
 
     @Override
     protected void onMagnetize(ItemStack stack) {
-        stack.getCapability(CapabilityEnergy.ENERGY).ifPresent(handler -> {
-            handler.extractEnergy(DRAIN_PER_TICK, false);
-        });
+        var energy = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+        if(energy != null)
+            energy.extractEnergy(DRAIN_PER_TICK, false);
     }
 
     @Override
     protected boolean canMagnetize(ItemStack stack) {
         var hasEnergy = false;
-        var energyStorage = stack.getCapability(CapabilityEnergy.ENERGY).orElse(new EnergyStorage(0));
+        var energyStorage = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+        if(energyStorage == null) return false;
         hasEnergy = energyStorage.getEnergyStored() > 0;
         return super.canMagnetize(stack) && hasEnergy;
     }
@@ -58,18 +62,11 @@ public class ElectricMagnetItem extends MagnetItem {
      * Item                                                                                                            *
      *******************************************************************************************************************/
 
-    @Nullable
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return new EnergyContainingItem(stack, ENERGY_CAPACITY);
-    }
-
     @Override
     public int getBarWidth(ItemStack stack) {
-        var energyItem = stack.getCapability(CapabilityEnergy.ENERGY);
-        if(energyItem.isPresent()) {
-            var energyHandler = energyItem.orElse(null);
-            return Math.min(13 * energyHandler.getEnergyStored() / energyHandler.getMaxEnergyStored(), 13);
+        var energyItem = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+        if(energyItem != null) {
+            return Math.min(13 * energyItem.getEnergyStored() / energyItem.getMaxEnergyStored(), 13);
         }
         return super.getBarWidth(stack);
     }
@@ -81,16 +78,16 @@ public class ElectricMagnetItem extends MagnetItem {
 
     @Override
     public boolean isDamaged(ItemStack stack) {
-        var energyCapability = stack.getCapability(CapabilityEnergy.ENERGY);
-        if(!energyCapability.isPresent())
+        var energyCapability = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+        if(energyCapability != null)
             return super.isDamaged(stack);
-        var energyStorage = energyCapability.orElse(null);
-        return energyStorage.getEnergyStored() != energyStorage.getMaxEnergyStored();
+        return energyCapability.getEnergyStored() != energyCapability.getMaxEnergyStored();
     }
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        return stack.getCapability(CapabilityEnergy.ENERGY).map(e -> e.getEnergyStored() != e.getMaxEnergyStored()).orElse(super.isBarVisible(stack));
+        var e = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+        return e == null ? super.isBarVisible(stack) : e.getEnergyStored() != e.getMaxEnergyStored();
     }
 
     @Override

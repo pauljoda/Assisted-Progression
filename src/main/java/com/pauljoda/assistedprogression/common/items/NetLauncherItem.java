@@ -1,7 +1,6 @@
 package com.pauljoda.assistedprogression.common.items;
 
-import com.pauljoda.assistedprogression.common.entity.NetEntity;
-import com.pauljoda.assistedprogression.lib.Registration;
+import com.pauljoda.assistedprogression.common.entities.NetEntity;
 import com.pauljoda.nucleus.common.items.EnergyContainingItem;
 import com.pauljoda.nucleus.util.EnergyUtils;
 import net.minecraft.nbt.CompoundTag;
@@ -17,8 +16,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
 import net.minecraft.world.level.Level;
-import net.minecraftforge.common.capabilities.ICapabilityProvider;
-import net.minecraftforge.energy.CapabilityEnergy;
+import net.neoforged.neoforge.capabilities.Capabilities;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,7 +34,7 @@ import java.util.List;
  */
 public class NetLauncherItem extends BaseItem {
     // Max energy storage
-    private static final int ENERGY_CAPACITY = 32000;
+    public static final int ENERGY_CAPACITY = 32000;
 
     protected @Nullable ItemStack getAmmo(Player player) {
         for (ItemStack stack :
@@ -77,12 +75,12 @@ public class NetLauncherItem extends BaseItem {
     public void releaseUsing(@NotNull ItemStack stack, @NotNull Level level, @NotNull LivingEntity livingEntity,
                              int timeLeft) {
         if (timeLeft <= 7180 && livingEntity instanceof Player player) {
-            var energyItem = stack.getCapability(CapabilityEnergy.ENERGY);
-            if(energyItem.isPresent()) {
-                var energy = energyItem.orElseGet(null);
+            var energyItem = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+            if(energyItem != null) {
                 var requiredEnergy = ENERGY_CAPACITY / 8;
                 var ammo = getAmmo(player);
-                if(energy.getEnergyStored() >= requiredEnergy && ammo != null) {
+                if((energyItem.getEnergyStored() >= requiredEnergy && ammo != null)
+                        || player.isCreative()) {
                     // Spawn net and launch
                     level.playSound(null, player.getX(), player.getY(), player.getZ(),
                             SoundEvents.CROSSBOW_SHOOT, SoundSource.NEUTRAL, 0.5F, 0.6F);
@@ -96,25 +94,18 @@ public class NetLauncherItem extends BaseItem {
 
                     if(!player.isCreative()) {
                         ammo.shrink(1);
-                        energy.extractEnergy(ENERGY_CAPACITY / 8, false);
+                        energyItem.extractEnergy(ENERGY_CAPACITY / 8, false);
                     }
                 }
             }
         }
     }
 
-    @Nullable
-    @Override
-    public ICapabilityProvider initCapabilities(ItemStack stack, @Nullable CompoundTag nbt) {
-        return new EnergyContainingItem(stack, ENERGY_CAPACITY);
-    }
-
     @Override
     public int getBarWidth(ItemStack stack) {
-        var energyItem = stack.getCapability(CapabilityEnergy.ENERGY);
-        if(energyItem.isPresent()) {
-            var energyHandler = energyItem.orElse(null);
-            return Math.min(13 * energyHandler.getEnergyStored() / energyHandler.getMaxEnergyStored(), 13);
+        var energyItem = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+        if(energyItem != null) {
+            return Math.min(13 * energyItem.getEnergyStored() / energyItem.getMaxEnergyStored(), 13);
         }
         return super.getBarWidth(stack);
     }
@@ -126,16 +117,16 @@ public class NetLauncherItem extends BaseItem {
 
     @Override
     public boolean isDamaged(ItemStack stack) {
-        var energyCapability = stack.getCapability(CapabilityEnergy.ENERGY);
-        if(!energyCapability.isPresent())
+        var energyCapability = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+        if(energyCapability == null)
             return super.isDamaged(stack);
-        var energyStorage = energyCapability.orElse(null);
-        return energyStorage.getEnergyStored() != energyStorage.getMaxEnergyStored();
+        return energyCapability.getEnergyStored() != energyCapability.getMaxEnergyStored();
     }
 
     @Override
     public boolean isBarVisible(ItemStack stack) {
-        return stack.getCapability(CapabilityEnergy.ENERGY).map(e -> e.getEnergyStored() != e.getMaxEnergyStored()).orElse(super.isBarVisible(stack));
+        var energy = stack.getCapability(Capabilities.EnergyStorage.ITEM);
+        return energy == null ? super.isBarVisible(stack) : energy.getEnergyStored() != energy.getMaxEnergyStored();
     }
 
     @Override

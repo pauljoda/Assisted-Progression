@@ -1,13 +1,11 @@
 package com.pauljoda.assistedprogression.common.events;
 
-import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingFallEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.common.Mod;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.neoforge.event.entity.living.LivingEvent;
+import net.neoforged.neoforge.event.entity.living.LivingFallEvent;
 
 /**
  * This file was created for Nucleus
@@ -23,9 +21,9 @@ import net.minecraftforge.fml.common.Mod;
 public class PlayerFallEvent {
 
     @SubscribeEvent
-    public static void playerFall(LivingEvent.LivingUpdateEvent event) {
-        if (event.getEntityLiving() instanceof Player player &&
-                player.getLevel().isClientSide) {
+    public static void playerFall(LivingEvent.LivingTickEvent event) {
+        if (event.getEntity() instanceof Player player &&
+                player.level().isClientSide) {
             if (!player.isFallFlying() &&
                     !player.getInventory().armor.get(0).isEmpty() &&
                     player.getInventory().armor.get(0).getItem() == Registration.PARASHOES_ITEM.get() &&
@@ -38,8 +36,8 @@ public class PlayerFallEvent {
 
     @SubscribeEvent
     public static void playerFallDamage(LivingFallEvent event) {
-        if (event.getEntityLiving() instanceof Player player &&
-                !player.getLevel().isClientSide &&
+        if (event.getEntity() instanceof Player player &&
+                !player.level().isClientSide &&
                 !player.getInventory().armor.get(0).isEmpty() &&
                 player.getInventory().armor.get(0).getItem() == Registration.PARASHOES_ITEM.get() &&
                 event.getDistance() >= 2.0F) {

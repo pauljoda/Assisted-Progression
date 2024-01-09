@@ -3,15 +3,8 @@ package com.pauljoda.assistedprogression.common.blocks;
 import com.pauljoda.nucleus.common.IAdvancedToolTipProvider;
 import com.pauljoda.nucleus.util.ClientUtils;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockState;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.Shapes;
-import net.minecraft.world.phys.shapes.VoxelShape;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -30,7 +23,7 @@ import java.util.List;
 public class SpawnerFrameBlock extends Block implements IAdvancedToolTipProvider {
 
     public SpawnerFrameBlock() {
-        super(Properties.of(Material.METAL).strength(2.0F).noOcclusion());
+        super(Properties.of().strength(2.0F).noOcclusion());
     }
 
 

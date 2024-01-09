@@ -1,15 +1,16 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "I I",
-    "I I",
-    " I "
-  ],
+  "category": "misc",
   "key": {
     "I": {
       "tag": "forge:ingots/iron"
     }
   },
+  "pattern": [
+    "I I",
+    "I I",
+    " I "
+  ],
   "result": {
     "item": "assisted_progression:magnet"
   }

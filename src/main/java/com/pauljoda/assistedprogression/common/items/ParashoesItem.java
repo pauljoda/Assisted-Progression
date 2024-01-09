@@ -4,6 +4,7 @@ import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
 import com.pauljoda.nucleus.common.IAdvancedToolTipProvider;
 import com.pauljoda.nucleus.util.ClientUtils;
+import net.minecraft.ChatFormatting;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -13,7 +14,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraftforge.common.Tags;
+import net.neoforged.neoforge.common.Tags;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -33,13 +34,21 @@ public class ParashoesItem extends ArmorItem implements IAdvancedToolTipProvider
     public static enum ParashoesMaterial implements ArmorMaterial {
         PARASHOES_MATERIAL;
 
+        /**
+         * @param pType
+         * @return
+         */
         @Override
-        public int getDurabilityForSlot(EquipmentSlot slot) {
+        public int getDurabilityForType(Type pType) {
             return 125;
         }
 
+        /**
+         * @param pType
+         * @return
+         */
         @Override
-        public int getDefenseForSlot(EquipmentSlot p_40411_) {
+        public int getDefenseForType(Type pType) {
             return 1;
         }
 
@@ -76,10 +85,9 @@ public class ParashoesItem extends ArmorItem implements IAdvancedToolTipProvider
 
     public ParashoesItem() {
         super(ParashoesMaterial.PARASHOES_MATERIAL,
-                EquipmentSlot.FEET,
+                Type.BOOTS,
                 new Properties()
-                        .stacksTo(1)
-                        .tab(Registration.tabAssistedProgression));
+                        .stacksTo(1));
     }
 
     @Override
@@ -94,6 +102,6 @@ public class ParashoesItem extends ArmorItem implements IAdvancedToolTipProvider
     @Nullable
     @Override
     public List<String> getAdvancedToolTip(@NotNull ItemStack itemStack) {
-        return List.of(ClientUtils.translate("parashoes.desc"));
+        return List.of(ChatFormatting.GREEN + ClientUtils.translate("parashoes.desc"));
     }
 }

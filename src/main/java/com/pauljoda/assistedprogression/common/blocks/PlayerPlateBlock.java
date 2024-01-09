@@ -1,5 +1,6 @@
 package com.pauljoda.assistedprogression.common.blocks;
 
+import com.mojang.serialization.MapCodec;
 import com.pauljoda.nucleus.common.IAdvancedToolTipProvider;
 import com.pauljoda.nucleus.util.ClientUtils;
 import net.minecraft.ChatFormatting;
@@ -8,7 +9,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.BlockGetter;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelAccessor;
 import net.minecraft.world.level.block.BasePressurePlateBlock;
@@ -16,9 +16,7 @@ import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.PressurePlateBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
-import net.minecraft.world.level.material.Material;
-import net.minecraft.world.phys.shapes.CollisionContext;
-import net.minecraft.world.phys.shapes.VoxelShape;
+import net.minecraft.world.level.block.state.properties.BlockSetType;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -36,8 +34,8 @@ import java.util.List;
  */
 public class PlayerPlateBlock extends BasePressurePlateBlock implements IAdvancedToolTipProvider {
 
-    public PlayerPlateBlock() {
-        super(Properties.of(Material.METAL).strength(2.0F));
+    public PlayerPlateBlock(Properties properties) {
+        super(properties, BlockSetType.STONE);
         registerDefaultState(getStateDefinition().any().setValue(PressurePlateBlock.POWERED, false));
     }
 
@@ -46,23 +44,17 @@ public class PlayerPlateBlock extends BasePressurePlateBlock implements IAdvance
         builder.add(PressurePlateBlock.POWERED);
     }
 
-    /*******************************************************************************************************************
-     * BlockBasePressurePlate                                                                                          *
-     *******************************************************************************************************************/
-
+    /**
+     * @return
+     */
     @Override
-    protected void playOnSound(LevelAccessor level, BlockPos pos) {
-        level.playSound(null, pos, SoundEvents.METAL_PRESSURE_PLATE_CLICK_ON, SoundSource.BLOCKS, 0.3F, 0.6F);
-    }
-
-    @Override
-    protected void playOffSound(LevelAccessor level, BlockPos pos) {
-        level.playSound(null, pos, SoundEvents.METAL_PRESSURE_PLATE_CLICK_OFF, SoundSource.BLOCKS, 0.3F, 0.6F);
+    protected MapCodec<? extends BasePressurePlateBlock> codec() {
+        return simpleCodec(PlayerPlateBlock::new);
     }
 
     @Override
     protected int getSignalStrength(Level level, BlockPos pos) {
-        return level.getEntitiesOfClass(Player.class, BasePressurePlateBlock.TOUCH_AABB.move(pos)).size() >= 1 ? 15 : 0;
+        return !level.getEntitiesOfClass(Player.class, BasePressurePlateBlock.TOUCH_AABB.move(pos)).isEmpty() ? 15 : 0;
     }
 
     @Override

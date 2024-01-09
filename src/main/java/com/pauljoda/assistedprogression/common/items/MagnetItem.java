@@ -1,9 +1,5 @@
 package com.pauljoda.assistedprogression.common.items;
 
-import com.mojang.math.Vector3d;
-import com.pauljoda.assistedprogression.lib.Registration;
-import com.pauljoda.nucleus.common.IAdvancedToolTipProvider;
-import com.pauljoda.nucleus.util.ClientUtils;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
@@ -15,16 +11,13 @@ import net.minecraft.world.entity.item.PrimedTnt;
 import net.minecraft.world.entity.monster.Creeper;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.entity.projectile.*;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * This file was created for Nucleus

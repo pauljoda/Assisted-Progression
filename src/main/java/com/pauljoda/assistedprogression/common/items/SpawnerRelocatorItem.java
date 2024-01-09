@@ -1,22 +1,16 @@
 package com.pauljoda.assistedprogression.common.items;
 
-import com.pauljoda.assistedprogression.lib.Registration;
-import com.pauljoda.nucleus.client.gui.GuiTextFormat;
-import com.pauljoda.nucleus.common.IAdvancedToolTipProvider;
-import com.pauljoda.nucleus.util.ClientUtils;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.UseAnim;
@@ -25,7 +19,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.phys.HitResult;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -118,10 +111,10 @@ public class SpawnerRelocatorItem extends BaseItem{
         if (stack.hasTag()) {
             var tag = stack.getTag();
             var spawnData = tag.getCompound("SpawnData");
-            var entityType = ForgeRegistries.ENTITIES.getValue(new ResourceLocation(spawnData.getCompound("entity").getString("id")));
+            var entityType = BuiltInRegistries.ENTITY_TYPE.get(new ResourceLocation(spawnData.getCompound("entity").getString("id")));
             var spawnType = I18n.get(entityType.toString());
 
-            toolTip.add(new TranslatableComponent(
+            toolTip.add(Component.translatable(
                     I18n.get("assisted_progression.text.spawnerRelocator.type",
                             ChatFormatting.GOLD,
                             ChatFormatting.ITALIC,

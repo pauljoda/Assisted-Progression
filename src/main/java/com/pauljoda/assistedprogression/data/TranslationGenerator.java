@@ -2,10 +2,10 @@ package com.pauljoda.assistedprogression.data;
 
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.common.data.LanguageProvider;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.registries.DeferredHolder;
 
 /**
  * This file was created for Nucleus
@@ -19,7 +19,7 @@ import net.minecraftforge.registries.RegistryObject;
  */
 public class TranslationGenerator extends LanguageProvider {
 
-    public TranslationGenerator(DataGenerator gen, String locale) {
+    public TranslationGenerator(PackOutput gen, String locale) {
         super(gen, Reference.MOD_ID, locale);
     }
 
@@ -53,7 +53,7 @@ public class TranslationGenerator extends LanguageProvider {
 
         // Parashoes
         add(Registration.PARASHOES_ITEM.get(), "Parashoes");
-        add("parashoes.desc", "Wear these shoes to slow your decent");
+        add("parashoes.desc", "Wear these shoes to slow your decent, repair with feathers in an anvil");
 
         // Climbing Gloves
         addWithDescription(Registration.CLIMBING_GLOVES_ITEM,
@@ -102,8 +102,8 @@ public class TranslationGenerator extends LanguageProvider {
         add(Registration.NET_ENTITY.get(), "Mob Net");
     }
 
-    private void addWithDescription(RegistryObject<Item> item, String name, String desc) {
+    private void addWithDescription(DeferredHolder<Item, ? extends Item> item, String name, String desc) {
         add(item.get(), name);
-        add(item.get().getRegistryName() + ".desc", desc);
+        add(item.get().getDescriptionId() + ".desc", desc);
     }
 }

@@ -7,16 +7,14 @@ import net.minecraft.ChatFormatting;
 import net.minecraft.client.resources.language.I18n;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.InteractionHand;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.MobSpawnType;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.context.UseOnContext;
@@ -24,7 +22,6 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.entity.SpawnerBlockEntity;
 import net.minecraft.world.level.gameevent.GameEvent;
-import net.minecraftforge.registries.ForgeRegistries;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -66,8 +63,8 @@ public class NetItem extends BaseItem implements IAdvancedToolTipProvider {
                 if(level.getBlockEntity(pos) instanceof SpawnerBlockEntity spawner) {
                     var baseSpawner = spawner.getSpawner();
                     var tag = stack.getTag();
-                    var entityType = ForgeRegistries.ENTITIES.getValue(ResourceLocation.tryParse(tag.getString("type")));
-                    baseSpawner.setEntityId(entityType);
+                    var entityType = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.tryParse(tag.getString("type")));
+                    baseSpawner.setEntityId(entityType, level, RandomSource.create(), pos);
                     spawner.setChanged();
                     level.sendBlockUpdated(pos, level.getBlockState(pos), level.getBlockState(pos), 3);
                     if(!context.getPlayer().isCreative())
@@ -83,7 +80,7 @@ public class NetItem extends BaseItem implements IAdvancedToolTipProvider {
                 spawnLocation = pos.relative(direction);
 
             var tag = stack.getTag();
-            var entityType = ForgeRegistries.ENTITIES.getValue(ResourceLocation.tryParse(tag.getString("type")));
+            var entityType = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.tryParse(tag.getString("type")));
 
             if(entityType != null) {
                 var entity = entityType.spawn((ServerLevel) level, stack, context.getPlayer(),
@@ -115,10 +112,10 @@ public class NetItem extends BaseItem implements IAdvancedToolTipProvider {
     public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> toolTip, TooltipFlag advanced) {
         if (stack.hasTag()) {
             var tag = stack.getTag();
-            var entityType = ForgeRegistries.ENTITIES.getValue(ResourceLocation.tryParse(tag.getString("type")));
+            var entityType = BuiltInRegistries.ENTITY_TYPE.get(ResourceLocation.tryParse(tag.getString("type")));
             var spawnType = I18n.get(entityType.toString());
 
-            toolTip.add(new TranslatableComponent(
+            toolTip.add(Component.translatable(
                     ChatFormatting.GOLD + "" +
                             ChatFormatting.ITALIC +
                             ClientUtils.translate("assisted_progression.text.net.stored") +

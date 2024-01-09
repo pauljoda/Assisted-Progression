@@ -1,21 +1,22 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    " L ",
-    "LIL",
-    "SLS"
-  ],
+  "category": "misc",
   "key": {
-    "L": {
-      "tag": "forge:leather"
-    },
     "I": {
       "tag": "forge:ingots/iron"
+    },
+    "L": {
+      "tag": "forge:leather"
     },
     "S": {
       "tag": "forge:string"
     }
   },
+  "pattern": [
+    " L ",
+    "LIL",
+    "SLS"
+  ],
   "result": {
     "item": "assisted_progression:climbing_gloves"
   }

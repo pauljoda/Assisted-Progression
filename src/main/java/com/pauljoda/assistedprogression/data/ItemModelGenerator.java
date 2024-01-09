@@ -2,11 +2,11 @@ package com.pauljoda.assistedprogression.data;
 
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.RegistryObject;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 /**
  * This file was created for Nucleus
@@ -20,7 +20,7 @@ import net.minecraftforge.registries.RegistryObject;
  */
 public class ItemModelGenerator extends ItemModelProvider {
 
-    public ItemModelGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper) {
+    public ItemModelGenerator(PackOutput generator, ExistingFileHelper existingFileHelper) {
         super(generator, Reference.MOD_ID, existingFileHelper);
     }
 
@@ -29,67 +29,49 @@ public class ItemModelGenerator extends ItemModelProvider {
     protected void registerModels() {
         // Items -------------------------------------------------------------------------------------------------------
         // Spawner Relocator
-        singleTexture(Registration.SPAWNER_RELOCATOR_ITEM.get().getRegistryName().getPath(),
-                mcLoc("item/generated"),
-                "layer0", modLoc("items/spawner_relocator"));
+        basicItem(Registration.SPAWNER_RELOCATOR_ITEM.get());
 
         // Magnet
-        singleTexture(Registration.MAGNET_ITEM.get().getRegistryName().getPath(),
-                mcLoc("item/generated"),
-                "layer0", modLoc("items/magnet"));
+        basicItem(Registration.MAGNET_ITEM.get());
 
         // Electric Magnet
-        singleTexture(Registration.ELECTRIC_MAGNET_ITEM.get().getRegistryName().getPath(),
-                mcLoc("item/generated"),
-                "layer0", modLoc("items/electro_magnet"));
+        basicItem(Registration.ELECTRIC_MAGNET_ITEM.get());
 
         // Parashoes
-        singleTexture(Registration.PARASHOES_ITEM.get().getRegistryName().getPath(),
-                mcLoc("item/generated"),
-                "layer0", modLoc("items/parashoes"));
+        basicItem(Registration.PARASHOES_ITEM.get());
 
         // Climbing Gloves
-        singleTexture(Registration.CLIMBING_GLOVES_ITEM.get().getRegistryName().getPath(),
-                mcLoc("item/generated"),
-                "layer0", modLoc("items/climbing_gloves"));
+        basicItem(Registration.CLIMBING_GLOVES_ITEM.get());
 
         // Trash Bag
-        singleTexture(Registration.TRASH_BAG_ITEM.get().getRegistryName().getPath(),
-                mcLoc("item/generated"),
-                "layer0", modLoc("items/trash_bag"));
+        basicItem(Registration.TRASH_BAG_ITEM.get());
 
         // Hefty Bag
-        singleTexture(Registration.HEFTY_BAG_ITEM.get().getRegistryName().getPath(),
-                mcLoc("item/generated"),
-                "layer0", modLoc("items/hefty_bag"));
+        basicItem(Registration.HEFTY_BAG_ITEM.get());
 
         // Net
-        singleTexture(Registration.NET_ITEM.get().getRegistryName().getPath(),
-                mcLoc("item/generated"),
-                "layer0", modLoc("items/net"));
+        basicItem(Registration.NET_ITEM.get());
 
         // Net Launcher
-        singleTexture(Registration.NET_LAUNCHER_ITEM.get().getRegistryName().getPath(),
-                mcLoc("item/generated"),
-                "layer0", modLoc("items/net_launcher"));
+        basicItem(Registration.NET_LAUNCHER_ITEM.get());
 
         // Blocks ------------------------------------------------------------------------------------------------------
 
         // Ender Pad
-        createItemBlock(Registration.ENDER_PAD_BLOCK, "block/ender_pad");
+        fromBlock(Registration.ENDER_PAD_BLOCK.get());
 
         // Player Plate
-        createItemBlock(Registration.PLAYER_PLATE_BLOCK, "block/player_plate");
+        fromBlock(Registration.PLAYER_PLATE_BLOCK.get());
 
         // Spawner Frame
-        createItemBlock(Registration.SPAWNER_FRAME_BLOCK, "block/spawner_frame");
+        fromBlock(Registration.SPAWNER_FRAME_BLOCK.get());
 
         // Sun
-        createItemBlock(Registration.SUN_BLOCK, "block/sun");
+        fromBlock(Registration.SUN_BLOCK.get());
     }
 
-    @SuppressWarnings("ConstantConditions")
-    protected void createItemBlock(RegistryObject<Block> block, String modelLocation) {
-        withExistingParent(block.get().getRegistryName().getPath(), modLoc(modelLocation));
+    public void fromBlock(Block block) {
+        withExistingParent(BuiltInRegistries.BLOCK.getKey(block).getPath(),
+                modLoc(String.format("block/%s", BuiltInRegistries.BLOCK.getKey(block).getPath())));
     }
 }

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "assisted_progression:items/parashoes"
+    "layer0": "assisted_progression:item/parashoes"
   }
 }

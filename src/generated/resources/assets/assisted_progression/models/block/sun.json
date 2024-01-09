@@ -1,12 +1,27 @@
 {
   "parent": "minecraft:block/block",
-  "textures": {
-    "sun": "assisted_progression:block/sun",
-    "all": "assisted_progression:block/sun",
-    "particle": "assisted_progression:block/sun"
-  },
   "elements": [
     {
+      "faces": {
+        "down": {
+          "texture": "#sun"
+        },
+        "east": {
+          "texture": "#sun"
+        },
+        "north": {
+          "texture": "#sun"
+        },
+        "south": {
+          "texture": "#sun"
+        },
+        "up": {
+          "texture": "#sun"
+        },
+        "west": {
+          "texture": "#sun"
+        }
+      },
       "from": [
         6,
         6,
@@ -16,27 +31,12 @@
         10,
         10,
         10
-      ],
-      "faces": {
-        "down": {
-          "texture": "#sun"
-        },
-        "up": {
-          "texture": "#sun"
-        },
-        "north": {
-          "texture": "#sun"
-        },
-        "south": {
-          "texture": "#sun"
-        },
-        "west": {
-          "texture": "#sun"
-        },
-        "east": {
-          "texture": "#sun"
-        }
-      }
+      ]
     }
-  ]
+  ],
+  "textures": {
+    "all": "assisted_progression:block/sun",
+    "particle": "assisted_progression:block/sun",
+    "sun": "assisted_progression:block/sun"
+  }
 }

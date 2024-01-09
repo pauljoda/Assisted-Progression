@@ -1,18 +1,19 @@
 {
   "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "L": {
+      "tag": "forge:ingots/iron"
+    },
+    "S": {
+      "tag": "forge:string"
+    }
+  },
   "pattern": [
     "S S",
     "L L",
     "LLL"
   ],
-  "key": {
-    "S": {
-      "tag": "forge:string"
-    },
-    "L": {
-      "tag": "forge:ingots/iron"
-    }
-  },
   "result": {
     "item": "assisted_progression:hefty_bag"
   }

@@ -3,38 +3,48 @@ package com.pauljoda.assistedprogression.client.model;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Sets;
+import com.google.gson.JsonDeserializationContext;
+import com.google.gson.JsonObject;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.datafixers.util.Pair;
 import com.mojang.math.Transformation;
 import com.pauljoda.assistedprogression.lib.Reference;
-import com.pauljoda.nucleus.helper.ModelHelper;
 import com.pauljoda.nucleus.util.RenderUtils;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.ClientLevel;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BlockElement;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.*;
+import net.minecraft.client.resources.model.ModelBakery.ModelBakerImpl;
 import net.minecraft.core.Direction;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluid;
 import net.minecraft.world.level.material.Fluids;
-import net.minecraftforge.client.ForgeHooksClient;
-import net.minecraftforge.client.model.*;
-import net.minecraftforge.client.model.data.IDynamicBakedModel;
-import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.geometry.IModelGeometry;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.registries.ForgeRegistries;
-import org.jetbrains.annotations.Nullable;
+import net.neoforged.neoforge.client.ClientHooks;
+import net.neoforged.neoforge.client.RenderTypeGroup;
+import net.neoforged.neoforge.client.extensions.common.IClientFluidTypeExtensions;
+import net.neoforged.neoforge.client.model.*;
+import net.neoforged.neoforge.client.model.geometry.*;
+import net.neoforged.neoforge.fluids.FluidUtil;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.*;
+import java.util.function.BiFunction;
 import java.util.function.Function;
+
+import static net.neoforged.neoforge.client.model.DynamicFluidContainerModel.getLayerRenderTypes;
 
 /**
  * This file was created for Nucleus
@@ -47,11 +57,14 @@ import java.util.function.Function;
  * @since 6/6/2022
  */
 @SuppressWarnings("ALL")
-public class ModelPipette implements IModelGeometry<ModelPipette> {
+public class ModelPipette implements IUnbakedGeometry<ModelPipette> {
 
     /*******************************************************************************************************************
      * Variables                                                                                                       *
      *******************************************************************************************************************/
+
+    private static final Transformation FLUID_TRANSFORM = new Transformation(new Vector3f(), new Quaternionf(), new Vector3f(1.0F, 1.0F, 1.002F), new Quaternionf());
+    private static final Transformation COVER_TRANSFORM = new Transformation(new Vector3f(), new Quaternionf(), new Vector3f(1.0F, 1.0F, 1.004F), new Quaternionf());
 
     // Global
     // Reference to model location, used to get and wrap the default model
@@ -59,16 +72,11 @@ public class ModelPipette implements IModelGeometry<ModelPipette> {
             new ModelResourceLocation(new ResourceLocation(Reference.MOD_ID, "pipette"), "inventory");
 
     public static final ResourceLocation baseLocation
-            = new ResourceLocation(Reference.MOD_ID, "items/pipette");
+            = new ResourceLocation(Reference.MOD_ID, "item/pipette");
 
     // Reference to the texture for the mask/cover
     public static final ResourceLocation maskLocation
-            = new ResourceLocation(Reference.MOD_ID, "items/pipette_mask");
-
-
-    // Minimal Z offset to prevent depth-fighting
-    private static final float NORTH_Z_FLUID = 7.498f / 16f;
-    private static final float SOUTH_Z_FLUID = 8.502f / 16f;
+            = new ResourceLocation(Reference.MOD_ID, "item/pipette_mask");
 
     // Cache of generated models, no need to re-bake each cycle
     private static final Map<String, BakedModel> cache = new HashMap<>();
@@ -103,74 +111,68 @@ public class ModelPipette implements IModelGeometry<ModelPipette> {
      * @return A model baked with all info present
      */
     @Override
-    public BakedModel bake(IModelConfiguration owner, ModelBakery bakery, Function<Material,
-                TextureAtlasSprite> spriteGetter, ModelState modelTransform,
-                           ItemOverrides overrides, ResourceLocation modelLocation) {
-
+    public BakedModel bake(IGeometryBakingContext context, ModelBaker baker,
+                           Function<Material, TextureAtlasSprite> spriteGetter,
+                           ModelState modelState, ItemOverrides overrides, ResourceLocation modelLocation) {
         // Setup Render Material
         Material baseMaterial =
                 new Material(RenderUtils.MC_BLOCKS_RESOURCE_LOCATION, baseLocation);
         Material maskMaterial =
                 new Material(RenderUtils.MC_BLOCKS_RESOURCE_LOCATION, maskLocation);
 
-        ModelState transformsFromModel = ModelHelper.DEFAULT_TOOL_STATE;
-
         // Sprites and quads initialization
         TextureAtlasSprite fluidSprite = fluid != Fluids.EMPTY ?
-                spriteGetter.apply(ForgeHooksClient.getBlockMaterial(fluid.getAttributes().getStillTexture())) :
+                spriteGetter.apply(ClientHooks.getBlockMaterial(IClientFluidTypeExtensions.of(fluid).getStillTexture())) :
                 null;
+        TextureAtlasSprite baseSprite = spriteGetter.apply(baseMaterial);
         TextureAtlasSprite particleSprite = spriteGetter.apply(maskMaterial);
 
-        // Setup Perspectives
-        ImmutableMap<ItemTransforms.TransformType, Transformation> transformMap =
-                PerspectiveMapWrapper.getTransforms(new CompositeModelState(transformsFromModel, modelTransform));
+        StandaloneGeometryBakingContext itemContext = StandaloneGeometryBakingContext.builder(context).withGui3d(false).withUseBlockLight(false).build(modelLocation);
+        CompositeModel.Baked.Builder modelBuilder = CompositeModel.Baked.builder(itemContext, particleSprite, new PipetteOverrideList(baker, itemContext), context.getTransforms());
+        RenderTypeGroup normalRenderTypes = getLayerRenderTypes(false);
 
-
-        Transformation transform = modelTransform.getRotation();
-        ItemMultiLayerBakedModel.Builder builder =
-                ItemMultiLayerBakedModel.builder(owner, particleSprite,
-                        new PipetteOverrideList(bakery, owner),
-                        transformMap);
-
-        Random random = new Random();
-        random.setSeed(42);
-        builder.setParticle(particleSprite);
-
-        // Draw the wrapped model, the pipette itself with no fluid or cover
-        builder.addQuads(ItemLayerModel.getLayerRenderType(false),
-                ItemLayerModel.getQuadsForSprites(ImmutableList.of(baseMaterial), transform, spriteGetter));
+        List<BlockElement> unbaked = UnbakedGeometryHelper.createUnbakedItemElements(0, baseSprite);
+        List<BakedQuad> quads = UnbakedGeometryHelper.bakeElements(unbaked, ($) -> {
+            return baseSprite;
+        }, (ModelState)modelState, modelLocation);
+        modelBuilder.addQuads(normalRenderTypes, quads);
 
         // We are going to use the mask as a stencil for the liquid
         TextureAtlasSprite liquidMask = spriteGetter.apply(maskMaterial);
 
+        SimpleModelState transformedState;
+        var sprite = (TextureAtlasSprite)spriteGetter.apply(maskMaterial);
         // Draw fluid
-        if (fluidSprite != null) {
+        if (fluidSprite != null && sprite != null) {
+            transformedState = new SimpleModelState(((ModelState)modelState).getRotation().compose(FLUID_TRANSFORM), ((ModelState)modelState).isUvLocked());
+            unbaked = UnbakedGeometryHelper.createUnbakedItemMaskElements(1, sprite);
+            quads = UnbakedGeometryHelper.bakeElements(unbaked, ($) -> {
+                return fluidSprite;
+            }, transformedState, modelLocation);
+            boolean emissive = this.fluid.getFluidType().getLightLevel() > 0;
+            RenderTypeGroup renderTypes = getLayerRenderTypes(emissive);
+            if (emissive) {
+                QuadTransformers.settingMaxEmissivity().processInPlace(quads);
+            }
 
-            // Build new texture based on stencil
-            int luminosity = fluid.getAttributes().getLuminosity();
-            int color = fluid.getAttributes().getColor();
+            QuadTransformers.applyingColor(IClientFluidTypeExtensions.of(fluid).getTintColor()).processInPlace(quads);
 
-            builder.addQuads(ItemLayerModel.getLayerRenderType(luminosity > 0),
-                    ItemTextureQuadConverter.convertTexture(transform, liquidMask, fluidSprite,
-                            NORTH_Z_FLUID, Direction.NORTH, color, 1, luminosity));
-            builder.addQuads(ItemLayerModel.getLayerRenderType(luminosity > 0),
-                    ItemTextureQuadConverter.convertTexture(transform, liquidMask, fluidSprite,
-                            SOUTH_Z_FLUID, Direction.SOUTH, color, 1, luminosity));
-
-            particleSprite = fluidSprite;
-            builder.setParticle(particleSprite);
+            modelBuilder.addQuads(renderTypes, quads);
         }
 
-        // Draw mask
-        // Draw rest of pipette, the clear cover over the fluid, do this by making an item with texture of mask
-        BakedModel model =
-                (new ItemLayerModel(ImmutableList.of(maskMaterial))).bake(owner, bakery, spriteGetter,
-                        modelTransform, overrides, modelLocation);
-        builder.addQuads(ItemLayerModel.getLayerRenderType(false), model.getQuads(null, null, random));
-
+        if(sprite != null) {
+            // Draw mask
+            // Draw rest of pipette, the clear cover over the fluid, do this by making an item with texture of mask
+            List<BlockElement> unbakedMask = UnbakedGeometryHelper.createUnbakedItemElements(2, sprite);
+            List<BakedQuad> quadsMask = UnbakedGeometryHelper.bakeElements(unbaked, ($) -> {
+                return sprite;
+            }, (ModelState) modelState, modelLocation);
+            modelBuilder.addQuads(normalRenderTypes, quads);
+        }
 
         // The fully processed model
-        return builder.build();
+        modelBuilder.setParticle(particleSprite);
+        return modelBuilder.build();
     }
 
     /**
@@ -190,30 +192,12 @@ public class ModelPipette implements IModelGeometry<ModelPipette> {
      * @return An instance of the model with custom data applied
      */
     public ModelPipette withFluid(ImmutableMap<String, String> customData) {
-        Fluid fluid = ForgeRegistries.FLUIDS.getValue(new ResourceLocation(customData.get("fluid")));
+        Fluid fluid = BuiltInRegistries.FLUID.get(new ResourceLocation(customData.get("fluid")));
 
         if (fluid == null) fluid = this.fluid;
 
         // create new model with correct liquid
         return new ModelPipette(fluid);
-    }
-
-    /**
-     * Get textures used in this model, not really needed for us as we stitch ours
-     *
-     * @param modelGetter          The texture getter
-     * @param missingTextureErrors Error list
-     *
-     * @return List of textures used by this model
-     */
-    @Override
-    public Collection<Material> getTextures(IModelConfiguration owner, Function<ResourceLocation,
-            UnbakedModel> modelGetter, Set<Pair<String, String>> missingTextureErrors) {
-        Set<Material> texs = Sets.newHashSet();
-
-        if (owner.isTexturePresent("mask")) texs.add(owner.resolveTexture("mask"));
-
-        return texs;
     }
 
     /*******************************************************************************************************************
@@ -230,15 +214,15 @@ public class ModelPipette implements IModelGeometry<ModelPipette> {
         public static PipetteOverrideList INSTANCE;
 
         // Reference to the minecraft model bakery
-        public final ModelBakery bakery;
-        private final IModelConfiguration owner;
+        public final ModelBaker bakery;
+        private final IGeometryBakingContext owner;
 
         /**
          * Creates the handler
          *
          * @param bakery The instance of the minecraft model bakery
          */
-        public PipetteOverrideList(ModelBakery bakery, IModelConfiguration own) {
+        public PipetteOverrideList(ModelBaker bakery, IGeometryBakingContext own) {
             this.bakery = bakery;
             this.owner = own;
         }
@@ -260,7 +244,7 @@ public class ModelPipette implements IModelGeometry<ModelPipette> {
             return FluidUtil.getFluidContained(stack)
                     .map(fluidStack -> {
                         Fluid fluid = fluidStack.getFluid();
-                        String name = fluid.getRegistryName().toString();
+                        String name = BuiltInRegistries.FLUID.getKey(fluid).toString();
 
                         if (!cache.containsKey(name)) {
                             ModelPipette parent = new ModelPipette(null).withFluid(ImmutableMap.of("fluid", name));
@@ -268,7 +252,7 @@ public class ModelPipette implements IModelGeometry<ModelPipette> {
 
                             BakedModel bakedModel
                                     = parent.bake(owner, bakery,
-                                    ForgeModelBakery.defaultTextureGetter(), BlockModelRotation.X0_Y0, this, LOCATION);
+                                    Material::sprite, BlockModelRotation.X0_Y0, this, LOCATION);
                             cache.put(name, bakedModel);
                             return bakedModel;
                         }
@@ -276,10 +260,9 @@ public class ModelPipette implements IModelGeometry<ModelPipette> {
                         return cache.get(name);
                     })
                     // not a fluid item apparently
-                    .orElse(((PipetteDynamicModel) originalModel).baseModel); // empty pipette
+                    .orElse(originalModel); // empty pipette
         }
     }
-
     /*******************************************************************************************************************
      * Baked Model                                                                                                     *
      *******************************************************************************************************************/
@@ -290,7 +273,7 @@ public class ModelPipette implements IModelGeometry<ModelPipette> {
      * This will take in the original model created by Minecraft on load, and wrap around it. This is the model
      * to register in the loading stage, also has constructor that generates models at runtime based on info present
      */
-    public static class PipetteDynamicModel extends BakedItemModel implements IDynamicBakedModel {
+    public static class PipetteDynamicModel extends BakedModelWrapper implements IDynamicBakedModel {
 
         // Model Bakery to pass into override
         private ModelBakery bakery;
@@ -298,17 +281,7 @@ public class ModelPipette implements IModelGeometry<ModelPipette> {
         // Minecraft generated model
         public BakedModel baseModel;
 
-        public IModelConfiguration owner;
-
-        public PipetteDynamicModel(ModelBakery bakery, BakedModel base,
-                                   ImmutableList<BakedQuad> quads, IModelConfiguration owner,
-                                   TextureAtlasSprite particle,
-                                   ImmutableMap<ItemTransforms.TransformType, Transformation> transforms) {
-            super(quads, particle, transforms, new PipetteOverrideList(bakery, owner), true, true);
-            this.bakery = bakery;
-            this.baseModel = base;
-            this.owner = owner;
-        }
+        public IGeometryBakingContext owner;
 
         /**
          * Creates a simple wrapper around the vanilla model to reflect into our dynamic model
@@ -316,9 +289,10 @@ public class ModelPipette implements IModelGeometry<ModelPipette> {
          * @param modelBakery The instance of the model bakery
          * @param parent      The model made by Minecraft
          */
-        public PipetteDynamicModel(ModelBakery modelBakery, BakedModel parent, IModelConfiguration owner) {
-            this(modelBakery, parent, ImmutableList.copyOf(parent.getQuads(null, null, new Random())), owner,
-                    parent.getParticleIcon(), PerspectiveMapWrapper.getTransforms(parent.getTransforms()));
+        public PipetteDynamicModel(ModelBakery modelBakery, BakedModel parent, IGeometryBakingContext owner) {
+            super(parent);
+            this.bakery = modelBakery;
+            this.owner = owner;
         }
 
         /**
@@ -330,44 +304,15 @@ public class ModelPipette implements IModelGeometry<ModelPipette> {
         @Nonnull
         public ItemOverrides getOverrides() {
             if (PipetteOverrideList.INSTANCE == null ||
-                    PipetteOverrideList.INSTANCE.bakery == null)
-                PipetteOverrideList.INSTANCE = new PipetteOverrideList(bakery, owner);
+                    PipetteOverrideList.INSTANCE.bakery == null) {
+                BiFunction<ResourceLocation, Material, TextureAtlasSprite> spriteBiFunction = ((resourceLocation, material) ->
+                        Minecraft.getInstance().getTextureAtlas(RenderUtils.MC_BLOCKS_RESOURCE_LOCATION).apply(resourceLocation));
+
+                PipetteOverrideList.INSTANCE =
+                        new PipetteOverrideList(
+                                bakery.new ModelBakerImpl(spriteBiFunction, LOCATION), owner);
+            }
             return PipetteOverrideList.INSTANCE;
         }
-
-        @Override
-        public BakedModel handlePerspective(ItemTransforms.TransformType type, PoseStack poseStack) {
-            return super.handlePerspective(type, poseStack);
-        }
-
-        /***************************************************************************************************************
-         * Wrapper methods                                                                                             *
-         ***************************************************************************************************************/
-
-        @Nonnull
-        @Override
-        public List<BakedQuad> getQuads(@Nullable BlockState state,
-                                        @Nullable Direction side, @Nonnull Random rand,
-                                        @Nonnull IModelData extraData) {
-            return baseModel.getQuads(state, side, rand, extraData);
-        }
-
-        @Override
-        public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, Random rand) {
-            return super.getQuads(state, side, rand);
-        }
-
-        @Override
-        public boolean useAmbientOcclusion() { return baseModel.useAmbientOcclusion(); }
-
-        @Override
-        public boolean isGui3d() { return baseModel.isGui3d(); }
-
-        @Override
-        public boolean isCustomRenderer() { return baseModel.isCustomRenderer(); }
-
-        @Nonnull
-        @Override
-        public TextureAtlasSprite getParticleIcon() { return baseModel.getParticleIcon(); }
     }
 }

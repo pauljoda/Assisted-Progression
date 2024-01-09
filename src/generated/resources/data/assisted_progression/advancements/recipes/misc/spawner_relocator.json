@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_ender_pearls": {
+      "conditions": {
+        "items": [
+          {
+            "tag": "forge:ender_pearls"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "assisted_progression:spawner_relocator"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_ender_pearls"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "assisted_progression:spawner_relocator"
+    ]
+  }
+}

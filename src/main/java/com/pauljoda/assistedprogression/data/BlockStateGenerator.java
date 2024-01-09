@@ -3,13 +3,13 @@ package com.pauljoda.assistedprogression.data;
 import com.pauljoda.assistedprogression.common.blocks.EnderPadBlock;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
-import net.minecraft.core.Direction;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.level.block.PressurePlateBlock;
-import net.minecraftforge.client.model.generators.BlockStateProvider;
-import net.minecraftforge.client.model.generators.ConfiguredModel;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.client.model.generators.BlockStateProvider;
+import net.neoforged.neoforge.client.model.generators.ConfiguredModel;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 /**
  * This file was created for Nucleus
@@ -23,15 +23,15 @@ import net.minecraftforge.common.data.ExistingFileHelper;
  */
 public class BlockStateGenerator extends BlockStateProvider {
 
-    public BlockStateGenerator(DataGenerator gen, ExistingFileHelper exFileHelper) {
-        super(gen, Reference.MOD_ID, exFileHelper);
+    public BlockStateGenerator(PackOutput output, ExistingFileHelper exFileHelper) {
+        super(output, Reference.MOD_ID, exFileHelper);
     }
 
     @Override
     protected void registerStatesAndModels() {
         // Ender Pad
         ModelFile baseModel =
-                models().cubeColumn(Registration.ENDER_PAD_BLOCK.get().getRegistryName().getPath(),
+                models().cubeColumn(BuiltInRegistries.BLOCK.getKey(Registration.ENDER_PAD_BLOCK.get()).getPath(),
                         modLoc("block/ender_pad"), modLoc("block/ender_pad_top"));
         getVariantBuilder(Registration.ENDER_PAD_BLOCK.get())
                 // Set the rotation models
@@ -44,14 +44,13 @@ public class BlockStateGenerator extends BlockStateProvider {
         // Player Plate
         var playerPlate = Registration.PLAYER_PLATE_BLOCK.get();
         var pressurePlate =
-                models().pressurePlate(playerPlate.getRegistryName().getPath(), mcLoc("block/bricks"));
+                models().pressurePlate(BuiltInRegistries.BLOCK.getKey(Registration.PLAYER_PLATE_BLOCK.get()).getPath(), mcLoc("block/bricks"));
         var pressurePlateDown =
-                models().pressurePlateDown(playerPlate.getRegistryName().getPath() + "_down", mcLoc("block/bricks"));
+                models().pressurePlateDown(BuiltInRegistries.BLOCK.getKey(Registration.PLAYER_PLATE_BLOCK.get()).getPath() + "_down", mcLoc("block/bricks"));
         getVariantBuilder(playerPlate)
                 .partialState().with(PressurePlateBlock.POWERED, true).addModels(new ConfiguredModel(pressurePlateDown))
                 .partialState().with(PressurePlateBlock.POWERED, false).addModels(new ConfiguredModel(pressurePlate));
 
-        // Spawner Frame
         simpleBlock(Registration.SPAWNER_FRAME_BLOCK.get());
 
         // Sun
