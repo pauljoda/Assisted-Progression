@@ -1,5 +1,6 @@
 package com.pauljoda.assistedprogression.common.menu;
 
+import com.pauljoda.assistedprogression.common.items.TrashBagItem;
 import com.pauljoda.assistedprogression.lib.Registration;
 import com.pauljoda.nucleus.common.container.BaseContainer;
 import com.pauljoda.nucleus.common.container.slots.PhantomSlot;
@@ -10,6 +11,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.items.IItemHandler;
+import net.neoforged.neoforge.items.IItemHandlerModifiable;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nonnull;
@@ -24,18 +26,21 @@ import javax.annotation.Nonnull;
  * @author Paul Davis - pauljoda
  * @since 6/7/2022
  */
-public class TrashBagMenu extends BaseContainer {
+public class TrashBagContainer extends BaseContainer {
 
     public final ItemStack trashBag;
+    private final InventoryHandlerItem item;
 
-    public TrashBagMenu(int id,
-                        Inventory playerInventory,
-                        IItemHandler inventory,
-                        ItemStack itemStack) {
+    public TrashBagContainer(int id,
+                             Inventory playerInventory,
+                             IItemHandler inventory,
+                             ItemStack itemStack) {
         super(Registration.TRASH_BAG_CONTAINER.get(),
-                id, playerInventory, inventory);
+                id, playerInventory, inventory, null, null, null);
 
         trashBag = itemStack;
+
+        item = (InventoryHandlerItem) inventory;
 
         // Add trash bag slots
         if(inventory.getSlots() == 1) { // Regular trash bag
@@ -84,9 +89,8 @@ public class TrashBagMenu extends BaseContainer {
 
         if (!playerIn.level().isClientSide) {
             if (ItemStack.matches(playerIn.getMainHandItem(), trashBag)) {
-                ((InventoryHandlerItem) playerIn.getMainHandItem()
-                        .getCapability(Capabilities.ItemHandler.ITEM, null))
-                        .writeToNBT(trashBag.save(new CompoundTag()));
+                playerIn.getMainHandItem().
+                        setTag(item.getInventory().save(trashBag.save(new CompoundTag())));
             }
         }
     }

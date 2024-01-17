@@ -1,6 +1,6 @@
 package com.pauljoda.assistedprogression.client.screen;
 
-import com.pauljoda.assistedprogression.common.menu.TrashBagMenu;
+import com.pauljoda.assistedprogression.common.menu.TrashBagContainer;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
 import com.pauljoda.nucleus.client.gui.MenuBase;
@@ -19,16 +19,16 @@ import net.minecraft.world.entity.player.Inventory;
  * @author Paul Davis - pauljoda
  * @since 6/7/2022
  */
-public class TrashBagScreen extends MenuBase<TrashBagMenu> {
+public class TrashBagScreen extends MenuBase<TrashBagContainer> {
 
-    public TrashBagMenu trashBagMenu;
+    public TrashBagContainer trashBagContainer;
 
-    public TrashBagScreen(TrashBagMenu inventory, Inventory playerInventory, Component title) {
+    public TrashBagScreen(TrashBagContainer inventory, Inventory playerInventory, Component title) {
         super(inventory, playerInventory, title, 175, 165,
                 new ResourceLocation(Reference.MOD_ID, "textures/gui/" +
                         (inventory.trashBag.getItem() == Registration.TRASH_BAG_ITEM.get() ?
                                 "trash_bag.png" : "hefty_bag.png")));
-        trashBagMenu = inventory;
+        trashBagContainer = inventory;
     }
 
     @Override

@@ -1,8 +1,10 @@
 package com.pauljoda.assistedprogression.common.items;
 
-import com.pauljoda.assistedprogression.common.menu.TrashBagMenu;
+import com.pauljoda.assistedprogression.common.menu.TrashBagContainer;
 import com.pauljoda.assistedprogression.lib.Reference;
 import com.pauljoda.assistedprogression.lib.Registration;
+import com.pauljoda.nucleus.capabilities.item.InventoryContents;
+import com.pauljoda.nucleus.common.items.InventoryHandlerItem;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -60,8 +62,31 @@ public class TrashBagItem extends BaseItem {
 
                 @Override
                 public @NotNull AbstractContainerMenu createMenu(int windowID, @NotNull Inventory playerInventory, Player player) {
-                    return new TrashBagMenu(windowID, playerInventory,
-                            player.getItemInHand(hand).getCapability(Capabilities.ItemHandler.ITEM),
+                    return new TrashBagContainer(windowID, playerInventory,
+                            new InventoryHandlerItem(player.getItemInHand(hand), player.getItemInHand(hand).getOrCreateTag()) {
+                                /**
+                                 * @param i
+                                 * @param itemStack
+                                 * @return
+                                 */
+                                @Override
+                                protected boolean isItemValidForSlot(int i, ItemStack itemStack) {
+                                    return true;
+                                }
+
+                                /**
+                                 * @return
+                                 */
+                                @Override
+                                protected InventoryContents initializeInventory() {
+                                    return new InventoryContents() {
+                                        @Override
+                                        public int getInventorySize() {
+                                            return bagInventorySize;
+                                        }
+                                    };
+                                }
+                            },
                             player.getItemInHand(hand));
                 }
             };
@@ -90,10 +115,25 @@ public class TrashBagItem extends BaseItem {
         for (ItemStack stack : player.getInventory().items) {
             // If we have a valid trashbag
             if (!stack.isEmpty() && stack.getItem() instanceof TrashBagItem
-                    && stack.hasTag()
-                    && stack.getCapability(Capabilities.ItemHandler.ITEM, null) != null) {
+                    && stack.hasTag()) {
+                var size = stack.getItem() == Registration.TRASH_BAG_ITEM.get() ? 1 : 18;
                 IItemHandler trashBagHandler
-                        = stack.getCapability(Capabilities.ItemHandler.ITEM, null);
+                        = new InventoryHandlerItem(stack, stack.getTag()) {
+                    @Override
+                    protected boolean isItemValidForSlot(int index, ItemStack stack) {
+                        return true;
+                    }
+
+                    @Override
+                    protected InventoryContents initializeInventory() {
+                        return new InventoryContents() {
+                            @Override
+                            public int getInventorySize() {
+                                return size;
+                            }
+                        };
+                    }
+                };
 
                 // Check against filter
                 for (int x = 0; x < trashBagHandler.getSlots(); x++) {

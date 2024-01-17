@@ -8,7 +8,9 @@ import com.pauljoda.assistedprogression.common.blocks.blockentity.EnderPadBlockE
 import com.pauljoda.assistedprogression.common.blocks.blockentity.SunBlockEntity;
 import com.pauljoda.assistedprogression.common.entities.NetEntity;
 import com.pauljoda.assistedprogression.common.items.*;
-import com.pauljoda.assistedprogression.common.menu.TrashBagMenu;
+import com.pauljoda.assistedprogression.common.menu.TrashBagContainer;
+import com.pauljoda.nucleus.capabilities.energy.EnergyBank;
+import com.pauljoda.nucleus.capabilities.item.InventoryContents;
 import com.pauljoda.nucleus.common.items.EnergyContainingItem;
 import com.pauljoda.nucleus.common.items.InventoryHandlerItem;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -38,7 +40,6 @@ import net.neoforged.neoforge.fluids.capability.IFluidHandler;
 import net.neoforged.neoforge.fluids.capability.templates.FluidHandlerItemStack;
 import net.neoforged.neoforge.registries.DeferredHolder;
 import net.neoforged.neoforge.registries.DeferredRegister;
-import org.jetbrains.annotations.NotNull;
 
 /**
  * This file was created for Nucleus
@@ -158,13 +159,32 @@ public class Registration {
      * Container                                                                                                       *
      *******************************************************************************************************************/
 
-    public static final DeferredHolder<MenuType<?>, MenuType<TrashBagMenu>> TRASH_BAG_CONTAINER =
+    public static final DeferredHolder<MenuType<?>, MenuType<TrashBagContainer>> TRASH_BAG_CONTAINER =
             CONTAINERS.register("trash_bag",
                     () -> new MenuType<>(
-                            ((windowId, inv) ->
-                                    new TrashBagMenu(windowId, inv,
-                                            inv.player.getItemInHand(InteractionHand.MAIN_HAND).getCapability(Capabilities.ItemHandler.ITEM),
-                                            inv.player.getItemInHand(InteractionHand.MAIN_HAND))), FeatureFlags.DEFAULT_FLAGS));
+                            ((windowId, inv) -> {
+                                var size = inv.player.getItemInHand(InteractionHand.MAIN_HAND).getItem() == Registration.TRASH_BAG_ITEM.get() ?
+                                        1 :
+                                        18;
+                                return new TrashBagContainer(windowId, inv,
+                                        new InventoryHandlerItem(inv.player.getItemInHand(InteractionHand.MAIN_HAND), inv.player.getItemInHand(InteractionHand.MAIN_HAND).getOrCreateTag()) {
+                                            @Override
+                                            protected boolean isItemValidForSlot(int i, ItemStack itemStack) {
+                                                return true;
+                                            }
+
+                                            @Override
+                                            protected InventoryContents initializeInventory() {
+                                                return new InventoryContents() {
+                                                    @Override
+                                                    public int getInventorySize() {
+                                                        return size;
+                                                    }
+                                                };
+                                            }
+                                        },
+                                        inv.player.getItemInHand(InteractionHand.MAIN_HAND));
+                            }), FeatureFlags.DEFAULT_FLAGS));
 
     /*******************************************************************************************************************
      * Entity                                                                                                          *
@@ -221,59 +241,30 @@ public class Registration {
         // Magnet
         event.registerItem(
                 Capabilities.EnergyStorage.ITEM,
-                (stack, ctx) -> new EnergyContainingItem(stack, ElectricMagnetItem.ENERGY_CAPACITY),
+                (stack, ctx) -> new EnergyContainingItem(stack) {
+                    /**
+                     * @return
+                     */
+                    @Override
+                    protected EnergyBank initializeEnergyStorage() {
+                       return new EnergyBank(ElectricMagnetItem.ENERGY_CAPACITY);
+                    }
+                },
                 ELECTRIC_MAGNET_ITEM.get());
 
         // Net Launch
         event.registerItem(
                 Capabilities.EnergyStorage.ITEM,
-                (stack, ctx) -> new EnergyContainingItem(stack, NetLauncherItem.ENERGY_CAPACITY),
+                (stack, ctx) -> new EnergyContainingItem(stack) {
+                    /**
+                     * @return
+                     */
+                    @Override
+                    protected EnergyBank initializeEnergyStorage() {
+                       return new EnergyBank(NetLauncherItem.ENERGY_CAPACITY);
+                    }
+                },
                 NET_LAUNCHER_ITEM.get()
-        );
-
-        // Trash Bags
-        // Normal
-        event.registerItem(
-                Capabilities.ItemHandler.ITEM,
-                (stack, ctx) -> new InventoryHandlerItem(stack, stack.getOrCreateTag()) {
-                    @Override
-                    protected int getInventorySize() {
-                        return 1;
-                    }
-
-                    @Override
-                    protected boolean isItemValidForSlot(int i, ItemStack itemStack) {
-                        return true;
-                    }
-
-                    @Override
-                    public boolean isItemValid(int i, @NotNull ItemStack itemStack) {
-                        return true;
-                    }
-                },
-                TRASH_BAG_ITEM.get()
-        );
-
-        // Hefty Bag
-        event.registerItem(
-                Capabilities.ItemHandler.ITEM,
-                (stack, ctx) -> new InventoryHandlerItem(stack, stack.getOrCreateTag()) {
-                    @Override
-                    protected int getInventorySize() {
-                        return 18;
-                    }
-
-                    @Override
-                    protected boolean isItemValidForSlot(int i, ItemStack itemStack) {
-                        return true;
-                    }
-
-                    @Override
-                    public boolean isItemValid(int i, @NotNull ItemStack itemStack) {
-                        return true;
-                    }
-                },
-                HEFTY_BAG_ITEM.get()
         );
 
         // Pipette

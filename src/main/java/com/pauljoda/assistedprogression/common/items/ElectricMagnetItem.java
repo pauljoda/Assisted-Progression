@@ -1,15 +1,12 @@
 package com.pauljoda.assistedprogression.common.items;
 
-import com.pauljoda.nucleus.common.blocks.entity.energy.EnergyBank;
-import com.pauljoda.nucleus.common.items.EnergyContainingItem;
+import com.pauljoda.nucleus.capabilities.energy.EnergyBank;
 import com.pauljoda.nucleus.util.EnergyUtils;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.energy.IEnergyStorage;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 

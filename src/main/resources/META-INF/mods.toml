@@ -43,7 +43,7 @@ file="META-INF/accesstransfromer.cfg"
 [[dependencies.${mod_id}]] #optional
     modId="nucleus_pauljoda" #mandatory
     type="required" #mandatory
-    versionRange="[3.0,)" #mandatory
+    versionRange="[3.1,)" #mandatory
     ordering="NONE"
     side="BOTH"
 
